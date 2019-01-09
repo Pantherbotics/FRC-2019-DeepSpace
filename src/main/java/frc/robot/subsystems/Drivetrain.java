@@ -11,7 +11,7 @@ public class Drivetrain extends Subsystem{
     private TalonSRX mLeftC = new TalonSRX(Constants.kLeftC);
     private TalonSRX mRightA = new TalonSRX(Constants.kRightA);
     private TalonSRX mRightB = new TalonSRX(Constants.kRightB);
-    private TalonSRX mRightC = new TalonSRX(Constants.kRightB);
+    private TalonSRX mRightC = new TalonSRX(Constants.kRightC);
     
     public Drivetrain(){
         //mLeftB.follow(mLeftA);

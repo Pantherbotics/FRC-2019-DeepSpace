@@ -22,6 +22,7 @@ import frc.robot.subsystems.*;
 public class Robot extends TimedRobot {
   public static final OI oi = new OI();
   public static final Drivetrain kDrivetrain = new Drivetrain();
+  public static final Elevator kElevator = new Elevator();
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
