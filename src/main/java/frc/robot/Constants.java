@@ -14,12 +14,21 @@ public class Constants{
     public static int kRightA = 0;
     public static int kRightB = 0;
     public static int kRightC = 0;
+    //Drivetrain PID
+    public static double HDRIVE_P = 0.5;
+    public static double HDRIVE_I = 0;
+    public static double HDRIVE_D = 0;
+    public static double HDRIVE_F = 0;
+    public static double LDRIVE_P = 0.2;
+    public static double LDRIVE_I = 0;
+    public static double LDRIVE_D = 0;
+    public static double LDRIVE_F = 0;
     //Robot Elevator
     public static int kElevatorID = 0;
-    public static int kElevator_P = 0;
-    public static int kElevator_I = 0;
-    public static int kElevator_D = 0;
-    public static int kElevator_F = 0;
+    public static double kElevator_P = 0;
+    public static double kElevator_I = 0;
+    public static double kElevator_D = 0;
+    public static double kElevator_F = 0;
     public static int kElevatorTimeoutMS = 0;
     public static int ELEVATOR_CURRENT_LIMIT = 10;
     public static int ELEVATOR_PID_CRUISE_VEL = 0;
