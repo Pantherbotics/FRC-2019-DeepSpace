@@ -2,10 +2,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class Drive extends Command{
-    public Drive(){
+public class DriveOpenLoop extends Command{
+    public DriveOpenLoop(){
         requires(Robot.kDrivetrain);
-        
     }
     protected void initialize(){
         
