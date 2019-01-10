@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
+import frc.robot.util.Units;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,7 +16,7 @@ public class DriveClosedLoop extends Command {
   protected void execute() {
     double zoom = Robot.oi.getLeftYAxis(); //zoom = throttle
     double nyoom = Robot.oi.getRightXAxis(); //nyoom = steering
-    Robot.kDrivetrain.setFPS(zoom - nyoom, zoom + nyoom);
+    Robot.kDrivetrain.setFPS(Units.FPSToTalonNative(zoom - nyoom), Units.FPSToTalonNative(zoom + nyoom));
   }
 
   protected boolean isFinished() {

@@ -7,13 +7,14 @@ public class Constants{
     public static int kJoystickLeftYAxis = 1; 
     public static int kJoystickRightYAxis = 5; 
     public static int kJoystickRightXAxis = 2; 
-    //Robot Talons Motors
+    //Robot Talons
     public static int kLeftA = 0;
     public static int kLeftB = 0;
     public static int kLeftC = 0;
     public static int kRightA = 0;
     public static int kRightB = 0;
     public static int kRightC = 0;
+    public static int kElevatorID = 0;
     //Drivetrain PID
     public static double HDRIVE_P = 0.5;
     public static double HDRIVE_I = 0;
@@ -24,7 +25,6 @@ public class Constants{
     public static double LDRIVE_D = 0;
     public static double LDRIVE_F = 0;
     //Robot Elevator
-    public static int kElevatorID = 0;
     public static double kElevator_P = 0;
     public static double kElevator_I = 0;
     public static double kElevator_D = 0;
