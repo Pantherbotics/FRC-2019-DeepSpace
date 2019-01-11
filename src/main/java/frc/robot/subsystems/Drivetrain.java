@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import frc.robot.util.Units;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import frc.robot.commands.Drive;
+import frc.robot.commands.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -60,7 +60,7 @@ public class Drivetrain extends Subsystem{
         mRightA.config_kF(ldrive_ID, Constants.LDRIVE_F, timeoutMS);
     }
     public void initDefaultCommand(){
-        setDefaultCommand(new Drive());
+        setDefaultCommand(new DriveOpenLoop());
     }
 
     public void setMotorPower(double left, double right){
