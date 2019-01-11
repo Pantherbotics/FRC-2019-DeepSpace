@@ -20,4 +20,3 @@ public class OI{
         return stick.getRawAxis(Constants.kJoystickRightXAxis);
     }
 }
-
