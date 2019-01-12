@@ -42,6 +42,7 @@ public class Drivetrain extends Subsystem {
         
         Notifier myNotifier = new Notifier(()->{
             Thread.sleep(2000);
+            
             test.setEnabled(true);
             System.out.println("Enabling auto");
             test.setAutonomous(true);
