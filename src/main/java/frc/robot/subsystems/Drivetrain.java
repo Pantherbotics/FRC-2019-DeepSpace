@@ -1,9 +1,13 @@
 package frc.robot.subsystems;
 
+import javax.xml.bind.JAXBElement.GlobalScope;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.hal.sim.DriverStationSim;
 import frc.robot.Constants;
 import frc.robot.commands.*;
 
@@ -18,6 +22,8 @@ public class Drivetrain extends Subsystem {
     TalonSRX mRightB = new TalonSRX(Constants.kRightB);
     TalonSRX mRightC = new TalonSRX(Constants.kRightC);
     
+    public DriverStationSim test = new DriverStationSim();
+
     public Drivetrain(){
         //mLeftB.follow(mLeftA);
         //mLeftC.follow(mLeftA);
@@ -30,7 +36,22 @@ public class Drivetrain extends Subsystem {
         mRightB.setInverted(true);
         mRightC.setInverted(true);
 
-
+        //Test Simulator
+        test.setDsAttached(true);
+        test.setEnabled(false);
+        
+        Notifier myNotifier = new Notifier(()->{
+            Thread.sleep(2000);
+            test.setEnabled(true);
+            System.out.println("Enabling auto");
+            test.setAutonomous(true);
+            Thread.sleep(15000);
+            System.out.println("Enabling teleop");
+            test.setAutonomous(false);
+            Thread.sleep(135000);
+            System.out.println("Ending simulation");
+            test.setEnabled(false);
+        });
     }
 
     public void initPID(){
