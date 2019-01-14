@@ -41,18 +41,31 @@ public class Drivetrain extends Subsystem {
         test.setEnabled(false);
         
         Notifier myNotifier = new Notifier(()->{
-            Thread.sleep(2000);
-            
+            try{
+                Thread.sleep(2000);
+            } catch(InterruptedException e){
+                System.out.println("fuk");
+            }
             test.setEnabled(true);
             System.out.println("Enabling auto");
             test.setAutonomous(true);
-            Thread.sleep(15000);
+            try{
+                Thread.sleep(15000);
+            } catch(InterruptedException e){
+                System.out.println("E");
+            }
             System.out.println("Enabling teleop");
             test.setAutonomous(false);
-            Thread.sleep(135000);
+            try{
+                Thread.sleep(135000);
+            } catch(InterruptedException e){
+                System.out.println("lmoa");
+            }
             System.out.println("Ending simulation");
             test.setEnabled(false);
         });
+
+        myNotifier.startSingle(0.01);
     }
 
     public void initPID(){
