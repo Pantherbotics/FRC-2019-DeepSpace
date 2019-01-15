@@ -11,7 +11,7 @@ import frc.robot.Constants;
 
 public class Elevator extends Subsystem {
     public int target = 0;
-    public WPI_TalonSRX elevDriveTalon = new WPI_TalonSRX(Constants.kElevatorID);
+    public TalonSRX elevDriveTalon = new TalonSRX(Constants.kElevatorID);
     public int timeout_ms = Constants.kElevatorTimeoutMS;
 
     public void initDefaultCommand() {
