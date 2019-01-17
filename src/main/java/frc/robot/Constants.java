@@ -40,9 +40,11 @@ public class Constants{
     public static double kFourbarA_P = 0;
     public static double kFourbarA_I = 0;
     public static double kFourbarA_D = 0;
+    public static double kFourbarA_F = 0;
     public static double kFourbarB_P = 0;
     public static double kFourbarB_I = 0;
     public static double kFourbarB_D = 0;
+    public static double kFourbarB_F = 0;
 
     public static final int[] ELEVATOR_PRESETS = {5,    /*Bottom*/};//Max Travel
 }
