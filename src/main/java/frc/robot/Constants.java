@@ -15,8 +15,8 @@ public class Constants{
     public static int kRightB = 0;
     public static int kRightC = 0;
     public static int kElevatorID = 0;
-    public static int kFourbarA = 0;
-    public static int kFourbarB = 0;
+    public static int kArmA = 0;
+    public static int kArmB = 0;
     //Drivetrain PID
     public static double HDRIVE_P = 0.5;
     public static double HDRIVE_I = 0;
@@ -36,15 +36,15 @@ public class Constants{
     public static int ELEVATOR_PID_CRUISE_VEL = 0;
     public static int ELEVATOR_PID_ACCELERATION = 10;
     public static int ELEVATOR_SOFT_LIMIT = 10;
-    //Fourbar
-    public static double kFourbarA_P = 0;
-    public static double kFourbarA_I = 0;
-    public static double kFourbarA_D = 0;
-    public static double kFourbarA_F = 0;
-    public static double kFourbarB_P = 0;
-    public static double kFourbarB_I = 0;
-    public static double kFourbarB_D = 0;
-    public static double kFourbarB_F = 0;
+    //Arm
+    public static double kArmA_P = 0;
+    public static double kArmA_I = 0;
+    public static double kArmA_D = 0;
+    public static double kArmA_F = 0;
+    public static double kArmB_P = 0;
+    public static double kArmB_I = 0;
+    public static double kArmB_D = 0;
+    public static double kArmB_F = 0;
 
     public static final int[] ELEVATOR_PRESETS = {5,    /*Bottom*/};//Max Travel
 }
