@@ -11,8 +11,8 @@ public class Arm extends Subsystem{
     int timeout_ms = 0;
     int jointA_ID = 0;
     int jointB_ID = 1;
-    TalonSRX talonA = new TalonSRX(Constants.kArmA);
-    TalonSRX talonB = new TalonSRX(Constants.kArmB);
+    TalonSRX talonA = new TalonSRX(Constants.kArmA); //On carriage
+    TalonSRX talonB = new TalonSRX(Constants.kArmB); //On intake
 
     public void initPID(){
         //Near elevator joint
