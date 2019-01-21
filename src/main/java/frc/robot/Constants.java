@@ -18,14 +18,10 @@ public class Constants{
     public static int kArmA = 0;
     public static int kArmB = 0;
     //Drivetrain PID
-    public static double HDRIVE_P = 0.5;
-    public static double HDRIVE_I = 0;
-    public static double HDRIVE_D = 0;
-    public static double HDRIVE_F = 0;
-    public static double LDRIVE_P = 0.2;
-    public static double LDRIVE_I = 0;
-    public static double LDRIVE_D = 0;
-    public static double LDRIVE_F = 0;
+    public static double DRIVE_P = 0.5;
+    public static double DRIVE_I = 0;
+    public static double DRIVE_D = 0;
+    public static double DRIVE_F = 0;
     //Robot Elevator
     public static double kElevator_P = 0;
     public static double kElevator_I = 0;

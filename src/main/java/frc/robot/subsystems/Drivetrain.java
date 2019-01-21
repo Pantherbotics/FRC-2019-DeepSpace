@@ -13,8 +13,7 @@ import frc.robot.commands.*;
 
 public class Drivetrain extends Subsystem {
     public int timeoutMS = 0;
-    int hdrive_ID = 0;
-    int ldrive_ID = 1;
+    int drive_ID = 0;
     TalonSRX mLeftA = new TalonSRX(Constants.kLeftA);
     TalonSRX mLeftB = new TalonSRX(Constants.kLeftB);
     TalonSRX mLeftC = new TalonSRX(Constants.kLeftC);
@@ -69,30 +68,18 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initPID(){
-        //high left
-        mLeftA.configAllowableClosedloopError(hdrive_ID, 0, timeoutMS);
-        mLeftA.config_kP(hdrive_ID, Constants.HDRIVE_P, timeoutMS);
-        mLeftA.config_kI(hdrive_ID, Constants.HDRIVE_I, timeoutMS);
-        mLeftA.config_kD(hdrive_ID, Constants.HDRIVE_D, timeoutMS);
-        mLeftA.config_kF(hdrive_ID, Constants.HDRIVE_F, timeoutMS);
-        //high right
-        mRightA.configAllowableClosedloopError(hdrive_ID, 0, timeoutMS);
-        mRightA.config_kP(hdrive_ID, Constants.HDRIVE_P, timeoutMS);
-        mRightA.config_kI(hdrive_ID, Constants.HDRIVE_I, timeoutMS);
-        mRightA.config_kD(hdrive_ID, Constants.HDRIVE_D, timeoutMS);
-        mRightA.config_kF(hdrive_ID, Constants.HDRIVE_F, timeoutMS);
-        //low left
-        mLeftA.configAllowableClosedloopError(ldrive_ID, 0, timeoutMS);
-        mLeftA.config_kP(ldrive_ID, Constants.LDRIVE_P, timeoutMS);
-        mLeftA.config_kI(ldrive_ID, Constants.LDRIVE_I, timeoutMS);
-        mLeftA.config_kD(ldrive_ID, Constants.LDRIVE_D, timeoutMS);
-        mLeftA.config_kF(ldrive_ID, Constants.LDRIVE_F, timeoutMS);
-        //low right
-        mRightA.configAllowableClosedloopError(ldrive_ID, 0, timeoutMS);
-        mRightA.config_kP(ldrive_ID, Constants.LDRIVE_P, timeoutMS);
-        mRightA.config_kI(ldrive_ID, Constants.LDRIVE_I, timeoutMS);
-        mRightA.config_kD(ldrive_ID, Constants.LDRIVE_D, timeoutMS);
-        mRightA.config_kF(ldrive_ID, Constants.LDRIVE_F, timeoutMS);
+        //left
+        mLeftA.configAllowableClosedloopError(drive_ID, 0, timeoutMS);
+        mLeftA.config_kP(drive_ID, Constants.DRIVE_P, timeoutMS);
+        mLeftA.config_kI(drive_ID, Constants.DRIVE_I, timeoutMS);
+        mLeftA.config_kD(drive_ID, Constants.DRIVE_D, timeoutMS);
+        mLeftA.config_kF(drive_ID, Constants.DRIVE_F, timeoutMS);
+        //right
+        mRightA.configAllowableClosedloopError(drive_ID, 0, timeoutMS);
+        mRightA.config_kP(drive_ID, Constants.DRIVE_P, timeoutMS);
+        mRightA.config_kI(drive_ID, Constants.DRIVE_I, timeoutMS);
+        mRightA.config_kD(drive_ID, Constants.DRIVE_D, timeoutMS);
+        mRightA.config_kF(drive_ID, Constants.DRIVE_F, timeoutMS);
     }
     public void initDefaultCommand(){
         setDefaultCommand(new DriveOpenLoop());
