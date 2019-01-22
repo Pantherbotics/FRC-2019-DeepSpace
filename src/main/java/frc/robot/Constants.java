@@ -14,7 +14,8 @@ public class Constants{
     public static int kRightA = 0;
     public static int kRightB = 0;
     public static int kRightC = 0;
-    public static int kElevatorID = 0;
+    public static int kElevatorA = 0;
+    public static int kElevatorB = 0;
     public static int kArmA = 0;
     public static int kArmB = 0;
     //Drivetrain PID
