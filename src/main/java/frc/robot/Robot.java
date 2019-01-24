@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,7 +29,7 @@ public class Robot extends TimedRobot {
   public static final Elevator kElevator = new Elevator();
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
+  private Command kAuto;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public DriverStation ds = DriverStation.getInstance();
   public DriverStationSim DriveSim = new DriverStationSim();
@@ -68,9 +70,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
+    //kAuto = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    //System.out.println("Auto selected: " + m_autoSelected);
+    kDrivetrain.zeroGyro();
   }
 
   /**
@@ -78,6 +81,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    /*
     switch (m_autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
@@ -87,6 +91,7 @@ public class Robot extends TimedRobot {
         // Put default auto code here
         break;
     }
+    */
   }
 
   /**
@@ -94,6 +99,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    //Stops the auto
+    if(kAuto != null){
+      kAuto.cancel();
+    }
+
   }
 
   /**
@@ -101,5 +111,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    Scheduler.getInstance().run();
   }
 }

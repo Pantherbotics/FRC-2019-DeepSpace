@@ -31,7 +31,7 @@ public class Arm extends Subsystem{
         talonA.config_kF(jointB_ID, Constants.kArmB_F, timeout_ms);
     }
     
-    public void moveArm(){
+    public void powerArm(double input){
 
     }
 

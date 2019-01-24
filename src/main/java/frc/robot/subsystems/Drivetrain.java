@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+//import the heccin gyro
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -82,7 +83,7 @@ public class Drivetrain extends Subsystem {
         mRightA.config_kF(drive_ID, Constants.DRIVE_F, timeoutMS);
     }
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveOpenLoop());
+        setDefaultCommand(new DriveOpenLoop()); //Not sure if delete or nah
     }
 
     public void setMotorPower(double left, double right){
@@ -93,5 +94,9 @@ public class Drivetrain extends Subsystem {
     public void setFPS(double left, double right){
         mLeftA.set(ControlMode.Velocity, left);
         mRightA.set(ControlMode.Velocity, right);
+    }
+
+    public void zeroGyro(){
+        //nyo ho    
     }
 }

@@ -8,12 +8,12 @@ public class Constants{
     public static int kJoystickRightYAxis = 5; 
     public static int kJoystickRightXAxis = 2; 
     //Robot Talons
-    public static int kLeftA = 0;
-    public static int kLeftB = 0;
-    public static int kLeftC = 0;
+    public static int kLeftA = 15;
+    public static int kLeftB = 14;
+    public static int kLeftC = 13;
     public static int kRightA = 0;
-    public static int kRightB = 0;
-    public static int kRightC = 0;
+    public static int kRightB = 1;
+    public static int kRightC = 2;
     public static int kElevatorA = 0;
     public static int kElevatorB = 0;
     public static int kArmA = 0;

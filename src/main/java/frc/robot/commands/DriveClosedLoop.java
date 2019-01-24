@@ -17,6 +17,7 @@ public class DriveClosedLoop extends Command {
     double zoom = Robot.oi.getLeftYAxis(); //zoom = throttle
     double nyoom = Robot.oi.getRightXAxis(); //nyoom = steering
     Robot.kDrivetrain.setFPS(Units.FPSToTalonNative(zoom - nyoom), Units.FPSToTalonNative(zoom + nyoom));
+    
   }
 
   protected boolean isFinished() {
