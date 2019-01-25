@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
     if(kAuto != null){
       kAuto.cancel();
     }
-
+    Scheduler.getInstance().run();
   }
 
   /**
@@ -111,6 +111,5 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-    Scheduler.getInstance().run();
   }
 }

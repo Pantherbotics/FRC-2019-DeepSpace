@@ -1,12 +1,16 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Constants;
+import frc.robot.commands.*;
 
 public class OI{
     public Joystick stick = new Joystick(Constants.kJoystickPort);
-    public OI(){
 
+    public OI(){
+        
     }
+    
     public double getLeftXAxis(){
         return stick.getRawAxis(Constants.kJoystickLeftXAxis);
     }
