@@ -46,7 +46,7 @@ public class Drivetrain extends Subsystem {
         test.setEnabled(false);
         
         initPID();
-
+        /*
         Notifier myNotifier = new Notifier(()->{
             try{
                 Thread.sleep(2000);
@@ -72,7 +72,7 @@ public class Drivetrain extends Subsystem {
             test.setEnabled(false);
         });
 
-        myNotifier.startSingle(0.01);
+        myNotifier.startSingle(0.01);*/
     }
 
     public void initPID(){
