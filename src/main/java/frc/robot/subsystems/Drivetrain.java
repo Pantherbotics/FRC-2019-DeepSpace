@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 //import javax.xml.bind.JAXBElement.GlobalScope;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 //import the heccin gyro
 
@@ -25,6 +26,10 @@ public class Drivetrain extends Subsystem {
     public DriverStationSim test = new DriverStationSim();
 
     public Drivetrain(){
+        mLeftA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
+        mLeftA.setSensorPhase(false);
+        mRightA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
+        mRightA.setSensorPhase(false);
         //mLeftB.follow(mLeftA);
         //mLeftC.follow(mLeftA);
         //mRightB.follow(mRightA);
