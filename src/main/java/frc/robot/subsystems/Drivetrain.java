@@ -45,6 +45,8 @@ public class Drivetrain extends Subsystem {
         test.setDsAttached(true);
         test.setEnabled(false);
         
+        initPID();
+
         Notifier myNotifier = new Notifier(()->{
             try{
                 Thread.sleep(2000);
