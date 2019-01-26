@@ -87,8 +87,10 @@ public class Drivetrain extends Subsystem {
         mRightA.config_kD(drive_ID, Constants.DRIVE_D, timeoutMS);
         mRightA.config_kF(drive_ID, Constants.DRIVE_F, timeoutMS);
     }
+
+    @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveOpenLoop()); //Not sure if delete or nah
+        setDefaultCommand(new DriveClosedLoop()); //Not sure if delete or nah
     }
 
     public void setMotorPower(double left, double right){
