@@ -12,8 +12,8 @@ public class DriveOpenLoop extends Command{
     protected void execute(){
         double throttle = Robot.oi.getLeftYAxis();
         double steering = Robot.oi.getRightXAxis();
-        double left = (throttle - steering);
-        double right = (throttle + steering);
+        double left = (throttle + steering);
+        double right = (throttle - steering);
         Robot.kDrivetrain.setMotorPower(left, right);
     }
     protected boolean isFinished(){
