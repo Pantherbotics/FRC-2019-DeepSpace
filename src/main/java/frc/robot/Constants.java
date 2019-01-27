@@ -2,11 +2,16 @@ package frc.robot;
 
 public class Constants{
     //Robot Joystick
-    public static int kJoystickPort = 0;
-    public static int kJoystickLeftXAxis = 0;
-    public static int kJoystickLeftYAxis = 1; 
-    public static int kJoystickRightYAxis = 5; 
-    public static int kJoystickRightXAxis = 2; 
+    public static int JoystickPort = 0; //PS4
+    public static int JoystickLeftXAxis = 0;
+    public static int JoystickLeftYAxis = 1; 
+    public static int JoystickRightXAxis = 2; 
+    public static int JoystickRightYAxis = 5;
+    public static int PartnerJoyPort = 1; //X-Box
+    public static int PartnerJoyLeftXAxis = 0;
+    public static int PartnerJoyLeftYAxis = 1;
+    public static int PartnerJoyRightXAxis = 2;
+    public static int PartnerJoyRightYAxis = 3;
     //Robot Talons
     public static int kLeftA = 15;
     public static int kLeftB = 14;
