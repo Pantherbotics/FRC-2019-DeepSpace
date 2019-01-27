@@ -32,7 +32,8 @@ public class Constants{
     public static double kElevator_P = 0;
     public static double kElevator_I = 0;
     public static double kElevator_D = 0;
-    public static double kElevator_F = 0;
+    public static double kElevator_F1 = 0;
+    public static double kElevator_F2 = 0;
     public static int kElevatorTimeoutMS = 0;
     public static int ELEVATOR_CURRENT_LIMIT = 10;
     public static int ELEVATOR_PID_CRUISE_VEL = 0;

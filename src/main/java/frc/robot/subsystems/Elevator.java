@@ -15,6 +15,11 @@ public class Elevator extends Subsystem {
     public TalonSRX elevTalonB = new TalonSRX(Constants.kElevatorB);
     public int timeout_ms = Constants.kElevatorTimeoutMS;
 
+    public Elevator(){
+        elevTalonB.follow(elevTalonA);
+        initPID();
+    }
+
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -39,7 +44,7 @@ public class Elevator extends Subsystem {
 
         elevTalonA.configAllowableClosedloopError(10, 0, timeout_ms);
 
-        elevTalonA.config_kF(0, Constants.kElevator_F, timeout_ms);
+        elevTalonA.config_kF(0, Constants.kElevator_F1, timeout_ms);
         elevTalonA.config_kP(0, Constants.kElevator_P, timeout_ms);
         elevTalonA.config_kI(0, Constants.kElevator_I, timeout_ms);
         elevTalonA.config_kD(0, Constants.kElevator_D, timeout_ms);

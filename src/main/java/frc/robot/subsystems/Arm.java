@@ -14,6 +14,10 @@ public class Arm extends Subsystem{
     TalonSRX talonA = new TalonSRX(Constants.kArmA); //On carriage
     TalonSRX talonB = new TalonSRX(Constants.kArmB); //On intake
 
+    public Arm(){
+        
+    }
+
     public void initPID(){
         //Near elevator joint
         talonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, jointA_ID, timeout_ms);
