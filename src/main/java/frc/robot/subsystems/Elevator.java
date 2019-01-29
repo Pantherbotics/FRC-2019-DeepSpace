@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 
@@ -18,6 +19,12 @@ public class Elevator extends Subsystem {
     public Elevator(){
         elevTalonB.follow(elevTalonA);
         initPID();
+
+        Notifier FFNotifier = new Notifier(() ->{
+            if(elevTalonA.getSelectedSensorPosition(0) > 0){ //Setpoint at which second stage begins lifting
+
+            }
+        });
     }
 
     public void initDefaultCommand() {

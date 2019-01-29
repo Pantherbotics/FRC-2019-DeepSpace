@@ -3,15 +3,20 @@ package frc.robot.subsystems;
 //import javax.xml.bind.JAXBElement.GlobalScope;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-//import the heccin gyro
+
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.hal.sim.DriverStationSim;
+
 import frc.robot.Constants;
 import frc.robot.commands.*;
+import frc.robot.util.*;
 
 public class Drivetrain extends Subsystem {
     public int timeoutMS = 0;
@@ -23,13 +28,18 @@ public class Drivetrain extends Subsystem {
     TalonSRX mRightB = new TalonSRX(Constants.kRightB);
     TalonSRX mRightC = new TalonSRX(Constants.kRightC);
     
+    AHRS gyro = new AHRS(I2C.Port.kOnboard);
+
+    volatile double x, y, theta;
+    private double lastPos, currentPos, dPos;
+
     public DriverStationSim test = new DriverStationSim();
 
     public Drivetrain(){
-        mLeftB.follow(mLeftA);
-        mLeftC.follow(mLeftA);
-        mRightB.follow(mRightA);
-        mRightC.follow(mRightA);
+        //mLeftB.follow(mLeftA);
+        //mLeftC.follow(mLeftA);
+        //mRightB.follow(mRightA);
+        //mRightC.follow(mRightA);
 
         mLeftA.setInverted(false);
         mLeftB.setInverted(false);
@@ -38,38 +48,30 @@ public class Drivetrain extends Subsystem {
         mRightB.setInverted(true);
         mRightC.setInverted(true);
 
+        mLeftA.setNeutralMode(NeutralMode.Coast);
+        mLeftB.setNeutralMode(NeutralMode.Coast);
+        mLeftC.setNeutralMode(NeutralMode.Coast);
+        mRightA.setNeutralMode(NeutralMode.Coast);
+        mRightB.setNeutralMode(NeutralMode.Coast);
+        mRightC.setNeutralMode(NeutralMode.Coast);
         //Test Simulator
         test.setDsAttached(true);
         test.setEnabled(false);
         
         initPID();
-        /*
-        Notifier myNotifier = new Notifier(()->{
-            try{
-                Thread.sleep(2000);
-            } catch(InterruptedException e){
-                System.out.println("fuk");
-            }
-            test.setEnabled(true);
-            System.out.println("Enabling auto");
-            test.setAutonomous(true);
-            try{
-                Thread.sleep(15000);
-            } catch(InterruptedException e){
-                System.out.println("E");
-            }
-            System.out.println("Enabling teleop");
-            test.setAutonomous(false);
-            try{
-                Thread.sleep(135000);
-            } catch(InterruptedException e){
-                System.out.println("lmoa");
-            }
-            System.out.println("Ending simulation");
-            test.setEnabled(false);
-        });
+        x = 0;
+        y = 0;
+        theta = 0;
 
-        myNotifier.startSingle(0.01);*/
+        Notifier odoThread = new Notifier(() ->{
+            currentPos = (mLeftA.getSelectedSensorPosition(0) + mRightA.getSelectedSensorPosition(0))/2;
+            dPos = Units.TalonNativeToFeet(currentPos - lastPos);
+            theta = Math.toRadians(boundHalfDegrees(-gyro.getAngle()));
+            x += Math.cos(theta)*dPos;
+            y += Math.sin(theta)*dPos;
+            lastPos = currentPos;
+        });
+        odoThread.startPeriodic(0.01);
     }
 
     public void initPID(){
@@ -107,6 +109,22 @@ public class Drivetrain extends Subsystem {
     }
 
     public void zeroGyro(){
-        //nyo ho    
+        gyro.reset();
+        System.out.println("Rella Rella Pizza M- Gyro Reset.");
+    }
+
+    public Odometry getOdo(){
+        return new Odometry(x, y, theta);
+    }
+    public void setOdo(Odometry odo){
+        this.x = odo.getX();
+        this.y = odo.getY();
+        this.theta = odo.getTheta();
+    }
+
+    private double boundHalfDegrees(double angle_degrees) {
+        while (angle_degrees >= 180.0) angle_degrees -= 360.0;
+        while (angle_degrees < -180.0) angle_degrees += 360.0;
+        return angle_degrees;
     }
 }
