@@ -36,10 +36,10 @@ public class Drivetrain extends Subsystem {
     public DriverStationSim test = new DriverStationSim();
 
     public Drivetrain(){
-        //mLeftB.follow(mLeftA);
-        //mLeftC.follow(mLeftA);
-        //mRightB.follow(mRightA);
-        //mRightC.follow(mRightA);
+        mLeftB.follow(mLeftA);
+        mLeftC.follow(mLeftA);
+        mRightB.follow(mRightA);
+        mRightC.follow(mRightA);
 
         mLeftA.setInverted(false);
         mLeftB.setInverted(false);
@@ -93,7 +93,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveOpenLoop()); //Not sure if delete or nah
+        setDefaultCommand(new DriveClosedLoop()); //Not sure if delete or nah
     }
 
     public void setMotorPower(double left, double right){
