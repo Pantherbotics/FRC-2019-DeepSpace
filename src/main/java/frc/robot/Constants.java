@@ -19,10 +19,10 @@ public class Constants{
     public static int kRightA = 0;
     public static int kRightB = 1;
     public static int kRightC = 2;
-    public static int kElevatorA = 0;
-    public static int kElevatorB = 0;
-    public static int kArmA = 0;
-    public static int kArmB = 0;
+    public static int kElevatorA = 5;
+    public static int kElevatorB = 6;
+    public static int kArmA = 7;
+    public static int kArmB = 8;
     //Drivetrain PID
     public static double DRIVE_P = 0.25;
     public static double DRIVE_I = 0;

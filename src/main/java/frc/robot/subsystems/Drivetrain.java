@@ -76,9 +76,7 @@ public class Drivetrain extends Subsystem {
 
     public void initPID(){
         mLeftA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
-        mLeftA.setSensorPhase(false);
         mRightA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
-        mRightA.setSensorPhase(false);
         //left
         mLeftA.configAllowableClosedloopError(drive_ID, 0, timeoutMS);
         mLeftA.config_kP(drive_ID, Constants.DRIVE_P, timeoutMS);
