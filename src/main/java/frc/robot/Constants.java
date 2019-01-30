@@ -24,7 +24,7 @@ public class Constants{
     public static int kArmA = 7;
     public static int kArmB = 8;
     //Drivetrain PID
-    public static double DRIVE_P = 0.25;
+    public static double DRIVE_P = 0.0;
     public static double DRIVE_I = 0;
     public static double DRIVE_D = 0;
     public static double DRIVE_F = 0;

@@ -93,7 +93,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveClosedLoop()); //Not sure if delete or nah
+        setDefaultCommand(new DriveOpenLoop()); //Not sure if delete or nah
     }
 
     public void setMotorPower(double left, double right){

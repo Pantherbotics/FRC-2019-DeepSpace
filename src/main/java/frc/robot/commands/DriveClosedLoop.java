@@ -1,3 +1,7 @@
+/*
+
+FOR SAFETY THIS WAS COMMENTED OUT!!!
+
 package frc.robot.commands;
 
 import frc.robot.Robot;
@@ -17,8 +21,8 @@ public class DriveClosedLoop extends Command {
   protected void execute() { //generally choose this one
     double zoom = Robot.oi.getLeftYAxis(); //zoom = throttle
     double nyoom = Robot.oi.getRightXAxis(); //nyoom = steering
-    Robot.kDrivetrain.setFPS(Units.FPSToTalonNative(zoom + nyoom), Units.FPSToTalonNative(zoom - nyoom));
-    System.out.println("throttle: " + Units.FPSToTalonNative(zoom + nyoom) + " steering: " + Units.FPSToTalonNative(zoom - nyoom));
+    Robot.kDrivetrain.setFPS(Units.FPSToTalonNative(nyoom - zoom), Units.FPSToTalonNative(-nyoom - zoom));
+    System.out.println("throttle: " + Units.FPSToTalonNative(nyoom - zoom) + " steering: " + Units.FPSToTalonNative(-nyoom - zoom));
   }
 
   protected boolean isFinished() {
@@ -31,3 +35,4 @@ public class DriveClosedLoop extends Command {
   protected void interrupted() {
   }
 }
+*/
