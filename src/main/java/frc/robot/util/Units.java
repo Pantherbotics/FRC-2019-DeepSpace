@@ -4,14 +4,14 @@ package frc.robot.util;
  */
 public class Units {
 
-    static final double TALON_TO_FPS_CONVERSION = .03067961572265625;           //( 1 rev/ 512 ticks) * (0.5pi ft/ 1 rev) * (10 [100ms] / 1 s)
-    static final double FPS_TO_TALON_CONVERSION = 1/TALON_TO_FPS_CONVERSION;
+    static final double talon2fps = .03067961572265625;           //( 1 rev/ 512 ticks) * (0.5pi ft/ 1 rev) * (10 [100ms] / 1 s)
+    static final double fps2talon = 1/talon2fps;
     public static double FPSToTalonNative(double fps) {
-        return fps * FPS_TO_TALON_CONVERSION;
+        return fps * fps2talon;
     }
 
     public static double TalonNativeToFPS(double nativeUnits) {
-        return nativeUnits * .03067961572265625;
+        return nativeUnits * talon2fps;
     }
 
     public static double TalonNativeToFeet(double nativeUnits){

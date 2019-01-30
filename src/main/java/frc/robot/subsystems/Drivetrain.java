@@ -107,7 +107,7 @@ public class Drivetrain extends Subsystem {
 
     public void setFPS(double left, double right){
         mLeftA.set(ControlMode.Velocity, left);
-        mRightA.set(ControlMode.Velocity, right);
+        mRightA.set(ControlMode.Position, right);
     }
 
     public void zeroGyro(){
