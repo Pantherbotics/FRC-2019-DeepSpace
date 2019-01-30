@@ -20,7 +20,7 @@ public class Elevator extends Subsystem {
         elevTalonB.follow(elevTalonA);
         initPID();
 
-        Notifier FFNotifier = new Notifier(() ->{
+        Notifier elevNotifier = new Notifier(() ->{
             if(elevTalonA.getSelectedSensorPosition(0) > 0){ //Setpoint at which second stage begins lifting
 
             }

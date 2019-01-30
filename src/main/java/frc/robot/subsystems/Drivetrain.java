@@ -36,10 +36,10 @@ public class Drivetrain extends Subsystem {
     public DriverStationSim test = new DriverStationSim();
 
     public Drivetrain(){
-        mLeftB.follow(mLeftA);
-        mLeftC.follow(mLeftA);
-        mRightB.follow(mRightA);
-        mRightC.follow(mRightA);
+        mLeftA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
+        mLeftA.setSensorPhase(false);
+        mRightA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
+        mRightA.setSensorPhase(false);
 
         mLeftA.setInverted(false);
         mLeftB.setInverted(false);
@@ -54,6 +54,12 @@ public class Drivetrain extends Subsystem {
         mRightA.setNeutralMode(NeutralMode.Coast);
         mRightB.setNeutralMode(NeutralMode.Coast);
         mRightC.setNeutralMode(NeutralMode.Coast);
+
+        mLeftB.follow(mLeftA);
+        mLeftC.follow(mLeftA);
+        mRightB.follow(mRightA);
+        mRightC.follow(mRightA);
+
         //Test Simulator
         test.setDsAttached(true);
         test.setEnabled(false);
@@ -75,8 +81,6 @@ public class Drivetrain extends Subsystem {
     }
 
     public void initPID(){
-        mLeftA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
-        mRightA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
         //left
         mLeftA.configAllowableClosedloopError(drive_ID, 0, timeoutMS);
         mLeftA.config_kP(drive_ID, Constants.DRIVE_P, timeoutMS);
