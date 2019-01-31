@@ -40,35 +40,35 @@ public class Drivetrain extends Subsystem {
         mLeftA.setSensorPhase(true);
         mRightA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
         mRightA.setSensorPhase(true);
-
+        //Invert Right Side
         mLeftA.setInverted(false);
         mLeftB.setInverted(false);
         mLeftC.setInverted(false);
         mRightA.setInverted(true);
         mRightB.setInverted(true);
         mRightC.setInverted(true);
-
+        //Coast for West Coast
         mLeftA.setNeutralMode(NeutralMode.Coast);
         mLeftB.setNeutralMode(NeutralMode.Coast);
         mLeftC.setNeutralMode(NeutralMode.Coast);
         mRightA.setNeutralMode(NeutralMode.Coast);
         mRightB.setNeutralMode(NeutralMode.Coast);
         mRightC.setNeutralMode(NeutralMode.Coast);
-
+        //Ramp
         mLeftA.configClosedloopRamp(Constants.driveRamp, timeoutMS);
         mLeftB.configClosedloopRamp(Constants.driveRamp, timeoutMS);
         mLeftC.configClosedloopRamp(Constants.driveRamp, timeoutMS);
         mRightA.configClosedloopRamp(Constants.driveRamp, timeoutMS);
         mRightB.configClosedloopRamp(Constants.driveRamp, timeoutMS);
         mRightC.configClosedloopRamp(Constants.driveRamp, timeoutMS);
-
+        //Electricity Stuff
         mLeftA.configPeakCurrentLimit(Constants.drivePeakCurrentLimit, timeoutMS);
         mLeftA.configPeakCurrentDuration(Constants.drivePeakCurrentDuration, timeoutMS);
         mLeftA.configContinuousCurrentLimit(Constants.driveContinuousCurrentLimit, timeoutMS);
         mLeftB.configPeakCurrentLimit(Constants.drivePeakCurrentLimit, timeoutMS);
         mLeftB.configPeakCurrentDuration(Constants.drivePeakCurrentDuration, timeoutMS);
         mLeftB.configContinuousCurrentLimit(Constants.driveContinuousCurrentLimit, timeoutMS);
-
+        //Changed name of slave method to be more PC
         mLeftB.follow(mLeftA);
         mLeftC.follow(mLeftA);
         mRightB.follow(mRightA);
@@ -111,7 +111,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveClosedLoop()); //Not sure if delete or nah
+        setDefaultCommand(new DriveClosedLoop()); //Pls work
     }
 
     public void setMotorPower(double left, double right){
