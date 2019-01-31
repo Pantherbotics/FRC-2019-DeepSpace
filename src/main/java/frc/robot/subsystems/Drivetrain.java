@@ -37,9 +37,9 @@ public class Drivetrain extends Subsystem {
 
     public Drivetrain(){
         mLeftA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
-        mLeftA.setSensorPhase(false);
+        mLeftA.setSensorPhase(true);
         mRightA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMS);
-        mRightA.setSensorPhase(false);
+        mRightA.setSensorPhase(true);
 
         mLeftA.setInverted(false);
         mLeftB.setInverted(false);
@@ -54,6 +54,20 @@ public class Drivetrain extends Subsystem {
         mRightA.setNeutralMode(NeutralMode.Coast);
         mRightB.setNeutralMode(NeutralMode.Coast);
         mRightC.setNeutralMode(NeutralMode.Coast);
+
+        mLeftA.configClosedloopRamp(Constants.driveRamp, timeoutMS);
+        mLeftB.configClosedloopRamp(Constants.driveRamp, timeoutMS);
+        mLeftC.configClosedloopRamp(Constants.driveRamp, timeoutMS);
+        mRightA.configClosedloopRamp(Constants.driveRamp, timeoutMS);
+        mRightB.configClosedloopRamp(Constants.driveRamp, timeoutMS);
+        mRightC.configClosedloopRamp(Constants.driveRamp, timeoutMS);
+
+        mLeftA.configPeakCurrentLimit(Constants.drivePeakCurrentLimit, timeoutMS);
+        mLeftA.configPeakCurrentDuration(Constants.drivePeakCurrentDuration, timeoutMS);
+        mLeftA.configContinuousCurrentLimit(Constants.driveContinuousCurrentLimit, timeoutMS);
+        mLeftB.configPeakCurrentLimit(Constants.drivePeakCurrentLimit, timeoutMS);
+        mLeftB.configPeakCurrentDuration(Constants.drivePeakCurrentDuration, timeoutMS);
+        mLeftB.configContinuousCurrentLimit(Constants.driveContinuousCurrentLimit, timeoutMS);
 
         mLeftB.follow(mLeftA);
         mLeftC.follow(mLeftA);
@@ -97,17 +111,22 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveOpenLoop()); //Not sure if delete or nah
+        setDefaultCommand(new DriveClosedLoop()); //Not sure if delete or nah
     }
 
     public void setMotorPower(double left, double right){
         mLeftA.set(ControlMode.PercentOutput, left);
         mRightA.set(ControlMode.PercentOutput, right);
+        System.out.println("Left: " + mLeftA.getSelectedSensorVelocity(0) + "     Right: " + mRightA.getSelectedSensorVelocity(0));
     }
 
     public void setFPS(double left, double right){
         mLeftA.set(ControlMode.Velocity, left);
-        mRightA.set(ControlMode.Position, right);
+        mRightA.set(ControlMode.Velocity, right);
+    }
+
+    public double[] getEncoderVelocity(){
+        return new double[]{mLeftA.getSelectedSensorVelocity(0), mRightA.getSelectedSensorVelocity(0)};
     }
 
     public void zeroGyro(){

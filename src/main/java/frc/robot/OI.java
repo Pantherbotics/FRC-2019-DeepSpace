@@ -5,6 +5,7 @@ import frc.robot.Constants;
 import frc.robot.commands.*;
 
 public class OI{
+    double deadband = 0.1;
     public Joystick stick = new Joystick(Constants.JoystickPort);
     public Joystick partnerStick = new Joystick(Constants.PartnerJoyPort);    
 
@@ -18,23 +19,23 @@ public class OI{
     public double getLeftYAxis(){
         return stick.getRawAxis(Constants.JoystickLeftYAxis);
     }
-    public double getRightYAxis(){
+    public double getRightYAxis(){;
         return stick.getRawAxis(Constants.JoystickRightYAxis);
     }
-    public double getRightXAxis(){
+    public double getRightXAxis(){;
         return stick.getRawAxis(Constants.JoystickRightXAxis);
     }
-
+/*
     public double getPartnerLeftXAxis(){
-        return partnerStick.getRawAxis(Constants.PartnerJoyLeftXAxis);
+        
     }
     public double getPartnerLeftYAxis(){
-        return partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis);
+        
     }
     public double getPartnerRightXAxis(){
-        return partnerStick.getRawAxis(Constants.PartnerJoyRightXAxis);
+        
     }
     public double getPartnerRightYAxis(){
-        return partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis);
-    }
+        
+    }*/
 }
