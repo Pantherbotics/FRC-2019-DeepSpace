@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 //import javax.xml.bind.JAXBElement.GlobalScope;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -111,21 +112,22 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveClosedLoop()); //Pls work
+        setDefaultCommand(new DriveClosedLoop()); //It worked
     }
 
     public void setMotorPower(double left, double right){
         mLeftA.set(ControlMode.PercentOutput, left);
         mRightA.set(ControlMode.PercentOutput, right);
-        System.out.println("Left: " + mLeftA.getSelectedSensorVelocity(0) + "     Right: " + mRightA.getSelectedSensorVelocity(0));
+        System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
     }
 
     public void setFPS(double left, double right){
         mLeftA.set(ControlMode.Velocity, left);
         mRightA.set(ControlMode.Velocity, right);
+        System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
     }
 
-    public double[] getEncoderVelocity(){
+    public double[] getEncoderVelocity(){ //0 for left, 1 for right
         return new double[]{mLeftA.getSelectedSensorVelocity(0), mRightA.getSelectedSensorVelocity(0)};
     }
 

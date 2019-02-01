@@ -13,7 +13,7 @@ public class OI{
         
     }
     
-    public double getLeftXAxis(){
+    public double getLeftXAxis(){ //Deadband is of kill
         if(Math.abs(stick.getRawAxis(Constants.PartnerJoyLeftXAxis)) < deadband){
             return 0;
         }
