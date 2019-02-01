@@ -12,6 +12,8 @@ import frc.robot.Constants;
 
 public class Elevator extends Subsystem {
     public int target = 0;
+    public int lowID = 0;
+    public int highID = 1;
     public TalonSRX elevTalonA = new TalonSRX(Constants.kElevatorA);
     public TalonSRX elevTalonB = new TalonSRX(Constants.kElevatorB);
     public int timeout_ms = Constants.kElevatorTimeoutMS;
@@ -22,9 +24,12 @@ public class Elevator extends Subsystem {
 
         Notifier elevNotifier = new Notifier(() ->{
             if(elevTalonA.getSelectedSensorPosition(0) > 0){ //Setpoint at which second stage begins lifting
-
+                elevTalonA.selectProfileSlot(highID, 0);
+            } else{ //Lowered elevator
+                elevTalonA.selectProfileSlot(lowID, 0);
             }
         });
+        elevNotifier.startPeriodic(0.01);
     }
 
     public void initDefaultCommand() {
@@ -50,11 +55,18 @@ public class Elevator extends Subsystem {
         elevTalonA.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, timeout_ms);
 
         elevTalonA.configAllowableClosedloopError(10, 0, timeout_ms);
+        //Lowered
+        elevTalonA.config_kF(lowID, Constants.kElevator_F1, timeout_ms);
+        elevTalonA.config_kP(lowID, Constants.kElevator_P, timeout_ms);
+        elevTalonA.config_kI(lowID, Constants.kElevator_I, timeout_ms);
+        elevTalonA.config_kD(lowID, Constants.kElevator_D, timeout_ms);
+        //Raised
+        elevTalonA.config_kF(highID, Constants.kElevator_F2, timeout_ms);
+        elevTalonA.config_kP(highID, Constants.kElevator_P, timeout_ms);
+        elevTalonA.config_kI(highID, Constants.kElevator_I, timeout_ms);
+        elevTalonA.config_kD(highID, Constants.kElevator_D, timeout_ms);
 
-        elevTalonA.config_kF(0, Constants.kElevator_F1, timeout_ms);
-        elevTalonA.config_kP(0, Constants.kElevator_P, timeout_ms);
-        elevTalonA.config_kI(0, Constants.kElevator_I, timeout_ms);
-        elevTalonA.config_kD(0, Constants.kElevator_D, timeout_ms);
+        elevTalonA.selectProfileSlot(lowID, 0);
 
         elevTalonA.configMotionCruiseVelocity(Constants.ELEVATOR_PID_CRUISE_VEL, timeout_ms);
         elevTalonA.configMotionAcceleration(Constants.ELEVATOR_PID_ACCELERATION, timeout_ms);

@@ -24,7 +24,7 @@ public class Constants{
     public static final int kArmA = 7;
     public static final int kArmB = 8;
     //Drivetrain
-    public static final double driveRamp = 0.5;
+    public static final double driveRamp = 0.25;
     public static final int drivePeakCurrentLimit = 80;
     public static final int drivePeakCurrentDuration = 10;
     public static final int driveContinuousCurrentLimit = 36;
@@ -32,7 +32,7 @@ public class Constants{
     public static final double DRIVE_P = 0;
     public static final double DRIVE_I = 0;
     public static final double DRIVE_D = 0.00;
-    public static final double DRIVE_F = 0.49169110459;
+    public static final double DRIVE_F = 0.50979366385;
     //Robot Elevator
     public static final double kElevator_P = 0;
     public static final double kElevator_I = 0;

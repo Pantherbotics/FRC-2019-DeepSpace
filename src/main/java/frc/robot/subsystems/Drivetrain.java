@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 //import javax.xml.bind.JAXBElement.GlobalScope;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -112,7 +111,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveClosedLoop()); //It worked
+        setDefaultCommand(new DriveClosedLoop()); //It worked but only partially
     }
 
     public void setMotorPower(double left, double right){
