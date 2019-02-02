@@ -14,19 +14,19 @@ public class Elevator extends Subsystem {
     public int target = 0;
     public int lowID = 0;
     public int highID = 1;
-    public TalonSRX elevTalonA = new TalonSRX(Constants.kElevatorA);
-    public TalonSRX elevTalonB = new TalonSRX(Constants.kElevatorB);
+    public TalonSRX mElevA = new TalonSRX(Constants.kElevatorA);
+    public TalonSRX mElevB = new TalonSRX(Constants.kElevatorB);
     public int timeout_ms = Constants.kElevatorTimeoutMS;
 
     public Elevator(){
-        elevTalonB.follow(elevTalonA);
+        mElevB.follow(mElevA);
         initPID();
 
         Notifier elevNotifier = new Notifier(() ->{
-            if(elevTalonA.getSelectedSensorPosition(0) > 0){ //Setpoint at which second stage begins lifting
-                elevTalonA.selectProfileSlot(highID, 0);
+            if(mElevA.getSelectedSensorPosition(0) > 0){ //Setpoint at which second stage begins lifting
+                mElevA.selectProfileSlot(highID, 0);
             } else{ //Lowered elevator
-                elevTalonA.selectProfileSlot(lowID, 0);
+                mElevA.selectProfileSlot(lowID, 0);
             }
         });
         elevNotifier.startPeriodic(0.01);
@@ -38,79 +38,79 @@ public class Elevator extends Subsystem {
     }
 
     public double getPos() {
-        return elevTalonA.getSelectedSensorPosition(timeout_ms);
+        return mElevA.getSelectedSensorPosition(timeout_ms);
     }
 
     //Initalize PID settings
     public void initPID() {
         setTargetPosition(0);
-        elevTalonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeout_ms);
-        elevTalonA.setSensorPhase(false);
-        elevTalonA.configNominalOutputForward(0, timeout_ms);
-        elevTalonA.configNominalOutputReverse(0, timeout_ms);
-        elevTalonA.configPeakOutputForward(1, timeout_ms);
-        elevTalonA.configPeakOutputReverse(-1, timeout_ms);
-        elevTalonA.configContinuousCurrentLimit(Constants.ELEVATOR_CURRENT_LIMIT, timeout_ms);
+        mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeout_ms);
+        mElevA.setSensorPhase(false);
+        mElevA.configNominalOutputForward(0, timeout_ms);
+        mElevA.configNominalOutputReverse(0, timeout_ms);
+        mElevA.configPeakOutputForward(1, timeout_ms);
+        mElevA.configPeakOutputReverse(-1, timeout_ms);
+        mElevA.configContinuousCurrentLimit(Constants.ELEVATOR_CURRENT_LIMIT, timeout_ms);
 
-        elevTalonA.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, timeout_ms);
+        mElevA.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, timeout_ms);
 
-        elevTalonA.configAllowableClosedloopError(10, 0, timeout_ms);
+        mElevA.configAllowableClosedloopError(10, 0, timeout_ms);
         //Lowered
-        elevTalonA.config_kF(lowID, Constants.kElevator_F1, timeout_ms);
-        elevTalonA.config_kP(lowID, Constants.kElevator_P, timeout_ms);
-        elevTalonA.config_kI(lowID, Constants.kElevator_I, timeout_ms);
-        elevTalonA.config_kD(lowID, Constants.kElevator_D, timeout_ms);
+        mElevA.config_kF(lowID, Constants.kElevator_F1, timeout_ms);
+        mElevA.config_kP(lowID, Constants.kElevator_P, timeout_ms);
+        mElevA.config_kI(lowID, Constants.kElevator_I, timeout_ms);
+        mElevA.config_kD(lowID, Constants.kElevator_D, timeout_ms);
         //Raised
-        elevTalonA.config_kF(highID, Constants.kElevator_F2, timeout_ms);
-        elevTalonA.config_kP(highID, Constants.kElevator_P, timeout_ms);
-        elevTalonA.config_kI(highID, Constants.kElevator_I, timeout_ms);
-        elevTalonA.config_kD(highID, Constants.kElevator_D, timeout_ms);
+        mElevA.config_kF(highID, Constants.kElevator_F2, timeout_ms);
+        mElevA.config_kP(highID, Constants.kElevator_P, timeout_ms);
+        mElevA.config_kI(highID, Constants.kElevator_I, timeout_ms);
+        mElevA.config_kD(highID, Constants.kElevator_D, timeout_ms);
 
-        elevTalonA.selectProfileSlot(lowID, 0);
+        mElevA.selectProfileSlot(lowID, 0);
 
-        elevTalonA.configMotionCruiseVelocity(Constants.ELEVATOR_PID_CRUISE_VEL, timeout_ms);
-        elevTalonA.configMotionAcceleration(Constants.ELEVATOR_PID_ACCELERATION, timeout_ms);
+        mElevA.configMotionCruiseVelocity(Constants.ELEVATOR_PID_CRUISE_VEL, timeout_ms);
+        mElevA.configMotionAcceleration(Constants.ELEVATOR_PID_ACCELERATION, timeout_ms);
 
-        elevTalonA.configForwardSoftLimitThreshold(Constants.ELEVATOR_SOFT_LIMIT, timeout_ms);
-        elevTalonA.configForwardSoftLimitEnable(true, timeout_ms);
-        elevTalonA.configReverseSoftLimitThreshold(0, timeout_ms);
-        elevTalonA.configReverseSoftLimitEnable(true, timeout_ms);
+        mElevA.configForwardSoftLimitThreshold(Constants.ELEVATOR_SOFT_LIMIT, timeout_ms);
+        mElevA.configForwardSoftLimitEnable(true, timeout_ms);
+        mElevA.configReverseSoftLimitThreshold(0, timeout_ms);
+        mElevA.configReverseSoftLimitEnable(true, timeout_ms);
 
-        setTargetPosition(elevTalonA.getSelectedSensorPosition(timeout_ms));
+        setTargetPosition(mElevA.getSelectedSensorPosition(timeout_ms));
     }
 
     public void setTargetPosition(int new_target) {
-        elevTalonA.configReverseSoftLimitEnable(true, timeout_ms);
+        mElevA.configReverseSoftLimitEnable(true, timeout_ms);
         if (new_target > Constants.ELEVATOR_SOFT_LIMIT) {
             new_target = Constants.ELEVATOR_SOFT_LIMIT;
         } else if (new_target < 5) {
             new_target = 5;
         }
         target = new_target;
-        elevTalonA.set(ControlMode.MotionMagic, new_target);
+        mElevA.set(ControlMode.MotionMagic, new_target);
     }
 
     public void setMotorPower(double power) {
-        elevTalonA.configReverseSoftLimitEnable(false, timeout_ms);
-        elevTalonA.set(ControlMode.PercentOutput, power);
+        mElevA.configReverseSoftLimitEnable(false, timeout_ms);
+        mElevA.set(ControlMode.PercentOutput, power);
     }
 
     //Used by driving control systems to set speed limits. 
     public boolean isLiftRaised() {
-        return (elevTalonA.getSelectedSensorPosition(timeout_ms) > 100);
+        return (mElevA.getSelectedSensorPosition(timeout_ms) > 100);
     }
 
     public boolean isLiftLowered() {
-        return elevTalonA.getSensorCollection().isRevLimitSwitchClosed();
+        return mElevA.getSensorCollection().isRevLimitSwitchClosed();
     }
 
     public boolean testMotorCurrentThreshold(double amps) {
-        return elevTalonA.getOutputCurrent() > amps;
+        return mElevA.getOutputCurrent() > amps;
     }
 
     public void zeroEncoder() {
         target = 0;
-        elevTalonA.setSelectedSensorPosition(0, 0, timeout_ms);
+        mElevA.setSelectedSensorPosition(0, 0, timeout_ms);
         //System.out.println("Elevator encoder zeroed!");
     }
 
@@ -129,7 +129,7 @@ public class Elevator extends Subsystem {
     }
 
     public double getVel() {
-        return elevTalonA.getSelectedSensorVelocity(timeout_ms);
+        return mElevA.getSelectedSensorVelocity(timeout_ms);
     }
 
 

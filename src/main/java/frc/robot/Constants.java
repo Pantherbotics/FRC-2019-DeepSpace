@@ -19,8 +19,8 @@ public class Constants{
     public static final int kRightA = 0;
     public static final int kRightB = 1;
     public static final int kRightC = 2;
-    public static final int kElevatorA = 5;
-    public static final int kElevatorB = 6;
+    public static final int kElevatorA = 3;
+    public static final int kElevatorB = 4;
     public static final int kArmA = 7;
     public static final int kArmB = 8;
     //Drivetrain
