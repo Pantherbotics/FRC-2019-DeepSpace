@@ -13,12 +13,12 @@ public class Constants{
     public static final int PartnerJoyRightXAxis = 2;
     public static final int PartnerJoyRightYAxis = 3;
     //Robot Talons
-    public static final int kLeftA = 15;
+    public static final int kLeftA = 13; //Change in phoenix tuner
     public static final int kLeftB = 14;
-    public static final int kLeftC = 13;
-    public static final int kRightA = 0;
+    public static final int kLeftC = 15;
+    public static final int kRightA = 2;
     public static final int kRightB = 1;
-    public static final int kRightC = 2;
+    public static final int kRightC = 0;
     public static final int kElevatorA = 3;
     public static final int kElevatorB = 4;
     public static final int kArmA = 7;
