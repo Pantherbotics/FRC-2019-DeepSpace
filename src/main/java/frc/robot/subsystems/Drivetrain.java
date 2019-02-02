@@ -111,7 +111,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveClosedLoop()); //It worked but only partially
+        setDefaultCommand(new DriveOpenLoop()); //It worked but only partially
     }
 
     public void setMotorPower(double left, double right){
@@ -130,9 +130,9 @@ public class Drivetrain extends Subsystem {
         return new double[]{mLeftA.getSelectedSensorVelocity(0), mRightA.getSelectedSensorVelocity(0)};
     }
 
-    public void zeroGyro(){
+    public void zeroGyro(){ //Rella Rella Pizza Mozzerella
         gyro.reset();
-        System.out.println("Rella Rella Pizza M- Gyro Reset.");
+        System.out.println("Gyro Reset");
     }
 
     public Odometry getOdo(){

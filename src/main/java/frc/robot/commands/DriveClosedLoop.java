@@ -17,7 +17,7 @@ public class DriveClosedLoop extends Command {
   protected void execute() { //generally choose this one
     double zoom = Robot.oi.getLeftYAxis(); //zoom = forward backwards
     double nyoom = Robot.oi.getRightXAxis(); //nyoom = side to side
-    Robot.kDrivetrain.setFPS(Units.FPSToTalonNative(16*(nyoom - zoom)), Units.FPSToTalonNative(16*(-nyoom - zoom)));
+    Robot.kDrivetrain.setFPS(Units.FPSToTalonNative(16*(0.5*nyoom - zoom)), Units.FPSToTalonNative(16*(-0.5*nyoom - zoom)));
     //System.out.println("Left: " + 500*(nyoom - zoom) + "    Right: " + 500*(-nyoom - zoom));
   }
 
