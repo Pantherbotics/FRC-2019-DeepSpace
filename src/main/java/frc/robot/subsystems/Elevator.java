@@ -19,6 +19,30 @@ public class Elevator extends Subsystem {
     public int timeout_ms = Constants.kElevatorTimeoutMS;
 
     public Elevator(){
+        mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeout_ms);
+        mElevA.setSensorPhase(false);
+        mElevA.configNominalOutputForward(0, timeout_ms);
+        mElevA.configNominalOutputReverse(0, timeout_ms);
+        mElevA.configPeakOutputForward(1, timeout_ms);
+        mElevA.configPeakOutputReverse(-1, timeout_ms);
+        mElevA.configContinuousCurrentLimit(Constants.ELEVATOR_CURRENT_LIMIT, timeout_ms);
+
+        mElevA.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, timeout_ms);
+
+        mElevA.configAllowableClosedloopError(10, 0, timeout_ms);
+
+        mElevA.selectProfileSlot(lowID, 0);
+
+        mElevA.configMotionCruiseVelocity(Constants.ELEVATOR_PID_CRUISE_VEL, timeout_ms);
+        mElevA.configMotionAcceleration(Constants.ELEVATOR_PID_ACCELERATION, timeout_ms);
+
+        mElevA.configForwardSoftLimitThreshold(Constants.ELEVATOR_SOFT_LIMIT, timeout_ms);
+        mElevA.configForwardSoftLimitEnable(true, timeout_ms);
+        mElevA.configReverseSoftLimitThreshold(0, timeout_ms);
+        mElevA.configReverseSoftLimitEnable(true, timeout_ms);
+
+        setTargetPosition(mElevA.getSelectedSensorPosition(0));
+
         mElevB.follow(mElevA);
         initPID();
 
@@ -44,17 +68,6 @@ public class Elevator extends Subsystem {
     //Initalize PID settings
     public void initPID() {
         setTargetPosition(0);
-        mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeout_ms);
-        mElevA.setSensorPhase(false);
-        mElevA.configNominalOutputForward(0, timeout_ms);
-        mElevA.configNominalOutputReverse(0, timeout_ms);
-        mElevA.configPeakOutputForward(1, timeout_ms);
-        mElevA.configPeakOutputReverse(-1, timeout_ms);
-        mElevA.configContinuousCurrentLimit(Constants.ELEVATOR_CURRENT_LIMIT, timeout_ms);
-
-        mElevA.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, timeout_ms);
-
-        mElevA.configAllowableClosedloopError(10, 0, timeout_ms);
         //Lowered
         mElevA.config_kF(lowID, Constants.kElevator_F1, timeout_ms);
         mElevA.config_kP(lowID, Constants.kElevator_P, timeout_ms);
@@ -65,18 +78,6 @@ public class Elevator extends Subsystem {
         mElevA.config_kP(highID, Constants.kElevator_P, timeout_ms);
         mElevA.config_kI(highID, Constants.kElevator_I, timeout_ms);
         mElevA.config_kD(highID, Constants.kElevator_D, timeout_ms);
-
-        mElevA.selectProfileSlot(lowID, 0);
-
-        mElevA.configMotionCruiseVelocity(Constants.ELEVATOR_PID_CRUISE_VEL, timeout_ms);
-        mElevA.configMotionAcceleration(Constants.ELEVATOR_PID_ACCELERATION, timeout_ms);
-
-        mElevA.configForwardSoftLimitThreshold(Constants.ELEVATOR_SOFT_LIMIT, timeout_ms);
-        mElevA.configForwardSoftLimitEnable(true, timeout_ms);
-        mElevA.configReverseSoftLimitThreshold(0, timeout_ms);
-        mElevA.configReverseSoftLimitEnable(true, timeout_ms);
-
-        setTargetPosition(mElevA.getSelectedSensorPosition(timeout_ms));
     }
 
     public void setTargetPosition(int new_target) {
