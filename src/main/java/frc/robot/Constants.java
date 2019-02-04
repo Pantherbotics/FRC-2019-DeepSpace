@@ -12,6 +12,14 @@ public class Constants{
     public static final int PartnerJoyLeftYAxis = 1;
     public static final int PartnerJoyRightXAxis = 2;
     public static final int PartnerJoyRightYAxis = 3;
+    //Other Joystick Stuff
+    public static final double deadband = 0.05;
+    public static final int[] elevSetpoint = 
+                                       {10, //Lowered
+                                        20, //First?
+                                        30, //idk anymore there's going to be like 900 setpoints
+                                        40, 
+                                        50};
     //Robot Talons
     public static final int kLeftA = 13; //Change in phoenix tuner
     public static final int kLeftB = 14;

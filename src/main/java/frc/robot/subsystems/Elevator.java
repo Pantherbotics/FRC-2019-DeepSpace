@@ -38,7 +38,7 @@ public class Elevator extends Subsystem {
     }
 
     public double getPos() {
-        return mElevA.getSelectedSensorPosition(timeout_ms);
+        return mElevA.getSelectedSensorPosition(0);
     }
 
     //Initalize PID settings
