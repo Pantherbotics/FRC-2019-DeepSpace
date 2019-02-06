@@ -17,7 +17,7 @@ public class Elevator extends Subsystem {
     public int highID = 1;
     public TalonSRX mElevA = new TalonSRX(Constants.kElevatorA);
     public TalonSRX mElevB = new TalonSRX(Constants.kElevatorB);
-    public int timeout_ms = Constants.kElevatorTimeoutMS;
+    public int timeout_ms = 0;
 
     public Elevator(){
         mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeout_ms);

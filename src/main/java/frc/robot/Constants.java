@@ -47,7 +47,6 @@ public class Constants{
     public static final double kElevator_D = 0;
     public static final double kElevator_F1 = 1;
     public static final double kElevator_F2 = 1;
-    public static final int kElevatorTimeoutMS = 0; //Why does this exist
     public static final int ELEVATOR_CURRENT_LIMIT = 10;
     public static final int ELEVATOR_PID_CRUISE_VEL = 300; //Gearbox max vel = elevator 70in/s
     public static final int ELEVATOR_PID_ACCELERATION = 150; //This might work
