@@ -38,7 +38,7 @@ public class Elevator extends Subsystem {
         mElevA.configMotionAcceleration(Constants.ELEVATOR_PID_ACCELERATION, timeout_ms);
 
         mElevA.configForwardSoftLimitThreshold(Constants.ELEVATOR_SOFT_LIMIT, timeout_ms);
-        mElevA.configForwardSoftLimitEnable(true, timeout_ms);
+        mElevA.configForwardSoftLimitEnable(false, timeout_ms);
         mElevA.configReverseSoftLimitThreshold(0, timeout_ms);
         mElevA.configReverseSoftLimitEnable(true, timeout_ms);
 

@@ -5,6 +5,7 @@ import frc.robot.Robot;
 public class ToSetpoint extends Command {
     int elevSet;
     int armSet;
+    int deathZone;
 
     public ToSetpoint(int elevPreset, int armPreset) {
         requires(Robot.kElevator);

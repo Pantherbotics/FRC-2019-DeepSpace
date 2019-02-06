@@ -49,8 +49,8 @@ public class Constants{
     public static final double kElevator_F2 = 1;
     public static final int kElevatorTimeoutMS = 0;
     public static final int ELEVATOR_CURRENT_LIMIT = 10;
-    public static final int ELEVATOR_PID_CRUISE_VEL = 5;
-    public static final int ELEVATOR_PID_ACCELERATION = 10;
+    public static final int ELEVATOR_PID_CRUISE_VEL = 900; //Gearbox max vel = elevator 70in/s
+    public static final int ELEVATOR_PID_ACCELERATION = 750;
     public static final int ELEVATOR_SOFT_LIMIT = 10;
     //Arm
     public static final double kArmA_P = 0;

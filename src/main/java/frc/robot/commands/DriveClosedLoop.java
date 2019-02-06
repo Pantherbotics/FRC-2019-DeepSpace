@@ -1,11 +1,12 @@
 package frc.robot.commands;
 
 import frc.robot.Robot;
-import frc.robot.util.Units;
+import frc.robot.util.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveClosedLoop extends Command {
+  CheesyDriveHelper cheese;
 
   public DriveClosedLoop() {
     requires(Robot.kDrivetrain);
@@ -16,8 +17,9 @@ public class DriveClosedLoop extends Command {
 
   protected void execute() { //generally choose this one
     double zoom = Robot.oi.getLeftYAxis(); //zoom = forward backwards
-    double nyoom = Robot.oi.getRightXAxis(); //nyoom = side to side
-    Robot.kDrivetrain.setFPS(Units.FPSToTalonNative(16*(0.5*nyoom - zoom)), Units.FPSToTalonNative(16*(-0.5*nyoom - zoom)));
+    double nyoom = Robot.oi.getRightXAxis(); //nyoom = side to side... twist I guess
+    DriveSignal drive = cheese.cheesyDrive(-zoom, nyoom, true);
+    Robot.kDrivetrain.setFPS(Units.FPSToTalonNative(16 * drive.getLeft()), Units.FPSToTalonNative(16 * drive.getRight()));
     //System.out.println("Left: " + 500*(nyoom - zoom) + "    Right: " + 500*(-nyoom - zoom));
   }
 
