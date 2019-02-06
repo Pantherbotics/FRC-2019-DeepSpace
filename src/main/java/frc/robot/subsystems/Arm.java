@@ -11,8 +11,8 @@ public class Arm extends Subsystem{
     int timeout_ms = 0;
     int jointA_ID = 0;
     int jointB_ID = 1;
-    TalonSRX talonA = new TalonSRX(Constants.kArmA); //On carriage
-    TalonSRX talonB = new TalonSRX(Constants.kArmB); //On intake
+    TalonSRX mTalonA = new TalonSRX(Constants.kArmA); //On carriage
+    TalonSRX mTalonB = new TalonSRX(Constants.kArmB); //On intake
 
     public Arm(){
         
@@ -37,6 +37,10 @@ public class Arm extends Subsystem{
     
     public void powerArm(double input){
 
+    }
+
+    public void levelIntake(){
+        
     }
 
     public void initDefaultCommand(){
