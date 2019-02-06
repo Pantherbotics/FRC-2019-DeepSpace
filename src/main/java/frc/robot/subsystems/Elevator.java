@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.commands.*;
 
 public class Elevator extends Subsystem {
     public int target = 0;
@@ -20,7 +21,7 @@ public class Elevator extends Subsystem {
 
     public Elevator(){
         mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeout_ms);
-        mElevA.setSensorPhase(false);
+        mElevA.setSensorPhase(true);
         mElevA.configNominalOutputForward(0, timeout_ms);
         mElevA.configNominalOutputReverse(0, timeout_ms);
         mElevA.configPeakOutputForward(1, timeout_ms);
@@ -57,8 +58,7 @@ public class Elevator extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        //setDefaultCommand(new ElevatorOpenLoop());
     }
 
     public double getPos() {
@@ -93,6 +93,7 @@ public class Elevator extends Subsystem {
 
     public void setMotorPower(double power) {
         mElevA.configReverseSoftLimitEnable(false, timeout_ms);
+        mElevA.configForwardSoftLimitEnable(false, timeout_ms);
         mElevA.set(ControlMode.PercentOutput, power);
     }
 
@@ -112,7 +113,7 @@ public class Elevator extends Subsystem {
     public void zeroEncoder() {
         target = 0;
         mElevA.setSelectedSensorPosition(0, 0, timeout_ms);
-        //System.out.println("Elevator encoder zeroed!");
+        //System.out.println("Elevator Zeroed!");
     }
 
     public void goToPreset(int presetID) {

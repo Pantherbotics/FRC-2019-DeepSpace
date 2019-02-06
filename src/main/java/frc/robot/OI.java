@@ -6,32 +6,32 @@ import frc.robot.commands.*;
 
 public class OI{
     public Joystick stick = new Joystick(Constants.JoystickPort);
-    public Joystick partnerStick = new Joystick(Constants.JoystickPort);    
+    public Joystick partnerStick = new Joystick(Constants.PartnerJoyPort);    
     //Joystick
-    public JoystickButton buttonT = new JoystickButton(stick, 0); //Triangle
+    public JoystickButton buttonT = new JoystickButton(stick, 4); //Triangle
     public JoystickButton buttonS = new JoystickButton(stick, 1); //Square
     public JoystickButton buttonC = new JoystickButton(stick, 2); //Circle
     public JoystickButton buttonX = new JoystickButton(stick, 3); //X
 
     //Partner Joystick
-    public JoystickButton partnerButtonY = new JoystickButton(partnerStick, 0);
+    public JoystickButton partnerButtonY = new JoystickButton(partnerStick, 4);
     public JoystickButton partnerButtonX = new JoystickButton(partnerStick, 1);
-    public JoystickButton partnerButtonB = new JoystickButton(partnerStick, 2);
-    public JoystickButton partnerButtonA = new JoystickButton(partnerStick, 3);
-    public JoystickButton partnerButtonU = new JoystickButton(partnerStick, 4); //Up
-    public JoystickButton partnerButtonL = new JoystickButton(partnerStick, 5); //Left
-    public JoystickButton partnerButtonR = new JoystickButton(partnerStick, 6); //Right
-    public JoystickButton partnerButtonD = new JoystickButton(partnerStick, 7); //Down
-    public JoystickButton partnerBumperL = new JoystickButton(partnerStick, 8); //Left Bumper
-    public JoystickButton partnerBumperR = new JoystickButton(partnerStick, 9); //Right Bumper
-    public JoystickButton partnerTriggerL = new JoystickButton(partnerStick, 10); //Left Trigger
-    public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 11); //Right Trigger
+    public JoystickButton partnerButtonB = new JoystickButton(partnerStick, 3);
+    public JoystickButton partnerButtonA = new JoystickButton(partnerStick, 2);
+    public JoystickButton partnerBumperL = new JoystickButton(partnerStick, 5); //Left Bumper
+    public JoystickButton partnerBumperR = new JoystickButton(partnerStick, 6); //Right Bumper
+    public JoystickButton partnerTriggerL = new JoystickButton(partnerStick, 7); //Left Trigger
+    public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 8); //Right Trigger
+    public JoystickButton partnerBack = new JoystickButton(partnerStick, 9);
+    public JoystickButton partnerStart = new JoystickButton(partnerStick, 10);
 
     public OI(){
-        partnerButtonY.whenPressed(new ToSetpoint(0, 0)); //work in progress
+        //Elevator
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[1], 0)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(0, 0));
         partnerButtonB.whenPressed(new ToSetpoint(0, 0));
         partnerButtonA.whenPressed(new ToSetpoint(0, 0));
+        partnerStart.whenPressed(new ZeroElevator());
     }
 
     //Joystick

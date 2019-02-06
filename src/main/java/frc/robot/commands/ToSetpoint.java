@@ -7,17 +7,18 @@ public class ToSetpoint extends Command {
     int armSet;
 
     public ToSetpoint(int elevPreset, int armPreset) {
-        elevSet = elevPreset;
-        armSet = armPreset;
         requires(Robot.kElevator);
         requires(Robot.kArm);
+        elevSet = elevPreset;
+        armSet = armPreset;
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-        Robot.kElevator.goToPreset(elevSet);
+        Robot.kElevator.setTargetPosition(elevSet);
+        System.out.println("you suck");
     }
 
     protected boolean isFinished() {

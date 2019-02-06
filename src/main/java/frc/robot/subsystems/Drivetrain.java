@@ -117,13 +117,13 @@ public class Drivetrain extends Subsystem {
     public void setMotorPower(double left, double right){
         mLeftA.set(ControlMode.PercentOutput, left);
         mRightA.set(ControlMode.PercentOutput, right);
-        System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
+        //System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
     }
 
     public void setFPS(double left, double right){
         mLeftA.set(ControlMode.Velocity, left);
         mRightA.set(ControlMode.Velocity, right);
-        System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
+        //System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
     }
 
     public double[] getEncoderVelocity(){ //0 for left, 1 for right

@@ -15,8 +15,8 @@ public class Constants{
     //Other Joystick Stuff
     public static final double deadband = 0.05;
     public static final int[] elevSetpoint = 
-                                       {10, //Lowered
-                                        20, //First?
+                                       {0, //Lowered
+                                        2500, //Middle
                                         30, //idk anymore there's going to be like 900 setpoints
                                         40, 
                                         50};
@@ -27,8 +27,8 @@ public class Constants{
     public static final int kRightA = 2;
     public static final int kRightB = 1;
     public static final int kRightC = 0;
-    public static final int kElevatorA = 3;
-    public static final int kElevatorB = 4;
+    public static final int kElevatorA = 12;
+    public static final int kElevatorB = 3;
     public static final int kArmA = 7;
     public static final int kArmB = 8;
     //Drivetrain
@@ -42,14 +42,14 @@ public class Constants{
     public static final double DRIVE_D = 0.05;
     public static final double DRIVE_F = 0.50979366385;
     //Robot Elevator
-    public static final double kElevator_P = 0;
+    public static final double kElevator_P = 1;
     public static final double kElevator_I = 0;
     public static final double kElevator_D = 0;
-    public static final double kElevator_F1 = 0;
-    public static final double kElevator_F2 = 0;
+    public static final double kElevator_F1 = 1;
+    public static final double kElevator_F2 = 1;
     public static final int kElevatorTimeoutMS = 0;
     public static final int ELEVATOR_CURRENT_LIMIT = 10;
-    public static final int ELEVATOR_PID_CRUISE_VEL = 0;
+    public static final int ELEVATOR_PID_CRUISE_VEL = 5;
     public static final int ELEVATOR_PID_ACCELERATION = 10;
     public static final int ELEVATOR_SOFT_LIMIT = 10;
     //Arm

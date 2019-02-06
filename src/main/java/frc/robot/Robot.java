@@ -24,10 +24,10 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static final OI oi = new OI();
   public static final Drivetrain kDrivetrain = new Drivetrain();
   public static final Elevator kElevator = new Elevator();
   public static final Arm kArm = new Arm();
+  public static final OI oi = new OI();
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private Command kAuto;
@@ -105,6 +105,7 @@ public class Robot extends TimedRobot {
       kAuto.cancel();
     }
     Scheduler.getInstance().run();
+    System.out.println(kElevator.getPos());
   }
 
   /**
