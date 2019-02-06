@@ -7,9 +7,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.hal.sim.DriverStationSim;
 import frc.robot.subsystems.*;
 
 /**
@@ -20,13 +24,16 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static final OI oi = new OI();
   public static final Drivetrain kDrivetrain = new Drivetrain();
   public static final Elevator kElevator = new Elevator();
+  public static final Arm kArm = new Arm();
+  public static final OI oi = new OI();
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
+  private Command kAuto;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  public DriverStation ds = DriverStation.getInstance();
+  public DriverStationSim DriveSim = new DriverStationSim();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -34,8 +41,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.addDefault("Default Auto", kDefaultAuto);
-    m_chooser.addObject("My Auto", kCustomAuto);
+    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
+    m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
   }
 
@@ -64,9 +71,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
+    //kAuto = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    //System.out.println("Auto selected: " + m_autoSelected);
+    kDrivetrain.zeroGyro();
   }
 
   /**
@@ -74,6 +82,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    /*
     switch (m_autoSelected) {
       case kCustomAuto:
         // Put custom auto code here
@@ -83,6 +92,7 @@ public class Robot extends TimedRobot {
         // Put default auto code here
         break;
     }
+    */
   }
 
   /**
@@ -90,6 +100,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    //Stops the auto
+    if(kAuto != null){
+      kAuto.cancel();
+    }
+    Scheduler.getInstance().run();
+    System.out.println(kElevator.getPos());
   }
 
   /**

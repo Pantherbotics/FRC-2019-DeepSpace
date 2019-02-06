@@ -1,110 +1,49 @@
+//this code was made by team 3863 FIRST Robotics, Newbury Park, CA 91320
 package frc.robot.subsystems;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 
-public class Elevator extends Subsystem {
-    public int target = 0;
-    public WPI_TalonSRX elevDriveTalon = new WPI_TalonSRX(Constants.kElevatorID);
-    public int timeout_ms = Constants.kElevatorTimeoutMS;
-
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+public class Elevator extends Subsystem{
+    private TalonSRX mElevA = new TalonSRX(Constants.kElevatorA);
+    private TalonSRX mElevB = new TalonSRX(Constants.kElevatorB);
+    public Elevator(){
+        mElevB.follow(mElevA);
+        mElevA.setInverted(false);
+        mElevA.setSensorPhase(false);
+        mElevA.config_kP(Constants.primaryPIDIDX, Constants.elevatorKP, Constants.timoutMS);
+        mElevA.config_kI(Constants.primaryPIDIDX, Constants.elevatorKI, Constants.timoutMS);
+        mElevA.config_kD(Constants.primaryPIDIDX, Constants.elevatorKD, Constants.timoutMS);
+        mElevA.config_kF(Constants.primaryPIDIDX, Constants.elevatorKF, Constants.timoutMS);           
+        mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeed, Constants.timoutMS);          
+        mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeed, Constants.timoutMS);      
+        mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.primaryPIDIDX, Constants.timoutMS);
+        mElevA.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
     }
-
-    public double getPos() {
-        return elevDriveTalon.getSelectedSensorPosition(timeout_ms);
-    }
-
-    //Initalize PID settings
-    public void initPID() {
-        setTargetPosition(0);
-        elevDriveTalon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeout_ms);
-        elevDriveTalon.setSensorPhase(false);
-        elevDriveTalon.configNominalOutputForward(0, timeout_ms);
-        elevDriveTalon.configNominalOutputReverse(0, timeout_ms);
-        elevDriveTalon.configPeakOutputForward(1, timeout_ms);
-        elevDriveTalon.configPeakOutputReverse(-1, timeout_ms);
-        elevDriveTalon.configContinuousCurrentLimit(Constants.ELEVATOR_CURRENT_LIMIT, timeout_ms);
-
-        elevDriveTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, timeout_ms);
-
-        elevDriveTalon.configAllowableClosedloopError(10, 0, timeout_ms);
-
-        elevDriveTalon.config_kF(0, Constants.kElevator_F, timeout_ms);
-        elevDriveTalon.config_kP(0, Constants.kElevator_P, timeout_ms);
-        elevDriveTalon.config_kI(0, Constants.kElevator_I, timeout_ms);
-        elevDriveTalon.config_kD(0, Constants.kElevator_D, timeout_ms);
-
-        elevDriveTalon.configMotionCruiseVelocity(Constants.ELEVATOR_PID_CRUISE_VEL, timeout_ms);
-        elevDriveTalon.configMotionAcceleration(Constants.ELEVATOR_PID_ACCELERATION, timeout_ms);
-
-        elevDriveTalon.configForwardSoftLimitThreshold(Constants.ELEVATOR_SOFT_LIMIT, timeout_ms);
-        elevDriveTalon.configForwardSoftLimitEnable(true, timeout_ms);
-        elevDriveTalon.configReverseSoftLimitThreshold(0, timeout_ms);
-        elevDriveTalon.configReverseSoftLimitEnable(true, timeout_ms);
-
-        setTargetPosition(elevDriveTalon.getSelectedSensorPosition(timeout_ms));
-    }
-
-    public void setTargetPosition(int new_target) {
-        elevDriveTalon.configReverseSoftLimitEnable(true, timeout_ms);
-        if (new_target > Constants.ELEVATOR_SOFT_LIMIT) {
-            new_target = Constants.ELEVATOR_SOFT_LIMIT;
-        } else if (new_target < 5) {
-            new_target = 5;
-        }
-        target = new_target;
-        elevDriveTalon.set(ControlMode.MotionMagic, new_target);
-    }
-
-    public void setMotorPower(double power) {
-        elevDriveTalon.configReverseSoftLimitEnable(false, timeout_ms);
-        elevDriveTalon.set(ControlMode.PercentOutput, power);
-    }
-
-    //Used by driving control systems to set speed limits. 
-    public boolean isLiftRaised() {
-        return (elevDriveTalon.getSelectedSensorPosition(timeout_ms) > 100);
-    }
-
-    public boolean isLiftLowered() {
-        return elevDriveTalon.getSensorCollection().isRevLimitSwitchClosed();
-    }
-
-    public boolean testMotorCurrentThreshold(double amps) {
-        return elevDriveTalon.getOutputCurrent() > amps;
-    }
-
-    public void zeroEncoder() {
-        target = 0;
-        elevDriveTalon.setSelectedSensorPosition(0, 0, timeout_ms);
-        //System.out.println("Elevator encoder zeroed!");
-    }
-
-    public void goToPreset(int presetID) {
-        if (presetID == 0) {
-            //zeroEncoder();
-            setTargetPosition(Constants.ELEVATOR_PRESETS[presetID]);
-        } else {
-            setTargetPosition(Constants.ELEVATOR_PRESETS[presetID]);
-        }
+    public void initDefaultCommand(){
 
     }
-
-    public double getHeightPercent() {
-        return (getPos() / Constants.ELEVATOR_SOFT_LIMIT);
+    public int getPos(){
+        return mElevA.getSelectedSensorPosition(Constants.primaryPIDIDX);
+    }
+    public int getVelocity(){
+        return mElevA.getSelectedSensorVelocity(Constants.primaryPIDIDX);
     }
 
-    public double getVel() {
-        return elevDriveTalon.getSelectedSensorVelocity(timeout_ms);
+    public void setPower(double power){
+        mElevA.set(ControlMode.PercentOutput, power);
     }
-
-
+    public void setPos(int pos){
+        mElevA.set(ControlMode.MotionMagic, pos);
+    }
+    public boolean getLimitSwitch(){
+        return mElevA.getSensorCollection().isRevLimitSwitchClosed();
+    } 
+    public void setElevatorEncoder(int pos){
+        mElevA.setSelectedSensorPosition(pos, Constants.primaryPIDIDX, Constants.timoutMS);
+    }
 }
-

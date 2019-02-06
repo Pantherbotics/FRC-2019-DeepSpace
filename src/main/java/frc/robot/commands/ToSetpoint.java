@@ -2,19 +2,24 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ElevatorSetpoint extends Command {
-    int set;
+public class ToSetpoint extends Command {
+    int elevSet;
+    int armSet;
+    int deathZone;
 
-    public ElevatorSetpoint(int preset) {
-        set = preset;
+    public ToSetpoint(int elevPreset, int armPreset) {
         requires(Robot.kElevator);
+        requires(Robot.kArm);
+        elevSet = elevPreset;
+        armSet = armPreset;
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
-        Robot.kElevator.goToPreset(set);
+        Robot.kElevator.setPos(elevSet);
+        System.out.println("you suck");
     }
 
     protected boolean isFinished() {

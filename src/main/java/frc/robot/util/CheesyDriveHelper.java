@@ -1,6 +1,6 @@
 package frc.robot.util;
 
-/**Credit goes to 254 for code.
+/**Credit goes to 254 for code. Yoink.
 * Effectively makes the robot execute 'constant-radius' turning, where the radius of curvature is independent of speed.
 * Returns a 'DriveSignal', which is a helper class to encapsulate motor commands.
  */
