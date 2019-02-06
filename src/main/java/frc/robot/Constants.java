@@ -40,18 +40,18 @@ public class Constants{
     public static final double DRIVE_P = 4.5;
     public static final double DRIVE_I = 0;
     public static final double DRIVE_D = 0.05;
-    public static final double DRIVE_F = 0.50979366385;
+    public static final double DRIVE_F = 0.50979366385; //Probably wrong
     //Robot Elevator
     public static final double kElevator_P = 1;
     public static final double kElevator_I = 0;
     public static final double kElevator_D = 0;
     public static final double kElevator_F1 = 1;
     public static final double kElevator_F2 = 1;
-    public static final int kElevatorTimeoutMS = 0;
+    public static final int kElevatorTimeoutMS = 0; //Why does this exist
     public static final int ELEVATOR_CURRENT_LIMIT = 10;
-    public static final int ELEVATOR_PID_CRUISE_VEL = 6; //Gearbox max vel = elevator 70in/s
-    public static final int ELEVATOR_PID_ACCELERATION = 9;
-    public static final int ELEVATOR_SOFT_LIMIT = 10;
+    public static final int ELEVATOR_PID_CRUISE_VEL = 300; //Gearbox max vel = elevator 70in/s
+    public static final int ELEVATOR_PID_ACCELERATION = 150; //This might work
+    public static final int ELEVATOR_SOFT_LIMIT = 10; //Find this
     //Arm
     public static final double kArmA_P = 0;
     public static final double kArmA_I = 0;

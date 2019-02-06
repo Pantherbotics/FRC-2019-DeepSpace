@@ -42,10 +42,10 @@ public class Elevator extends Subsystem {
         mElevA.configReverseSoftLimitThreshold(0, timeout_ms);
         mElevA.configReverseSoftLimitEnable(true, timeout_ms);
 
-        setTargetPosition(mElevA.getSelectedSensorPosition(0));
-
         mElevB.follow(mElevA);
+
         initPID();
+        zeroEncoder();
 
         Notifier elevNotifier = new Notifier(() ->{
             if(mElevA.getSelectedSensorPosition(0) > 0){ //Setpoint at which second stage begins lifting
@@ -67,7 +67,6 @@ public class Elevator extends Subsystem {
 
     //Initalize PID settings
     public void initPID() {
-        setTargetPosition(0);
         //Lowered
         mElevA.config_kF(lowID, Constants.kElevator_F1, timeout_ms);
         mElevA.config_kP(lowID, Constants.kElevator_P, timeout_ms);
