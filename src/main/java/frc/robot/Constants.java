@@ -42,15 +42,15 @@ public class Constants{
     public static final double DRIVE_D = 0.05;
     public static final double DRIVE_F = 0.50979366385; //Probably wrong
     //Robot Elevator
-    public static final double kElevator_P = 1;
-    public static final double kElevator_I = 0;
-    public static final double kElevator_D = 0;
-    public static final double kElevator_F1 = 1;
-    public static final double kElevator_F2 = 1;
-    public static final int ELEVATOR_CURRENT_LIMIT = 10;
-    public static final int ELEVATOR_PID_CRUISE_VEL = 300; //Gearbox max vel = elevator 70in/s
-    public static final int ELEVATOR_PID_ACCELERATION = 150; //This might work
-    public static final int ELEVATOR_SOFT_LIMIT = 10; //Find this
+    public static double elevatorKP = 4.0;
+    public static double elevatorKI = 0.0;
+    public static double elevatorKD = 0.0;
+    public static double elevatorKF = (1023.0/273.0); //max talon thing(1023) / max velocity of elevator (273)
+    public static int elevatorCruiseSpeed = 400;
+    public static int elevatorAccelerationSpeed = 300;
+
+    public static int timoutMS = 10;
+    public static int primaryPIDIDX = 0;
     //Arm
     public static final double kArmA_P = 0;
     public static final double kArmA_I = 0;
