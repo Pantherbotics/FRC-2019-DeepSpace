@@ -2,6 +2,7 @@
 package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Notifier;
 import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
@@ -31,12 +32,13 @@ public class Elevator extends Subsystem{
         mElevA.setSelectedSensorPosition(0);
 
         Notifier elevThread = new Notifier(() ->{
-            if(getPos() => Constants.elevMidway){
-                mElevA.selectProfileSlot(1);
+            if(getPos() > Constants.elevMidway){
+                mElevA.selectProfileSlot(Constants.highElev_ID, 0);
             } else{
-                mElevA.selectProfileSlot(0);
+                mElevA.selectProfileSlot(Constants.lowElev_ID, 0);
             }
         });
+        elevThread.startPeriodic(0.01);
     }
     public void initDefaultCommand(){
 
