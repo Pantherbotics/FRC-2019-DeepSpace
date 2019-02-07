@@ -16,13 +16,17 @@ public class Elevator extends Subsystem{
         mElevB.setInverted(false);
         mElevA.setInverted(false);
         mElevA.setSensorPhase(true);
-        mElevA.config_kP(Constants.primaryPIDIDX, Constants.elevatorKP, Constants.timeoutMS);
-        mElevA.config_kI(Constants.primaryPIDIDX, Constants.elevatorKI, Constants.timeoutMS);
-        mElevA.config_kD(Constants.primaryPIDIDX, Constants.elevatorKD, Constants.timeoutMS);
-        mElevA.config_kF(Constants.primaryPIDIDX, Constants.elevatorKF, Constants.timeoutMS);           
+        mElevA.config_kP(Constants.lowElev_ID, Constants.elevatorKP, Constants.timeoutMS);
+        mElevA.config_kI(Constants.lowElev_ID, Constants.elevatorKI, Constants.timeoutMS);
+        mElevA.config_kD(Constants.lowElev_ID, Constants.elevatorKD, Constants.timeoutMS);
+        mElevA.config_kF(Constants.lowElev_ID, Constants.elevatorKF1, Constants.timeoutMS);
+        mElevA.config_kP(Constants.highElev_ID, Constants.elevatorKP, Constants.timeoutMS);
+        mElevA.config_kI(Constants.highElev_ID, Constants.elevatorKI, Constants.timeoutMS);
+        mElevA.config_kD(Constants.highElev_ID, Constants.elevatorKD, Constants.timeoutMS);
+        mElevA.config_kF(Constants.highElev_ID, Constants.elevatorKF2, Constants.timeoutMS);
         mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeed, Constants.timeoutMS);          
         mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeed, Constants.timeoutMS);      
-        mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.primaryPIDIDX, Constants.timeoutMS);
+        mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.lowElev_ID, Constants.timeoutMS);
         mElevA.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
         mElevA.setSelectedSensorPosition(0);
     }
@@ -30,10 +34,10 @@ public class Elevator extends Subsystem{
 
     }
     public int getPos(){
-        return mElevA.getSelectedSensorPosition(Constants.primaryPIDIDX);
+        return mElevA.getSelectedSensorPosition(Constants.lowElev_ID);
     }
     public int getVelocity(){
-        return mElevA.getSelectedSensorVelocity(Constants.primaryPIDIDX);
+        return mElevA.getSelectedSensorVelocity(Constants.lowElev_ID);
     }
 
     public void setPower(double power){
@@ -46,6 +50,6 @@ public class Elevator extends Subsystem{
         return mElevA.getSensorCollection().isRevLimitSwitchClosed();
     } 
     public void setElevatorEncoder(int pos){
-        mElevA.setSelectedSensorPosition(pos, Constants.primaryPIDIDX, Constants.timeoutMS);
+        mElevA.setSelectedSensorPosition(pos, Constants.lowElev_ID, Constants.timeoutMS);
     }
 }

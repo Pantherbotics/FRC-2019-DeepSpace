@@ -97,16 +97,16 @@ public class Drivetrain extends Subsystem {
     public void initPID(){
         //left
         mLeftA.configAllowableClosedloopError(drive_ID, 0, timeoutMS);
-        mLeftA.config_kP(drive_ID, Constants.DRIVE_P, timeoutMS);
-        mLeftA.config_kI(drive_ID, Constants.DRIVE_I, timeoutMS);
-        mLeftA.config_kD(drive_ID, Constants.DRIVE_D, timeoutMS);
-        mLeftA.config_kF(drive_ID, Constants.DRIVE_F, timeoutMS);
+        mLeftA.config_kP(drive_ID, Constants.driveKP, timeoutMS);
+        mLeftA.config_kI(drive_ID, Constants.driveKI, timeoutMS);
+        mLeftA.config_kD(drive_ID, Constants.driveKD, timeoutMS);
+        mLeftA.config_kF(drive_ID, Constants.driveKF, timeoutMS);
         //right
         mRightA.configAllowableClosedloopError(drive_ID, 0, timeoutMS);
-        mRightA.config_kP(drive_ID, Constants.DRIVE_P, timeoutMS);
-        mRightA.config_kI(drive_ID, Constants.DRIVE_I, timeoutMS);
-        mRightA.config_kD(drive_ID, Constants.DRIVE_D, timeoutMS);
-        mRightA.config_kF(drive_ID, Constants.DRIVE_F, timeoutMS);
+        mRightA.config_kP(drive_ID, Constants.driveKP, timeoutMS);
+        mRightA.config_kI(drive_ID, Constants.driveKI, timeoutMS);
+        mRightA.config_kD(drive_ID, Constants.driveKD, timeoutMS);
+        mRightA.config_kF(drive_ID, Constants.driveKF, timeoutMS);
     }
 
     @Override

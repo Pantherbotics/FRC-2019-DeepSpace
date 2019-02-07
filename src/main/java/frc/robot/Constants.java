@@ -37,31 +37,31 @@ public class Constants{
     public static final int drivePeakCurrentDuration = 10;
     public static final int driveContinuousCurrentLimit = 36;
     //Drivetrain PID
-    public static final double DRIVE_P = 4.5;
-    public static final double DRIVE_I = 0;
-    public static final double DRIVE_D = 0.05;
-    public static final double DRIVE_F = 0.50979366385; //Probably wrong
+    public static final double driveKP = 4.5;
+    public static final double driveKI = 0;
+    public static final double driveKD = 0.05;
+    public static final double driveKF = 0.50979366385; //Probably wrong
     //Robot Elevator
     public static double elevatorKP = 1.75;
     public static double elevatorKI = 0.0;
     public static double elevatorKD = 0.0;
-    public static double elevatorKF = 1023.0/770.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
+    public static double elevatorKF1 = 1023.0/770.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
+    public static double elevatorKF2 = 1023.0/770.0;
     public static int elevatorCruiseSpeed = 800;
     public static int elevatorAccelerationSpeed = 1750;
 
     public static int timeoutMS = 10;
-    public static int primaryPIDIDX = 0;
+    public static final int lowElev_ID = 0;
+    public static final int highElev_ID = 1;
     //Arm
-    public static final double ArmA_P = 0;
-    public static final double ArmA_I = 0;
-    public static final double ArmA_D = 0;
-    public static final double ArmA_F = 0; //Won't be used
-    public static final double ArmB_P = 0;
-    public static final double ArmB_I = 0;
-    public static final double ArmB_D = 0;
-    public static final double ArmB_F = 0;
+    public static final double armAKP = 0;
+    public static final double armAKI = 0;
+    public static final double armAKD = 0;
+    public static final double armAKF = 0; //Won't be used
+    public static final double armBKP = 0;
+    public static final double armBKI = 0;
+    public static final double armBKD = 0;
+    public static final double armBKF = 0;
     public static final int armA_ID = 0;
     public static final int armB_ID = 1;
-
-    public static final int[] ELEVATOR_PRESETS = {5,    /*Bottom*/};//Max Travel
 }

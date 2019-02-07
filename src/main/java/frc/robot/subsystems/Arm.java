@@ -14,24 +14,24 @@ public class Arm extends Subsystem{
 
     public Arm(){
         initPID();
-        zeroArm(true, true);
+        initArmPos();
     }
 
     public void initPID(){
         //Near elevator joint
-        talonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.armA_ID, timeout_ms);
-        talonA.configAllowableClosedloopError(Constants.armA_ID, 1, timeout_ms);
-        talonA.config_kP(Constants.armA_ID, Constants.ArmA_P, timeout_ms);
-        talonA.config_kI(Constants.armA_ID, Constants.ArmA_I, timeout_ms);
-        talonA.config_kD(Constants.armA_ID, Constants.ArmA_D, timeout_ms);
-        talonA.config_kF(Constants.armA_ID, Constants.ArmA_F, timeout_ms);
+        mTalonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.armA_ID, timeout_ms);
+        mTalonA.configAllowableClosedloopError(Constants.armA_ID, 1, timeout_ms);
+        mTalonA.config_kP(Constants.armA_ID, Constants.armAKP, timeout_ms);
+        mTalonA.config_kI(Constants.armA_ID, Constants.armAKI, timeout_ms);
+        mTalonA.config_kD(Constants.armA_ID, Constants.armAKD, timeout_ms);
+        mTalonA.config_kF(Constants.armA_ID, Constants.armAKF, timeout_ms);
         //Far elevator joint
-        talonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.armA_ID, timeout_ms);
-        talonA.configAllowableClosedloopError(Constants.armB_ID, 1, timeout_ms);
-        talonA.config_kP(Constants.armB_ID, Constants.ArmB_P, timeout_ms);
-        talonA.config_kI(Constants.armB_ID, Constants.ArmB_I, timeout_ms);
-        talonA.config_kD(Constants.armB_ID, Constants.ArmB_D, timeout_ms);
-        talonA.config_kF(Constants.armB_ID, Constants.ArmB_F, timeout_ms);
+        mTalonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.armA_ID, timeout_ms);
+        mTalonA.configAllowableClosedloopError(Constants.armB_ID, 1, timeout_ms);
+        mTalonA.config_kP(Constants.armB_ID, Constants.armBKP, timeout_ms);
+        mTalonA.config_kI(Constants.armB_ID, Constants.armBKI, timeout_ms);
+        mTalonA.config_kD(Constants.armB_ID, Constants.armBKD, timeout_ms);
+        mTalonA.config_kF(Constants.armB_ID, Constants.armBKF, timeout_ms);
     }
     
     public void powerArm(double input){
@@ -52,12 +52,8 @@ public class Arm extends Subsystem{
     }
 
     public void initArmPos(){ //Start position is vertical
-        if(armA){
-            setSelectedSensorPosition(0, Constants.armA_ID, timeout_ms);
-        }
-        if(armB){
-            setSelectedSensorPosition(0, Constants.armB_ID, timeout_ms);
-        }
+        mTalonA.setSelectedSensorPosition(0, Constants.armA_ID, timeout_ms);
+        mTalonB.setSelectedSensorPosition(0, Constants.armB_ID, timeout_ms);
     }
 
     public void initDefaultCommand(){
