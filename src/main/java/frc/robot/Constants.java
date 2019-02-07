@@ -45,9 +45,9 @@ public class Constants{
     public static double elevatorKP = 1.75;
     public static double elevatorKI = 0.0;
     public static double elevatorKD = 0.0;
-    public static double elevatorKF = 1023.0/770.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
+    public static double elevatorKF = 770.0/1023.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
     public static int elevatorCruiseSpeed = 800;
-    public static int elevatorAccelerationSpeed = 2000;
+    public static int elevatorAccelerationSpeed = 1000;
 
     public static int timeoutMS = 10;
     public static int primaryPIDIDX = 0;
