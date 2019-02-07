@@ -15,11 +15,10 @@ public class Constants{
     //Other Joystick Stuff
     public static final double deadband = 0.05;
     public static final int[] elevSetpoint = 
-                                       {0, //Lowered
-                                        2500, //Middle
-                                        30, //idk anymore there's going to be like 900 setpoints
-                                        40, 
-                                        50};
+                                       {0, //bottom
+                                        500, //test
+                                        3675 //carrige at top, second level down
+                                    };
     //Robot Talons
     public static final int kLeftA = 13; //Change in phoenix tuner
     public static final int kLeftB = 14;
@@ -42,12 +41,12 @@ public class Constants{
     public static final double DRIVE_D = 0.05;
     public static final double DRIVE_F = 0.50979366385; //Probably wrong
     //Robot Elevator
-    public static double elevatorKP = 4.0;
+    public static double elevatorKP = 0.0;
     public static double elevatorKI = 0.0;
     public static double elevatorKD = 0.0;
-    public static double elevatorKF = (1023.0/273.0); //max talon thing(1023) / max velocity of elevator (273)
-    public static int elevatorCruiseSpeed = 400;
-    public static int elevatorAccelerationSpeed = 300;
+    public static double elevatorKF = 770.0/1023; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
+    public static int elevatorCruiseSpeed = 500;
+    public static int elevatorAccelerationSpeed = 200;
 
     public static int timoutMS = 10;
     public static int primaryPIDIDX = 0;

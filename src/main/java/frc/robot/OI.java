@@ -27,7 +27,7 @@ public class OI{
 
     public OI(){
         //Elevator
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[1], 0)); //work in progress
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], 0)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(0, 0));
         partnerButtonB.whenPressed(new ToSetpoint(0, 0));
         partnerButtonA.whenPressed(new ToSetpoint(0, 0));
@@ -69,9 +69,9 @@ public class OI{
         return partnerStick.getRawAxis(Constants.PartnerJoyLeftXAxis);
     }
     public double getPartnerLeftYAxis(){
-        if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis)) < Constants.deadband){
-            return 0;
-        }
+        //if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis)) < Constants.deadband){
+         //   return 0;
+        //}
         return partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis);
     }
     public double getPartnerRightXAxis(){

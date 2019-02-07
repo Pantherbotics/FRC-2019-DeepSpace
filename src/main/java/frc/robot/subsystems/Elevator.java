@@ -13,8 +13,9 @@ public class Elevator extends Subsystem{
     private TalonSRX mElevB = new TalonSRX(Constants.kElevatorB);
     public Elevator(){
         mElevB.follow(mElevA);
+        mElevB.setInverted(false);
         mElevA.setInverted(false);
-        mElevA.setSensorPhase(false);
+        mElevA.setSensorPhase(true);
         mElevA.config_kP(Constants.primaryPIDIDX, Constants.elevatorKP, Constants.timoutMS);
         mElevA.config_kI(Constants.primaryPIDIDX, Constants.elevatorKI, Constants.timoutMS);
         mElevA.config_kD(Constants.primaryPIDIDX, Constants.elevatorKD, Constants.timoutMS);
@@ -23,6 +24,7 @@ public class Elevator extends Subsystem{
         mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeed, Constants.timoutMS);      
         mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.primaryPIDIDX, Constants.timoutMS);
         mElevA.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+        mElevA.setSelectedSensorPosition(0);
     }
     public void initDefaultCommand(){
 
@@ -35,7 +37,7 @@ public class Elevator extends Subsystem{
     }
 
     public void setPower(double power){
-        mElevA.set(ControlMode.PercentOutput, power);
+        mElevA.set(ControlMode.PercentOutput, -power);
     }
     public void setPos(int pos){
         mElevA.set(ControlMode.MotionMagic, pos);

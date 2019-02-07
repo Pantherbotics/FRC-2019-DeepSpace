@@ -19,7 +19,6 @@ public class ToSetpoint extends Command {
 
     protected void execute() {
         Robot.kElevator.setPos(elevSet);
-        System.out.println("you suck");
     }
 
     protected boolean isFinished() {

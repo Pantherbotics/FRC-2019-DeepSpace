@@ -56,6 +56,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    System.out.println(kElevator.getPos());
   }
 
   /**
@@ -105,7 +106,10 @@ public class Robot extends TimedRobot {
       kAuto.cancel();
     }
     Scheduler.getInstance().run();
-    System.out.println(kElevator.getPos());
+
+    //System.out.println(kElevator.getVelocity());
+    /*kElevator.setPower(oi.getPartnerLeftYAxis()); makeshift open loop, 
+    if used, also disabled soft forward and soft reverse limit for talons*/
   }
 
   /**
