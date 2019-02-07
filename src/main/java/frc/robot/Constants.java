@@ -42,13 +42,14 @@ public class Constants{
     public static final double driveKD = 0.05;
     public static final double driveKF = 0.50979366385; //Probably wrong
     //Robot Elevator
-    public static double elevatorKP = 1.75;
-    public static double elevatorKI = 0.0;
-    public static double elevatorKD = 0.0;
-    public static double elevatorKF1 = 1023.0/770.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
-    public static double elevatorKF2 = 1023.0/770.0;
-    public static int elevatorCruiseSpeed = 800;
-    public static int elevatorAccelerationSpeed = 1750;
+    public static final double elevatorKP = 1.75;
+    public static final double elevatorKI = 0.0;
+    public static final double elevatorKD = 0.0;
+    public static final double elevatorKF1 = 1023.0/770.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
+    public static final double elevatorKF2 = 1023.0/770.0;
+    public static final int elevatorCruiseSpeed = 800;
+    public static final int elevatorAccelerationSpeed = 1750;
+    public static final int elevMidway = 4000; //An elevator that plays a video of Japanese aircraft carriers getting bombed
 
     public static int timeoutMS = 10;
     public static final int lowElev_ID = 0;
