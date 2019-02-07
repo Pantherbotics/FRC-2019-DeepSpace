@@ -15,13 +15,13 @@ public class Elevator extends Subsystem{
         mElevB.follow(mElevA);
         mElevA.setInverted(false);
         mElevA.setSensorPhase(false);
-        mElevA.config_kP(Constants.primaryPIDIDX, Constants.elevatorKP, Constants.timoutMS);
-        mElevA.config_kI(Constants.primaryPIDIDX, Constants.elevatorKI, Constants.timoutMS);
-        mElevA.config_kD(Constants.primaryPIDIDX, Constants.elevatorKD, Constants.timoutMS);
-        mElevA.config_kF(Constants.primaryPIDIDX, Constants.elevatorKF, Constants.timoutMS);           
-        mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeed, Constants.timoutMS);          
-        mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeed, Constants.timoutMS);      
-        mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.primaryPIDIDX, Constants.timoutMS);
+        mElevA.config_kP(Constants.primaryPIDIDX, Constants.elevatorKP, Constants.timeoutMS);
+        mElevA.config_kI(Constants.primaryPIDIDX, Constants.elevatorKI, Constants.timeoutMS);
+        mElevA.config_kD(Constants.primaryPIDIDX, Constants.elevatorKD, Constants.timeoutMS);
+        mElevA.config_kF(Constants.primaryPIDIDX, Constants.elevatorKF, Constants.timeoutMS);           
+        mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeed, Constants.timeoutMS);          
+        mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeed, Constants.timeoutMS);      
+        mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.primaryPIDIDX, Constants.timeoutMS);
         mElevA.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
     }
     public void initDefaultCommand(){
@@ -44,6 +44,6 @@ public class Elevator extends Subsystem{
         return mElevA.getSensorCollection().isRevLimitSwitchClosed();
     } 
     public void setElevatorEncoder(int pos){
-        mElevA.setSelectedSensorPosition(pos, Constants.primaryPIDIDX, Constants.timoutMS);
+        mElevA.setSelectedSensorPosition(pos, Constants.primaryPIDIDX, Constants.timeoutMS);
     }
 }
