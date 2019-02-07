@@ -17,7 +17,8 @@ public class Constants{
     public static final int[] elevSetpoint = 
                                        {0, //bottom
                                         500, //test
-                                        3675 //carrige at top, second level down
+                                        2000, //lel
+                                        8000 //carrige at top, second level down
                                     };
     //Robot Talons
     public static final int kLeftA = 13; //Change in phoenix tuner
@@ -41,12 +42,12 @@ public class Constants{
     public static final double DRIVE_D = 0.05;
     public static final double DRIVE_F = 0.50979366385; //Probably wrong
     //Robot Elevator
-    public static double elevatorKP = 0.0;
+    public static double elevatorKP = 1.75;
     public static double elevatorKI = 0.0;
     public static double elevatorKD = 0.0;
     public static double elevatorKF = 770.0/1023; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
-    public static int elevatorCruiseSpeed = 500;
-    public static int elevatorAccelerationSpeed = 200;
+    public static int elevatorCruiseSpeed = 750;
+    public static int elevatorAccelerationSpeed = 600;
 
     public static int timoutMS = 10;
     public static int primaryPIDIDX = 0;

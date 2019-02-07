@@ -11,7 +11,7 @@ public class ZeroElevator extends Command{
         
     }
     protected void execute(){
-        Robot.kElevator.setPower(-0.1);
+        Robot.kElevator.setPower(0.1);
     }
     protected boolean isFinished(){
         return Robot.kElevator.getLimitSwitch();

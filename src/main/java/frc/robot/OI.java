@@ -27,10 +27,10 @@ public class OI{
 
     public OI(){
         //Elevator
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], 0)); //work in progress
-        partnerButtonX.whenPressed(new ToSetpoint(0, 0));
-        partnerButtonB.whenPressed(new ToSetpoint(0, 0));
-        partnerButtonA.whenPressed(new ToSetpoint(0, 0));
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], 0)); //work in progress
+        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[1], 0));
+        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], 0));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], 0));
         partnerStart.whenPressed(new ZeroElevator());
     }
 
