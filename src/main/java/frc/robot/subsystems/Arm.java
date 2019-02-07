@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
@@ -8,34 +9,55 @@ import frc.robot.Constants;
 public class Arm extends Subsystem{
     double FF = 0;
     int timeout_ms = 0;
-    int jointA_ID = 0;
-    int jointB_ID = 1;
-    TalonSRX talonA = new TalonSRX(Constants.kArmA); //On carriage
-    TalonSRX talonB = new TalonSRX(Constants.kArmB); //On intake
+    TalonSRX mTalonA = new TalonSRX(Constants.kArmA); //On carriage
+    TalonSRX mTalonB = new TalonSRX(Constants.kArmB); //On intake
 
     public Arm(){
-        
+        initPID();
+        zeroArm(true, true);
     }
 
     public void initPID(){
         //Near elevator joint
-        talonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, jointA_ID, timeout_ms);
-        talonA.configAllowableClosedloopError(jointA_ID, 1, timeout_ms);
-        talonA.config_kP(jointA_ID, Constants.kArmA_P, timeout_ms);
-        talonA.config_kI(jointA_ID, Constants.kArmA_I, timeout_ms);
-        talonA.config_kD(jointA_ID, Constants.kArmA_D, timeout_ms);
-        talonA.config_kF(jointA_ID, Constants.kArmA_F, timeout_ms);
+        talonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.armA_ID, timeout_ms);
+        talonA.configAllowableClosedloopError(Constants.armA_ID, 1, timeout_ms);
+        talonA.config_kP(Constants.armA_ID, Constants.ArmA_P, timeout_ms);
+        talonA.config_kI(Constants.armA_ID, Constants.ArmA_I, timeout_ms);
+        talonA.config_kD(Constants.armA_ID, Constants.ArmA_D, timeout_ms);
+        talonA.config_kF(Constants.armA_ID, Constants.ArmA_F, timeout_ms);
         //Far elevator joint
-        talonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, jointA_ID, timeout_ms);
-        talonA.configAllowableClosedloopError(jointB_ID, 1, timeout_ms);
-        talonA.config_kP(jointB_ID, Constants.kArmB_P, timeout_ms);
-        talonA.config_kI(jointB_ID, Constants.kArmB_I, timeout_ms);
-        talonA.config_kD(jointB_ID, Constants.kArmB_D, timeout_ms);
-        talonA.config_kF(jointB_ID, Constants.kArmB_F, timeout_ms);
+        talonA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.armA_ID, timeout_ms);
+        talonA.configAllowableClosedloopError(Constants.armB_ID, 1, timeout_ms);
+        talonA.config_kP(Constants.armB_ID, Constants.ArmB_P, timeout_ms);
+        talonA.config_kI(Constants.armB_ID, Constants.ArmB_I, timeout_ms);
+        talonA.config_kD(Constants.armB_ID, Constants.ArmB_D, timeout_ms);
+        talonA.config_kF(Constants.armB_ID, Constants.ArmB_F, timeout_ms);
     }
     
     public void powerArm(double input){
+        
+    }
 
+    public void setArmA(int position){
+
+    }
+
+    public void setArmB(int position){
+        mTalonB.set(ControlMode.MotionMagic, position);
+    }
+
+    public void levelIntake(){
+        double pos = mTalonA.getSelectedSensorPosition(0);
+        
+    }
+
+    public void initArmPos(){ //Start position is vertical
+        if(armA){
+            setSelectedSensorPosition(0, Constants.armA_ID, timeout_ms);
+        }
+        if(armB){
+            setSelectedSensorPosition(0, Constants.armB_ID, timeout_ms);
+        }
     }
 
     public void initDefaultCommand(){

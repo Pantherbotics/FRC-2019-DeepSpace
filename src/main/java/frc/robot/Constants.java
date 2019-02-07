@@ -49,17 +49,19 @@ public class Constants{
     public static int elevatorCruiseSpeed = 750;
     public static int elevatorAccelerationSpeed = 600;
 
-    public static int timoutMS = 10;
+    public static int timeoutMS = 10;
     public static int primaryPIDIDX = 0;
     //Arm
-    public static final double kArmA_P = 0;
-    public static final double kArmA_I = 0;
-    public static final double kArmA_D = 0;
-    public static final double kArmA_F = 0;
-    public static final double kArmB_P = 0;
-    public static final double kArmB_I = 0;
-    public static final double kArmB_D = 0;
-    public static final double kArmB_F = 0;
+    public static final double ArmA_P = 0;
+    public static final double ArmA_I = 0;
+    public static final double ArmA_D = 0;
+    public static final double ArmA_F = 0; //Won't be used
+    public static final double ArmB_P = 0;
+    public static final double ArmB_I = 0;
+    public static final double ArmB_D = 0;
+    public static final double ArmB_F = 0;
+    public static final int armA_ID = 0;
+    public static final int armB_ID = 1;
 
     public static final int[] ELEVATOR_PRESETS = {5,    /*Bottom*/};//Max Travel
 }
