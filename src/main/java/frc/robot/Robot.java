@@ -111,7 +111,6 @@ public class Robot extends TimedRobot {
     /*kElevator.setPower(oi.getPartnerLeftYAxis()); makeshift open loop, 
     if used, also disabled soft forward and soft reverse limit for talons*/
   }
-
   /**
    * This function is called periodically during test mode.
    */
