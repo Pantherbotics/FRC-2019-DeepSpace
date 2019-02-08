@@ -1,9 +1,10 @@
 //this code was made by team 3863 FIRST Robotics, Newbury Park, CA 91320
 package frc.robot.subsystems;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Notifier;
 import frc.robot.Constants;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.ControlMode;
