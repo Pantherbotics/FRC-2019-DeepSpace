@@ -12,7 +12,7 @@ public class Arm extends Subsystem{
     TalonSRX mTalonA = new TalonSRX(Constants.kArmA); //On carriage
     TalonSRX mTalonB = new TalonSRX(Constants.kArmB); //On intake
 
-    public Arm(){
+    public Arm(){ //Arm is 22in long. Bigboi torque
         initPID();
         initArmPos();
     }
@@ -35,7 +35,7 @@ public class Arm extends Subsystem{
     }
     
     public void powerArm(double input){
-        
+        mTalonA.set(ControlMode.PercentOutput, input);
     }
 
     public void setArmA(int position){
@@ -46,7 +46,7 @@ public class Arm extends Subsystem{
         mTalonB.set(ControlMode.MotionMagic, position);
     }
 
-    public void levelIntake(){
+    public void stableIntake(){
         double pos = mTalonA.getSelectedSensorPosition(0);
         
     }
