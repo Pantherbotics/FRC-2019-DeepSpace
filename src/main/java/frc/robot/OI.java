@@ -24,14 +24,33 @@ public class OI{
     public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 8); //Right Trigger
     public JoystickButton partnerBack = new JoystickButton(partnerStick, 9);
     public JoystickButton partnerStart = new JoystickButton(partnerStick, 10);
+    public int partnerPOV;
 
-    public OI(){
-        //Elevator
+
+    public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
+        //Elevator + Arm
         partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], 0)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], 0));
         partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], 0));
         partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], 0));
+        //Arm only
+
         partnerStart.whenPressed(new ZeroElevator());
+    }
+
+    //POV
+    public void checkPartnerPOV(){ //wtf is this
+        partnerPOV = partnerStick.getPOV();
+        switch(partnerPOV){
+            case 0:
+                new ToSetpoint(Constants.elevSetpoint[2], 0).start(); //Elev down,  
+            case 90:
+                new ToSetpoint(Constants.elevSetpoint[4], 0).start();
+            case 180:
+                new ToSetpoint(Constants.elevSetpoint[3], 0).start();
+            case 270:
+                new ToSetpoint(Constants.elevSetpoint[0], 0).start();
+        }
     }
 
     //Joystick

@@ -38,11 +38,11 @@ public class Arm extends Subsystem{
         
     }
 
-    public void setArmA(int position){
-
+    public void setPos(int position){
+        mTalonA.set(ControlMode.MotionMagic, position);
     }
 
-    public void setArmB(int position){
+    public void setIntake(int position){
         mTalonB.set(ControlMode.MotionMagic, position);
     }
 
@@ -52,8 +52,8 @@ public class Arm extends Subsystem{
     }
 
     public void initArmPos(){ //Start position is vertical
-        mTalonA.setSelectedSensorPosition(0, Constants.armA_ID, timeout_ms);
-        mTalonB.setSelectedSensorPosition(0, Constants.armB_ID, timeout_ms);
+        mTalonA.setSelectedSensorPosition(0, Constants.armA_ID, timeout_ms); //Have it start at whatever 90 degrees is
+        mTalonB.setSelectedSensorPosition(0, Constants.armB_ID, timeout_ms); //start at -90
     }
 
     public void initDefaultCommand(){

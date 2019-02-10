@@ -22,7 +22,7 @@ public class Constants{
                                         8000  //top of level 2
                                     };
     //Robot Talons
-    public static final int kLeftA = 13; //Change in phoenix tuner
+    public static final int kLeftA = 13;
     public static final int kLeftB = 14;
     public static final int kLeftC = 15;
     public static final int kRightA = 2;
@@ -30,8 +30,8 @@ public class Constants{
     public static final int kRightC = 0;
     public static final int kElevatorA = 12;
     public static final int kElevatorB = 3;
-    public static final int kArmA = 7;
-    public static final int kArmB = 8;
+    public static final int kArmA = 5; //Change in Phoenix tuner
+    public static final int kArmB = 4;
     //Drivetrain
     public static final double driveRamp = 0.25;
     public static final int drivePeakCurrentLimit = 80;
@@ -66,4 +66,9 @@ public class Constants{
     public static final double armBKF = 0;
     public static final int armA_ID = 0;
     public static final int armB_ID = 1;
+
+    public static final double encoder2Rad = 0.00614192112;
+    public static final double sin2Encoder = 2736.97905189;
+    public static final int intakeDeathZone = 1680; //13.5 inches
+    public static final double elev2Edge = 18.5;
 }
