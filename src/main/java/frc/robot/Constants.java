@@ -2,7 +2,7 @@ package frc.robot;
 
 public class Constants{
     //Robot Joystick
-    public static final int JoystickPort = 0; //PS4
+    public static final int JoystickPort = 0; //PS4 Why do they cost $50 dollars ree
     public static final int JoystickLeftXAxis = 0;
     public static final int JoystickLeftYAxis = 1; 
     public static final int JoystickRightXAxis = 2; 
@@ -20,7 +20,13 @@ public class Constants{
                                         3700, //carrage at top of level 1
                                         6000, //idk
                                         8000  //top of level 2
-                                    };
+                                       };
+    public static final int[] armSetpoint = //These probably shouldn't be in numerical order
+                                       {0, //Angled so the intake is on the ground
+                                        1, //Design god Aaron Fang has forsaken me
+                                        2, //And I want to kashoot myself
+                                        3 //yeet
+                                       };
     //Robot Talons
     public static final int kLeftA = 13;
     public static final int kLeftB = 14;
@@ -32,6 +38,8 @@ public class Constants{
     public static final int kElevatorB = 3;
     public static final int kArmA = 5; //Change in Phoenix tuner
     public static final int kArmB = 4;
+    public static final int kBallFondler = 11; //Inter-
+    public static final int kDiskSuccer = 10;  //changeable
     //Drivetrain
     public static final double driveRamp = 0.25;
     public static final int drivePeakCurrentLimit = 80;
@@ -71,4 +79,5 @@ public class Constants{
     public static final double sin2Encoder = 2736.97905189;
     public static final int intakeDeathZone = 1680; //13.5 inches
     public static final double elev2Edge = 18.5;
+    public static final int armStartPos = 255;
 }

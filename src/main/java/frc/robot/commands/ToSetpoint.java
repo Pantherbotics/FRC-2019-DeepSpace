@@ -19,17 +19,16 @@ public class ToSetpoint extends Command {
     protected void initialize() {
     }
 
-    protected void execute() {
+    protected void execute() { //Code the prevents the arm from slamming the intake into the electronics board
         Robot.kArm.setPos(armSet);
         borkDistance = elevSet + (int)(Constants.sin2Encoder * Math.sin(armSet * Constants.encoder2Rad)) + Constants.intakeDeathZone;
         toEdge = 22 * Math.cos(armSet * Constants.encoder2Rad);
         if((borkDistance <= 0) && (toEdge <= 18.5)){
             Robot.kElevator.setPos(-(borkDistance - elevSet));
-        } /*else if((borkDistance <= -) && (toEdge > 18.5)){
-            Robot.kElevator.setPos(pos);
-        }*/
-        else{
-        Robot.kElevator.setPos(elevSet);
+        } else if((borkDistance <= -1617) && (toEdge > 18.5)){
+            Robot.kElevator.setPos(-1617 -(borkDistance - elevSet));
+        } else{
+        Robot.kElevator.setPos(elevSet); //Life is suffering
         }
     }
 
