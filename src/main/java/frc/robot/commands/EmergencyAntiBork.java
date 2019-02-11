@@ -10,8 +10,10 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LevelIntake extends Command {
-  public LevelIntake() {
+public class EmergencyAntiBork extends Command { //Won't implement for now, might need later as an anti-bork
+  public EmergencyAntiBork() {
+    requires(Robot.kElevator);
+    requires(Robot.kArm);
   }
 
   // Called just before this Command runs the first time
@@ -22,13 +24,12 @@ public class LevelIntake extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -40,5 +41,6 @@ public class LevelIntake extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    isFinished();
   }
 }

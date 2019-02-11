@@ -111,7 +111,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveOpenLoop()); //It worked but only partially
+        setDefaultCommand(new DriveClosedLoop()); //It worked but only partially
     }
 
     public void setMotorPower(double left, double right){
@@ -121,9 +121,9 @@ public class Drivetrain extends Subsystem {
     }
 
     public void setFPS(double left, double right){
-        mLeftA.set(ControlMode.Velocity, left);
-        mRightA.set(ControlMode.Velocity, right);
-        //System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
+        mLeftA.set(ControlMode.Velocity, Units.FPSToTalonNative(left));
+        mRightA.set(ControlMode.Velocity, Units.FPSToTalonNative(right));
+        System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
     }
 
     public double[] getEncoderVelocity(){ //0 for left, 1 for right

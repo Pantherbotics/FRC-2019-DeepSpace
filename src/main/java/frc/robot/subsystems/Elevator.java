@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import edu.wpi.first.wpilibj.Notifier;
 
 public class Elevator extends Subsystem{
     private TalonSRX mElevA = new TalonSRX(Constants.kElevatorA);
@@ -31,7 +32,7 @@ public class Elevator extends Subsystem{
         mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.lowElev_ID, Constants.timeoutMS);
         mElevA.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
         mElevA.setSelectedSensorPosition(0);
-
+        
         Notifier elevThread = new Notifier(() ->{
             if(getPos() > Constants.elevMidway){
                 mElevA.selectProfileSlot(Constants.highElev_ID, 0);
