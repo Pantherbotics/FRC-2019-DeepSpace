@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
@@ -23,7 +24,7 @@ public class Arm extends Subsystem{
         mTalonA.config_kP(Constants.armA_ID, Constants.armAKP, timeout_ms);
         mTalonA.config_kI(Constants.armA_ID, Constants.armAKI, timeout_ms);
         mTalonA.config_kD(Constants.armA_ID, Constants.armAKD, timeout_ms);
-        mTalonA.config_kF(Constants.armA_ID, Constants.armAKF, timeout_ms);
+        //No kF allowed
         //Far elevator joint
         mTalonB.configSelectedFeedbackSensor(FeedbackDevice.Analog, Constants.armB_ID, timeout_ms);
         mTalonB.configAllowableClosedloopError(Constants.armB_ID, 1, timeout_ms);
@@ -38,7 +39,8 @@ public class Arm extends Subsystem{
     }
 
     public void setPos(int position){
-        mTalonA.set(ControlMode.MotionMagic, position);
+        FF = Math.cos(Constants.armAKF);
+        mTalonA.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, FF);
     }
 
     public void setIntake(int position){

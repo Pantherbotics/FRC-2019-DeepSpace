@@ -67,7 +67,7 @@ public class Constants{
     public static final double armAKP = 0;
     public static final double armAKI = 0;
     public static final double armAKD = 0;
-    public static final double armAKF = 0; //Won't be used
+    public static final double armAKF = 0; //Not used in config
     public static final double armBKP = 0;
     public static final double armBKI = 0;
     public static final double armBKD = 0;
