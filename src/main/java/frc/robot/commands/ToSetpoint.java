@@ -5,25 +5,27 @@ import frc.robot.Constants;
 
 public class ToSetpoint extends Command {
     int elevSet;
-    int armSet;
+    int shoulderSet;
+    int wristSet;
     int borkDistance;
     double toEdge;
 
-    public ToSetpoint(int elevPreset, int armPreset) {
+    public ToSetpoint(int elevPreset, int shoulderPreset, int wristPreset) {
         requires(Robot.kElevator);
         requires(Robot.kArm);
         elevSet = elevPreset;
-        armSet = armPreset;
+        shoulderSet = shoulderPreset;
+        wristSet = wristPreset;
     }
 
     protected void initialize() {
     }
 
     protected void execute() { //Code the prevents the arm from slamming the intake into the electronics board
-        Robot.kArm.setPosA(armSet);
-        Robot.kArm.setPosB(-armSet);
-        borkDistance = elevSet + (int)(Constants.sin2Encoder * Math.sin(armSet * Constants.encoder2Rad)) + Constants.intakeDeathZone;
-        toEdge = 22 * Math.cos(armSet * Constants.encoder2Rad);
+        Robot.kArm.setPosA(shoulderSet);
+        Robot.kArm.setPosB(wristSet);
+        borkDistance = elevSet + (int)(Constants.sin2Encoder * Math.sin(shoulderSet * Constants.encoder2Rad)) + Constants.intakeDeathZone;
+        toEdge = 22 * Math.cos(shoulderSet * Constants.encoder2Rad);
 
         if((borkDistance <= 0) && (toEdge <= 18.5)){
             Robot.kElevator.setPos(-(borkDistance - elevSet));

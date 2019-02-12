@@ -21,11 +21,16 @@ public class Constants{
                                         6000, //idk
                                         8000  //top of level 2
                                        };
-    public static final int[] armSetpoint = //These probably shouldn't be in numerical order
+    public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
                                        {0, //Angled so the intake is on the ground
                                         1, //Design god Aaron Fang has forsaken me
                                         2, //And I want to kashoot myself
                                         3 //yeet
+                                       };
+    public static final int[] wristSetpoint = //why
+                                       {-1,
+                                        0, 
+                                        1, 
                                        };
     //Robot Talons
     public static final int kLeftA = 13;

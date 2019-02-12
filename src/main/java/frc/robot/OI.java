@@ -24,15 +24,16 @@ public class OI{
     public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 8); //Right Trigger
     public JoystickButton partnerBack = new JoystickButton(partnerStick, 9);
     public JoystickButton partnerStart = new JoystickButton(partnerStick, 10);
-    public int partnerPOV;
+    int partnerPOV;
+    int currentElev, currentShoulder, currentWrist;
 
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
         //Elevator + Arm
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], 0)); //work in progress
-        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], 0));
-        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], 0));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], 0));
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], 0, 0)); //work in progress
+        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], 0, 0));
+        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], 0, 0));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], 0, 0));
         //Arm only
 
         partnerStart.whenPressed(new ZeroElevator());
@@ -43,13 +44,17 @@ public class OI{
         partnerPOV = partnerStick.getPOV();
         switch(partnerPOV){
             case 0:
-                new ToSetpoint(Constants.elevSetpoint[2], 0).start(); //Elev down,  
+                new ToSetpoint(Constants.elevSetpoint[2], 0, 0).start(); //Elev down, Cargo (Sicko) Mode
+                currentShoulder = 0;
+                currentWrist = 0;
             case 90:
-                new ToSetpoint(Constants.elevSetpoint[4], 0).start();
+                new ToSetpoint(Constants.elevSetpoint[4], currentShoulder, currentWrist).start();
             case 180:
-                new ToSetpoint(Constants.elevSetpoint[3], 0).start();
+                new ToSetpoint(Constants.elevSetpoint[3], 0, 0).start();
+                currentShoulder = 0;
+                currentWrist = 0;
             case 270:
-                new ToSetpoint(Constants.elevSetpoint[0], 0).start();
+                new ToSetpoint(Constants.elevSetpoint[0], currentShoulder, currentWrist).start();
         }
     }
 

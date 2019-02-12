@@ -16,6 +16,7 @@ public class DriveClosedLoop extends Command {
   }
 
   protected void execute() { //generally choose this one
+    Robot.oi.checkPartnerPOV(); //does this work
     double zoom = Robot.oi.getLeftYAxis(); //zoom = forward backwards
     double nyoom = Robot.oi.getRightXAxis(); //nyoom = side to side... twist I guess
     DriveSignal drive = cheese.cheesyDrive(-zoom, nyoom, true);

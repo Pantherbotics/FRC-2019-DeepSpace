@@ -43,7 +43,7 @@ public class Arm extends Subsystem{
     }
 
     public int getPosB(){
-        return (mWrist.getSelectedSensorPosition(0) + Constants.offsetB);
+        return (mWrist.getSelectedSensorPosition(0) + (Constants.offsetB - getPosA()));
     }
 
     public void setPosA(int position){
@@ -52,7 +52,7 @@ public class Arm extends Subsystem{
     }
 
     public void setPosB(int position){
-        mWrist.set(ControlMode.MotionMagic, position + Constants.offsetB);
+        mWrist.set(ControlMode.MotionMagic, position + Constants.offsetB - getPosA());
     }
 
     public void initDefaultCommand(){
