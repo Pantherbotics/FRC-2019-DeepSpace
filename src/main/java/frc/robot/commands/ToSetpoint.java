@@ -20,9 +20,11 @@ public class ToSetpoint extends Command {
     }
 
     protected void execute() { //Code the prevents the arm from slamming the intake into the electronics board
-        Robot.kArm.setPos(armSet);
+        Robot.kArm.setPosA(armSet);
+        Robot.kArm.setPosB(-armSet);
         borkDistance = elevSet + (int)(Constants.sin2Encoder * Math.sin(armSet * Constants.encoder2Rad)) + Constants.intakeDeathZone;
         toEdge = 22 * Math.cos(armSet * Constants.encoder2Rad);
+
         if((borkDistance <= 0) && (toEdge <= 18.5)){
             Robot.kElevator.setPos(-(borkDistance - elevSet));
         } else if((borkDistance <= -1617) && (toEdge > 18.5)){

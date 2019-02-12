@@ -38,13 +38,21 @@ public class Arm extends Subsystem{
         
     }
 
-    public void setPos(int position){
-        FF = Math.cos(Constants.armAKF);
-        mTalonA.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, FF);
+    public int getPosA(){
+        return (mTalonA.getSelectedSensorPosition(0) + Constants.offsetA); //Flat should be 0
     }
 
-    public void setIntake(int position){
-        mTalonB.set(ControlMode.MotionMagic, position);
+    public int getPosB(){
+        return (mTalonB.getSelectedSensorPosition(0) + Constants.offsetB);
+    }
+
+    public void setPosA(int position){
+        FF = Math.cos(Constants.armAKF);
+        mTalonA.set(ControlMode.MotionMagic, position + Constants.offsetA, DemandType.ArbitraryFeedForward, FF);
+    }
+
+    public void setPosB(int position){
+        mTalonB.set(ControlMode.MotionMagic, position + Constants.offsetB);
     }
 
     public void initDefaultCommand(){

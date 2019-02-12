@@ -80,4 +80,6 @@ public class Constants{
     public static final int intakeDeathZone = 1680; //13.5 inches
     public static final double elev2Edge = 18.5;
     public static final int armStartPos = 255;
+    public static final int offsetA = 0;
+    public static final int offsetB = 0;
 }
