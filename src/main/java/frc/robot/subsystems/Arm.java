@@ -19,14 +19,17 @@ public class Arm extends Subsystem{
 
     public void initPID(){
         //Near elevator joint
-        mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, Constants.armA_ID, timeout_ms);
+        mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, timeout_ms);
+        mShoulder.setSensorPhase(true);
         mShoulder.configAllowableClosedloopError(Constants.armA_ID, 1, timeout_ms);
         mShoulder.config_kP(Constants.armA_ID, Constants.armAKP, timeout_ms);
         mShoulder.config_kI(Constants.armA_ID, Constants.armAKI, timeout_ms);
         mShoulder.config_kD(Constants.armA_ID, Constants.armAKD, timeout_ms);
+        mShoulder.configMotionCruiseVelocity(Constants.shoulderCruiseSpeed, timeout_ms);
+        mShoulder.configMotionAcceleration(Constants.shoulderAccelerationSpeed, timeout_ms);
         //No kF allowed
         //Far elevator joint
-        mWrist.configSelectedFeedbackSensor(FeedbackDevice.Analog, Constants.armB_ID, timeout_ms);
+        mWrist.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, timeout_ms);
         mWrist.configAllowableClosedloopError(Constants.armB_ID, 1, timeout_ms);
         mWrist.config_kP(Constants.armB_ID, Constants.armBKP, timeout_ms);
         mWrist.config_kI(Constants.armB_ID, Constants.armBKI, timeout_ms);
@@ -37,18 +40,17 @@ public class Arm extends Subsystem{
     public void powerArm(double input){
         
     }
-
     public int getPosA(){
         return (mShoulder.getSelectedSensorPosition(0) + Constants.offsetA); //Flat should be 0
     }
 
     public int getPosB(){
-        return (mWrist.getSelectedSensorPosition(0) + (Constants.offsetB - getPosA()));
+        return (mWrist.getSelectedSensorPosition(0) + (Constants.offsetB));
     }
 
     public void setPosA(int position){
         FF = Constants.armAKF * Math.cos(Constants.encoder2Rad * (position + Constants.offsetA));
-        mShoulder.set(ControlMode.MotionMagic, position + Constants.offsetA, DemandType.ArbitraryFeedForward, FF);
+        mShoulder.set(ControlMode.MotionMagic, position - Constants.offsetA, DemandType.ArbitraryFeedForward, FF);
     }
 
     public void setPosB(int position){

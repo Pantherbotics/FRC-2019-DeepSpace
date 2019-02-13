@@ -23,7 +23,7 @@ public class Constants{
                                        };
     public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
                                        {0, //Angled so the intake is on the ground
-                                        1, //Design god Aaron Fang has forsaken me
+                                        50, //Design god Aaron Fang has forsaken me
                                         2, //And I want to kashoot myself
                                         3 //yeet
                                        };
@@ -41,8 +41,8 @@ public class Constants{
     public static final int kRightC = 0;
     public static final int kElevatorA = 12;
     public static final int kElevatorB = 3;
-    public static final int kArmA = 5; //Change in Phoenix tuner
-    public static final int kArmB = 4;
+    public static final int kArmA = 4; //Change in Phoenix tuner
+    public static final int kArmB = 5;
     public static final int kBallFondler = 11; //Inter-
     public static final int kDiskSuccer = 10;  //changeable
     //Drivetrain
@@ -62,17 +62,19 @@ public class Constants{
     public static final double elevatorKF1 = 1023.0/770.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
     public static final double elevatorKF2 = 1023.0/770.0;
     public static final int elevatorCruiseSpeed = 800;
-    public static final int elevatorAccelerationSpeed = 1750;
+    public static final int elevatorAccelerationSpeed = 2100;
     public static final int elevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
 
     public static int timeoutMS = 10;
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
     //Arm
-    public static final double armAKP = 0;
+    public static final double armAKP = 0.01;
     public static final double armAKI = 0;
     public static final double armAKD = 0;
     public static final double armAKF = 0; //Not used in config
+    public static final int shoulderCruiseSpeed = 500;
+    public static final int shoulderAccelerationSpeed = 1090;
     public static final double armBKP = 0;
     public static final double armBKI = 0;
     public static final double armBKD = 0;
@@ -85,6 +87,6 @@ public class Constants{
     public static final int intakeDeathZone = 1680; //13.5 inches
     public static final double elev2Edge = 18.5;
     public static final int armStartPos = 255;
-    public static final int offsetA = 0;
+    public static final int offsetA = 1323;
     public static final int offsetB = 0;
 }

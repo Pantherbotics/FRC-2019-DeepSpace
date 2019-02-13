@@ -45,10 +45,10 @@ public class Elevator extends Subsystem{
 
     }
     public int getPos(){
-        return mElevA.getSelectedSensorPosition(Constants.lowElev_ID);
+        return mElevA.getSelectedSensorPosition(0);
     }
     public int getVelocity(){
-        return mElevA.getSelectedSensorVelocity(Constants.lowElev_ID);
+        return mElevA.getSelectedSensorVelocity(0);
     }
 
     public void setPower(double power){

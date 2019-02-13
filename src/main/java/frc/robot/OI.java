@@ -33,7 +33,7 @@ public class OI{
         partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], 0, 0)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], 0, 0));
         partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], 0, 0));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], 0, 0));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[1], 0));
         //Arm only
 
         partnerStart.whenPressed(new ZeroElevator());
@@ -52,7 +52,7 @@ public class OI{
             case 180:
                 new ToSetpoint(Constants.elevSetpoint[3], 0, 0).start();
                 currentShoulder = 0;
-                currentWrist = 0;
+                currentWrist = 0;   
             case 270:
                 new ToSetpoint(Constants.elevSetpoint[0], currentShoulder, currentWrist).start();
         }

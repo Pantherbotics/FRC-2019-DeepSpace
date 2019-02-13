@@ -10,6 +10,7 @@ public class DriveClosedLoop extends Command {
 
   public DriveClosedLoop() {
     requires(Robot.kDrivetrain);
+    cheese = new CheesyDriveHelper();
   }
 
   protected void initialize() {

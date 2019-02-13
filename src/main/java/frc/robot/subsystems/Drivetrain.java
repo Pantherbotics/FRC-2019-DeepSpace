@@ -130,7 +130,7 @@ public class Drivetrain extends Subsystem {
         return new double[]{mLeftA.getSelectedSensorVelocity(0), mRightA.getSelectedSensorVelocity(0)};
     }
 
-    public void zeroGyro(){ //Rella Rella Pizza Mozzerella
+    public void zeroGyro(){ //Pizza Mozzerella Pizza Mozzerella Rella Rella Rella Rella
         gyro.reset();
         System.out.println("Gyro Reset");
     }
