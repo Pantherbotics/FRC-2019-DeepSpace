@@ -38,7 +38,7 @@ public class Arm extends Subsystem{
     }
     
     public void powerArm(double input){
-        
+        mShoulder.set(ControlMode.PercentOutput, 0.25);
     }
     public int getPosA(){
         return (mShoulder.getSelectedSensorPosition(0) + Constants.offsetA); //Flat should be 0
