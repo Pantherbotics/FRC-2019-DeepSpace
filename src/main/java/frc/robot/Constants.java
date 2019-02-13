@@ -4,8 +4,8 @@ public class Constants{
     //Robot Joystick
     public static final int JoystickPort = 0; //PS4 Why do they cost $50 dollars ree
     public static final int JoystickLeftXAxis = 0;
-    public static final int JoystickLeftYAxis = 1; 
-    public static final int JoystickRightXAxis = 2; 
+    public static final int JoystickLeftYAxis = 1;
+    public static final int JoystickRightXAxis = 2;
     public static final int JoystickRightYAxis = 5;
     public static final int PartnerJoyPort = 1; //X-Box
     public static final int PartnerJoyLeftXAxis = 0;
@@ -14,9 +14,9 @@ public class Constants{
     public static final int PartnerJoyRightYAxis = 3;
     //Other Joystick Stuff
     public static final double deadband = 0.05;
-    public static final int[] elevSetpoint = 
+    public static final int[] elevSetpoint =
                                        {0, //bottom
-                                        2000, 
+                                        2000,
                                         3700, //carrage at top of level 1
                                         6000, //idk
                                         8000  //top of level 2
@@ -29,8 +29,8 @@ public class Constants{
                                        };
     public static final int[] wristSetpoint = //why
                                        {-1,
-                                        0, 
-                                        1, 
+                                        0,
+                                        1,
                                        };
     //Robot Talons
     public static final int kLeftA = 13;
@@ -61,8 +61,8 @@ public class Constants{
     public static final double elevatorKD = 0.05;
     public static final double elevatorKF1 = 1023.0/770.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
     public static final double elevatorKF2 = 1023.0/770.0;
-    public static final int elevatorCruiseSpeed = 800;
-    public static final int elevatorAccelerationSpeed = 2100;
+    public static final int elevatorCruiseSpeed = 1198;
+    public static final int elevatorAccelerationSpeed = 4792;
     public static final int elevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
 
     public static int timeoutMS = 10;
