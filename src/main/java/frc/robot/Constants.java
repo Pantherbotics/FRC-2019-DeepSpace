@@ -72,9 +72,9 @@ public class Constants{
     public static final double armAKP = 0;
     public static final double armAKI = 0;
     public static final double armAKD = 0;
-    public static final double armAKF = 0; //Not used in config
-    public static final int shoulderCruiseSpeed = 500;
-    public static final int shoulderAccelerationSpeed = 1090;
+    public static final double armAKF = 1023.0/37.51; //Not used in config
+    public static final int shoulderCruiseSpeed = 37.51;
+    public static final int shoulderAccelerationSpeed = 100;
     public static final double armBKP = 0;
     public static final double armBKI = 0;
     public static final double armBKD = 0;
