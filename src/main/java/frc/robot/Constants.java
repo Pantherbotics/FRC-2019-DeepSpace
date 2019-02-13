@@ -69,7 +69,7 @@ public class Constants{
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
     //Arm
-    public static final double armAKP = 0.01;
+    public static final double armAKP = 0;
     public static final double armAKI = 0;
     public static final double armAKD = 0;
     public static final double armAKF = 0; //Not used in config
