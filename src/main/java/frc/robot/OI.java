@@ -30,10 +30,10 @@ public class OI{
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
         //Elevator + Arm
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], 0, 0)); //work in progress
-        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], 0, 0));
-        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], 0, 0));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[1], 0));
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], Constants.shoulderSetpoint[3], 0)); //work in progress
+        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], Constants.shoulderSetpoint[2], 0));
+        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], Constants.shoulderSetpoint[1], 0));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[0], 0));
         //Arm only
 
         partnerStart.whenPressed(new ZeroElevator());
@@ -69,13 +69,13 @@ public class OI{
         if(Math.abs(stick.getRawAxis(Constants.JoystickLeftYAxis)) < Constants.deadband){
             return 0;
         }
-        return stick.getRawAxis(Constants.JoystickLeftYAxis);
+        return -stick.getRawAxis(Constants.JoystickLeftYAxis);
     }
     public double getRightYAxis(){
         if(Math.abs(stick.getRawAxis(Constants.JoystickRightYAxis)) < Constants.deadband){
             return 0;
         }
-        return stick.getRawAxis(Constants.JoystickRightYAxis);
+        return -stick.getRawAxis(Constants.JoystickRightYAxis);
     }
     public double getRightXAxis(){
         if(Math.abs(stick.getRawAxis(Constants.JoystickRightXAxis)) < Constants.deadband){
@@ -96,7 +96,7 @@ public class OI{
         //if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis)) < Constants.deadband){
          //   return 0;
         //}
-        return partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis);
+        return -partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis);
     }
     public double getPartnerRightXAxis(){
         if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyRightXAxis)) < Constants.deadband){
@@ -108,6 +108,6 @@ public class OI{
         if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis)) < Constants.deadband){
             return 0;
         }
-        return partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis);
+        return -partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis);
     }
 }

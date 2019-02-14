@@ -7,6 +7,7 @@ import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import edu.wpi.first.wpilibj.Notifier;
 
@@ -50,11 +51,19 @@ public class Elevator extends Subsystem{
     public int getVelocity(){
         return mElevA.getSelectedSensorVelocity(0);
     }
+    public double getVoltage(){
+        return mElevA.getMotorOutputVoltage();
+    }
 
     public void setPower(double power){
         mElevA.set(ControlMode.PercentOutput, -power);
     }
     public void setPos(int pos){
+        /*if(getPos() > Constants.elevMidway){
+            mElevA.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, Constants.elevatorAFF1);
+        } else{
+            mElevA.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, Constants.elevatorAFF2);
+        }*/
         mElevA.set(ControlMode.MotionMagic, pos);
     }
     public boolean getLimitSwitch(){

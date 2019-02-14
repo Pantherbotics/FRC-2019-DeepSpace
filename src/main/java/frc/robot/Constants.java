@@ -24,8 +24,8 @@ public class Constants{
     public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
                                        {0, //Angled so the intake is on the ground
                                         50, //Design god Aaron Fang has forsaken me
-                                        2, //And I want to kashoot myself
-                                        3 //yeet
+                                        100, //And I want to kashoot myself
+                                        162 //yeet
                                        };
     public static final int[] wristSetpoint = //why
                                        {-1,
@@ -56,11 +56,13 @@ public class Constants{
     public static final double driveKD = 0.05;
     public static final double driveKF = 0.50979366385; //Probably wrong
     //Robot Elevator
-    public static final double elevatorKP = 0.6;
+    public static final double elevatorKP = 0.5;
     public static final double elevatorKI = 0.0;
     public static final double elevatorKD = 0.05;
-    public static final double elevatorKF1 = 1023.0/770.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
-    public static final double elevatorKF2 = 1023.0/770.0;
+    public static final double elevatorKF1 = 1023.0/1198.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
+    public static final double elevatorKF2 = 1023.0/1198.0;
+    public static final double elevatorAFF1 = 60;
+    public static final double elevatorAFF2 = 80;
     public static final int elevatorCruiseSpeed = 1198;
     public static final int elevatorAccelerationSpeed = 4792;
     public static final int elevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
@@ -74,7 +76,7 @@ public class Constants{
     public static final double armAKD = 0;
 
     public static final double armAKF = 1023.0/37.51; //Not used in config
-    public static final int shoulderCruiseSpeed = 37.51;
+    public static final int shoulderCruiseSpeed = 37;
     public static final int shoulderAccelerationSpeed = 100;
 
     public static final double armBKP = 0;
@@ -89,6 +91,4 @@ public class Constants{
     public static final int intakeDeathZone = 1680; //13.5 inches
     public static final double elev2Edge = 18.5;
     public static final int armStartPos = 255;
-    public static final int offsetA = 1323;
-    public static final int offsetB = 0;
 }

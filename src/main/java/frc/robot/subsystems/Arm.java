@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.commands.*;
 
 public class Arm extends Subsystem{
     double FF = 0;
@@ -15,11 +16,13 @@ public class Arm extends Subsystem{
     private final int kPIDIdx = 0;
     public Arm(){
         initPID();
+        initPos();
     }
 
     public void initPID(){
         //Near elevator joint
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
+        mShoulder.setInverted(true);
         mShoulder.setSensorPhase(true);
         mShoulder.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
         mShoulder.config_kP(kPIDIdx, Constants.armAKP, timeout_ms);
@@ -36,28 +39,34 @@ public class Arm extends Subsystem{
         mWrist.config_kD(kPIDIdx, Constants.armBKD, timeout_ms);
         mWrist.config_kF(kPIDIdx, Constants.armBKF, timeout_ms);
     }
+
+    public void initPos(){
+        mShoulder.setSelectedSensorPosition(0, 0, timeout_ms);
+        mWrist.setSelectedSensorPosition(0, 0, timeout_ms);
+    }
     
     public void powerArm(double input){
-        mShoulder.set(ControlMode.PercentOutput, 0.25);
+        mShoulder.set(ControlMode.PercentOutput, 0.25 * input);
     }
     public int getPosA(){
-        return (mShoulder.getSelectedSensorPosition(0) + Constants.offsetA); //Flat should be 0
+        return (mShoulder.getSelectedSensorPosition(0)); //Flat should be 0
     }
 
     public int getPosB(){
-        return (mWrist.getSelectedSensorPosition(0) + (Constants.offsetB));
+        return (mWrist.getSelectedSensorPosition(0));
     }
 
     public void setPosA(int position){
-        FF = Constants.armAKF * Math.cos(Constants.encoder2Rad * (position + Constants.offsetA));
-        mShoulder.set(ControlMode.MotionMagic, position - Constants.offsetA, DemandType.ArbitraryFeedForward, FF);
+        FF = Constants.armAKF * Math.cos(Constants.encoder2Rad * (position));
+        //mShoulder.set(ControlMode.MotionMagic, -position, DemandType.ArbitraryFeedForward, 0);
+        mShoulder.set(ControlMode.MotionMagic, position);
     }
 
     public void setPosB(int position){
-        mWrist.set(ControlMode.MotionMagic, position + Constants.offsetB - getPosA());
+        mWrist.set(ControlMode.MotionMagic, position - getPosA());
     }
 
     public void initDefaultCommand(){
-        //xd
+        //setDefaultCommand(new ShoulderPower());
     }
 }

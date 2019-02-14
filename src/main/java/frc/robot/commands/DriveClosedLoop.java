@@ -20,7 +20,7 @@ public class DriveClosedLoop extends Command {
     Robot.oi.checkPartnerPOV(); //does this work
     double zoom = Robot.oi.getLeftYAxis(); //zoom = forward backwards
     double nyoom = Robot.oi.getRightXAxis(); //nyoom = side to side... twist I guess
-    DriveSignal drive = cheese.cheesyDrive(-zoom, nyoom, true);
+    DriveSignal drive = cheese.cheesyDrive(zoom, nyoom, true);
     //Robot.kDrivetrain.setFPS(16*(nyoom - zoom), 16*(-nyoom - zoom));
     Robot.kDrivetrain.setFPS(16*drive.getLeft(), 16*drive.getRight());
     //System.out.println("Left: " + 500*(nyoom - zoom) + "    Right: " + 500*(-nyoom - zoom));

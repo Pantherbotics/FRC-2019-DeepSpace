@@ -123,7 +123,7 @@ public class Drivetrain extends Subsystem {
     public void setFPS(double left, double right){
         mLeftA.set(ControlMode.Velocity, Units.FPSToTalonNative(left));
         mRightA.set(ControlMode.Velocity, Units.FPSToTalonNative(right));
-        System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
+        //System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
     }
 
     public double[] getEncoderVelocity(){ //0 for left, 1 for right

@@ -23,7 +23,8 @@ public class ToSetpoint extends Command {
 
     protected void execute() { //Code the prevents the arm from slamming the intake into the electronics board
         Robot.kArm.setPosA(shoulderSet);
-        Robot.kArm.setPosB(wristSet);
+        //Robot.kArm.setPosB(wristSet);
+        /*
         borkDistance = elevSet + (int)(Constants.sin2Encoder * Math.sin(shoulderSet * Constants.encoder2Rad)) + Constants.intakeDeathZone;
         toEdge = 22 * Math.cos(shoulderSet * Constants.encoder2Rad);
 
@@ -33,7 +34,7 @@ public class ToSetpoint extends Command {
             Robot.kElevator.setPos(-1617 -(borkDistance - elevSet));
         } else{
         Robot.kElevator.setPos(elevSet); //Life is suffering
-        }
+        }*/
     }
 
     protected boolean isFinished() {
