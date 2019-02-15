@@ -25,7 +25,7 @@ public class Constants{
                                        {0, //Angled so the intake is on the ground
                                         50, //Design god Aaron Fang has forsaken me
                                         100, //And I want to kashoot myself
-                                        162 //yeet
+                                        200 //yeet
                                        };
     public static final int[] wristSetpoint = //why
                                        {-1,
@@ -71,7 +71,7 @@ public class Constants{
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
     //Arm
-    public static final double armAKP = 0;
+    public static final double armAKP = 8.0;
     public static final double armAKI = 0;
     public static final double armAKD = 0;
 
@@ -86,9 +86,9 @@ public class Constants{
     public static final int armA_ID = 0;
     public static final int armB_ID = 1;
 
-    public static final double encoder2Rad = 0.00614192112;
+    public static final double encoder2Rad = 0.00981747704;
     public static final double sin2Encoder = 2736.97905189;
     public static final int intakeDeathZone = 1680; //13.5 inches
     public static final double elev2Edge = 18.5;
-    public static final int armStartPos = 255;
+    public static final double FF = 0.00;
 }

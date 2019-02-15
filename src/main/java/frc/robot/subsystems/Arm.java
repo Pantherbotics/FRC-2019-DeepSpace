@@ -23,7 +23,7 @@ public class Arm extends Subsystem{
         //Near elevator joint
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
         mShoulder.setInverted(true);
-        mShoulder.setSensorPhase(true);
+        mShoulder.setSensorPhase(false);
         mShoulder.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
         mShoulder.config_kP(kPIDIdx, Constants.armAKP, timeout_ms);
         mShoulder.config_kI(kPIDIdx, Constants.armAKI, timeout_ms);
@@ -40,7 +40,7 @@ public class Arm extends Subsystem{
         mWrist.config_kF(kPIDIdx, Constants.armBKF, timeout_ms);
     }
 
-    public void initPos(){
+    private void initPos(){
         mShoulder.setSelectedSensorPosition(0, 0, timeout_ms);
         mWrist.setSelectedSensorPosition(0, 0, timeout_ms);
     }
@@ -49,17 +49,22 @@ public class Arm extends Subsystem{
         mShoulder.set(ControlMode.PercentOutput, 0.25 * input);
     }
     public int getPosA(){
-        return (mShoulder.getSelectedSensorPosition(0)); //Flat should be 0
+        return mShoulder.getSelectedSensorPosition(0); //Flat should be 0
+    }
+    public double getVoltA(){
+        return mShoulder.getMotorOutputVoltage();
     }
 
     public int getPosB(){
-        return (mWrist.getSelectedSensorPosition(0));
+        return mWrist.getSelectedSensorPosition(0);
+    }
+    public double getVoltB(){
+        return mWrist.getMotorOutputVoltage();
     }
 
     public void setPosA(int position){
-        FF = Constants.armAKF * Math.cos(Constants.encoder2Rad * (position));
-        //mShoulder.set(ControlMode.MotionMagic, -position, DemandType.ArbitraryFeedForward, 0);
-        mShoulder.set(ControlMode.MotionMagic, position);
+        FF = Constants.FF * Math.cos(Constants.encoder2Rad * (position));
+        mShoulder.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, FF);
     }
 
     public void setPosB(int position){

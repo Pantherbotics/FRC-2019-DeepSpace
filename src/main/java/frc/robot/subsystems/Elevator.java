@@ -56,7 +56,7 @@ public class Elevator extends Subsystem{
     }
 
     public void setPower(double power){
-        mElevA.set(ControlMode.PercentOutput, -power);
+        mElevA.set(ControlMode.PercentOutput, power);
     }
     public void setPos(int pos){
         /*if(getPos() > Constants.elevMidway){
