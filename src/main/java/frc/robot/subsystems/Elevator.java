@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Notifier;
 public class Elevator extends Subsystem{
     private TalonSRX mElevA = new TalonSRX(Constants.kElevatorA);
     private TalonSRX mElevB = new TalonSRX(Constants.kElevatorB);
+
     public Elevator(){
         mElevB.follow(mElevA);
         mElevB.setInverted(false);
@@ -56,17 +57,22 @@ public class Elevator extends Subsystem{
     }
 
     public void setPower(double power){
-        mElevA.set(ControlMode.PercentOutput, power);
+        mElevA.set(ControlMode.PercentOutput, -power);
     }
     public void setPos(int pos){
-        if(pos < getPos()){
-            mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedDown, timeoutMS);
-            mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedDown, timeoutMS);
-            mElevA.set(ControlMode.MotionMagic, pos);
+        /*if(getPos() > Constants.elevMidway){
+            mElevA.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, Constants.elevatorAFF1);
         } else{
-            mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedUp, timeoutMS);
-            mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedUp, timeoutMS);
-            mElevA.set(ControlMode.MotionMagic, pos);
+            mElevA.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, Constants.elevatorAFF2);
+        }*/
+        if(pos < getPos()){
+            mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedDown, Constants.timeoutMS);          
+            mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedDown, Constants.timeoutMS);
+            mElevA.set(ControlMode.MotionMagic, pos);  
+        } else {
+            mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedUp, Constants.timeoutMS);          
+            mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedUp, Constants.timeoutMS);
+            mElevA.set(ControlMode.MotionMagic, pos);  
         }
     }
     public boolean getLimitSwitch(){
