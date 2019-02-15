@@ -57,8 +57,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    System.out.println("Shoulder: " + kArm.getPosA() + "     Wrist: " + kArm.getPosB());
-    System.out.println(kElevator.getVoltage());
+    System.out.println("Elev: " + kElevator.getPos() + "     Shoulder: " + kArm.getPosA() + "     Wrist: " + kArm.getPosB());
+    System.out.println(kArm.getVoltA());
   }
 
   /**

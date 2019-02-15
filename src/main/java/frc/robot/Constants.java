@@ -16,21 +16,23 @@ public class Constants{
     public static final double deadband = 0.05;
     public static final int[] elevSetpoint =
                                        {0, //bottom
-                                        2000,
+                                        2200, //Flip Pos
                                         3700, //carrage at top of level 1
                                         6000, //idk
                                         7500  //top of level 2
                                        };
     public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
-                                       {15, //Angled so the intake is on the ground
-                                        50, //Design god Aaron Fang has forsaken me
+                                       {-45, //Hatch Panel Intake
+                                        10,  //Angled so the intake is on the ground
+                                        50,  //Design god Aaron Fang has forsaken me
                                         100, //And I want to kashoot myself
-                                        200 //yeet
+                                        220, //ERECTIN
                                        };
     public static final int[] wristSetpoint = //why
-                                       {-1,
-                                        0,
-                                        1,
+                                       {-30, //Grounded
+                                        0,   //Flat
+                                        330, //Almost 90 deg
+                                        350, //90 deg
                                        };
     //Robot Talons
     public static final int kLeftA = 13;
@@ -77,15 +79,18 @@ public class Constants{
     public static final double armAKP = 8.0;
     public static final double armAKI = 0;
     public static final double armAKD = 0;
-
-    public static final double armAKF = 1023.0/37.51; //Not used in config
+    public static final double armAKF = 1023.0/37.51;
     public static final int shoulderCruiseSpeed = 37;
     public static final int shoulderAccelerationSpeed = 100;
+    public static final double armAAFF = 0;
 
-    public static final double armBKP = 0;
+    public static final double armBKP = 5.0;
     public static final double armBKI = 0;
     public static final double armBKD = 0;
-    public static final double armBKF = 0;
+    public static final double armBKF = 1023.0/37.51;
+    public static final int wristCruiseSpeed = 37;
+    public static final int wristAccelerationSpeed = 100;
+    public static final double armBAFF = 0;
     public static final int armA_ID = 0;
     public static final int armB_ID = 1;
 
@@ -93,5 +98,5 @@ public class Constants{
     public static final double sin2Encoder = 2736.97905189;
     public static final int intakeDeathZone = 1680; //13.5 inches
     public static final double elev2Edge = 18.5;
-    public static final double FF = 0.00;
+    public static final double shoulder2Wrist = 350/220;
 }

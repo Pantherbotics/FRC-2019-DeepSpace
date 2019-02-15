@@ -33,6 +33,7 @@ public class Arm extends Subsystem{
         mShoulder.configMotionAcceleration(Constants.shoulderAccelerationSpeed, timeout_ms);
         //Far elevator joint
         mWrist.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, timeout_ms);
+        mWrist.setSensorPhase(true);
         mWrist.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
         mWrist.config_kP(kPIDIdx, Constants.armBKP, timeout_ms);
         mWrist.config_kI(kPIDIdx, Constants.armBKI, timeout_ms);
@@ -63,12 +64,17 @@ public class Arm extends Subsystem{
     }
 
     public void setPosA(int position){
-        FF = Constants.FF * Math.cos(Constants.encoder2Rad * (position));
+        FF = Constants.armAAFF * Math.cos(Constants.encoder2Rad * (position));
         mShoulder.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, FF);
     }
 
-    public void setPosB(int position){
-        mWrist.set(ControlMode.MotionMagic, position - getPosA());
+    public void setPosB(int position, int armPos){ //[-200, 350]
+        if(getPosB() >= 350){
+            position = 350;
+        } if(getPosB() <= -200){
+            position = -200;
+        }
+        mWrist.set(ControlMode.MotionMagic, position - (int)(Constants.shoulder2Wrist* armPos));
     }
 
     public void initDefaultCommand(){
