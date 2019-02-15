@@ -27,8 +27,8 @@ public class Elevator extends Subsystem{
         mElevA.config_kI(Constants.highElev_ID, Constants.elevatorKI, Constants.timeoutMS);
         mElevA.config_kD(Constants.highElev_ID, Constants.elevatorKD, Constants.timeoutMS);
         mElevA.config_kF(Constants.highElev_ID, Constants.elevatorKF2, Constants.timeoutMS);
-        mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeed, Constants.timeoutMS);          
-        mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeed, Constants.timeoutMS);      
+        mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedUp, Constants.timeoutMS);          
+        mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedUp, Constants.timeoutMS);      
         mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.lowElev_ID, Constants.timeoutMS);
         mElevA.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
         mElevA.setSelectedSensorPosition(0);
@@ -59,12 +59,15 @@ public class Elevator extends Subsystem{
         mElevA.set(ControlMode.PercentOutput, power);
     }
     public void setPos(int pos){
-        /*if(getPos() > Constants.elevMidway){
-            mElevA.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, Constants.elevatorAFF1);
+        if(pos < getPos()){
+            mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedDown, timeoutMS);
+            mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedDown, timeoutMS);
+            mElevA.set(ControlMode.MotionMagic, pos);
         } else{
-            mElevA.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, Constants.elevatorAFF2);
-        }*/
-        mElevA.set(ControlMode.MotionMagic, pos);
+            mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedUp, timeoutMS);
+            mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedUp, timeoutMS);
+            mElevA.set(ControlMode.MotionMagic, pos);
+        }
     }
     public boolean getLimitSwitch(){
         return mElevA.getSensorCollection().isRevLimitSwitchClosed();

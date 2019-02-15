@@ -16,7 +16,7 @@ public class Arm extends Subsystem{
     private final int kPIDIdx = 0;
     public Arm(){
         initPID();
-        initPos();
+        //initPos();
     }
 
     public void initPID(){

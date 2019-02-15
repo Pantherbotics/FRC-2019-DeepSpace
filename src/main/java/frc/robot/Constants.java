@@ -19,10 +19,10 @@ public class Constants{
                                         2000,
                                         3700, //carrage at top of level 1
                                         6000, //idk
-                                        8000  //top of level 2
+                                        7500  //top of level 2
                                        };
     public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
-                                       {0, //Angled so the intake is on the ground
+                                       {15, //Angled so the intake is on the ground
                                         50, //Design god Aaron Fang has forsaken me
                                         100, //And I want to kashoot myself
                                         200 //yeet
@@ -59,12 +59,14 @@ public class Constants{
     public static final double elevatorKP = 0.5;
     public static final double elevatorKI = 0.0;
     public static final double elevatorKD = 0.05;
-    public static final double elevatorKF1 = 1023.0/1198.0; //1023.0/770.0; //talon (1023) / max velocity of elevator (770)
+    public static final double elevatorKF1 = 1023.0/1198.0;
     public static final double elevatorKF2 = 1023.0/1198.0;
-    public static final double elevatorAFF1 = 60;
-    public static final double elevatorAFF2 = 80;
-    public static final int elevatorCruiseSpeed = 1198;
-    public static final int elevatorAccelerationSpeed = 4792;
+    public static final double elevatorAFF1 = 30;
+    public static final double elevatorAFF2 = 40;
+    public static final int elevatorCruiseSpeedUp = 1198;
+    public static final int elevatorAccelerationSpeedUp = 4792;
+    public static final int elevatorCruiseSpeedDown = 750;
+    public static final int elevatorAccelerationSpeedDown = 4000;
     public static final int elevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
 
     public static int timeoutMS = 10;

@@ -30,7 +30,7 @@ public class OI{
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
         //Elevator + Arm
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], Constants.shoulderSetpoint[3], 0)); //work in progress
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], Constants.shoulderSetpoint[2], 0)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], Constants.shoulderSetpoint[2], 0));
         partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], Constants.shoulderSetpoint[1], 0));
         partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[0], 0));
