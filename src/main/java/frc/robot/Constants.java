@@ -68,6 +68,7 @@ public class Constants{
     public static final int elevatorCruiseSpeedDown = 700;
     public static final int elevatorAccelerationSpeedDown = 1800;
     public static final int elevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
+    public static final int kElevatorMaxPos = 7500;
 
     public static int timeoutMS = 10;
     public static final int lowElev_ID = 0;

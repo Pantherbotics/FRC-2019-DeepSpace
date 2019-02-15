@@ -33,7 +33,8 @@ public class Elevator extends Subsystem{
         mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.lowElev_ID, Constants.timeoutMS);
         mElevA.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
         mElevA.setSelectedSensorPosition(0);
-        
+        mElevA.configForwardSoftLimitThreshold(Constants.kElevatorMaxPos);
+        mElevA.configForwardSoftLimitEnable(true);
         Notifier elevThread = new Notifier(() ->{
             if(getPos() > Constants.elevMidway){
                 mElevA.selectProfileSlot(Constants.highElev_ID, 0);
