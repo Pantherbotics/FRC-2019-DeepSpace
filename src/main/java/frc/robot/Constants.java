@@ -31,6 +31,7 @@ public class Constants{
     public static final int[] wristSetpoint = //why
                                        {-30, //Grounded
                                         0,   //Flat
+                                        150, //delet
                                         330, //Almost 90 deg
                                         350, //90 deg
                                        };

@@ -30,11 +30,15 @@ public class OI{
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
         //Elevator + Arm
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], Constants.shoulderSetpoint[2], 0)); //work in progress
-        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], Constants.shoulderSetpoint[2], 0));
-        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], Constants.shoulderSetpoint[1], 0));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[0], 0));
-        //Arm only
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], Constants.shoulderSetpoint[2], Constants.wristSetpoint[2])); //work in progress
+        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], Constants.shoulderSetpoint[2], Constants.wristSetpoint[1]));
+        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], Constants.shoulderSetpoint[1], Constants.wristSetpoint[2]));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[1], Constants.wristSetpoint[1]));
+        //Intake
+        partnerBumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
+        partnerTriggerL.whileHeld(new SuccDisk(true));
+        partnerBumperR.whileHeld(new FondleBall(false)); //Right Side Fondle
+        partnerTriggerR.whileHeld(new FondleBall(true));
 
         partnerStart.whenPressed(new ZeroElevator());
     }

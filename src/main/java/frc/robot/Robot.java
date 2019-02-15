@@ -27,7 +27,8 @@ public class Robot extends TimedRobot {
   public static final Drivetrain kDrivetrain = new Drivetrain();
   public static final Elevator kElevator = new Elevator();
   public static final Arm kArm = new Arm();
-  public static final OI oi = new OI();
+  public static final Intake kIntake = new Intake();
+  public static final OI oi = new OI(); //Instantiate OI after instantiating all the subsystems
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private Command kAuto;
@@ -58,7 +59,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     System.out.println("Elev: " + kElevator.getPos() + "     Shoulder: " + kArm.getPosA() + "     Wrist: " + kArm.getPosB());
-    System.out.println(kArm.getVoltA());
+    System.out.println(kArm.getVoltA() + "     " + kArm.getVoltB());
   }
 
   /**
