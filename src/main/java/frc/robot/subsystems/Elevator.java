@@ -8,12 +8,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import edu.wpi.first.wpilibj.Notifier;
 
 public class Elevator extends Subsystem{
     private TalonSRX mElevA = new TalonSRX(Constants.kElevatorA);
     private TalonSRX mElevB = new TalonSRX(Constants.kElevatorB);
+
     public Elevator(){
         mElevB.follow(mElevA);
         mElevB.setInverted(false);
@@ -27,12 +29,13 @@ public class Elevator extends Subsystem{
         mElevA.config_kI(Constants.highElev_ID, Constants.elevatorKI, Constants.timeoutMS);
         mElevA.config_kD(Constants.highElev_ID, Constants.elevatorKD, Constants.timeoutMS);
         mElevA.config_kF(Constants.highElev_ID, Constants.elevatorKF2, Constants.timeoutMS);
-        mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeed, Constants.timeoutMS);          
-        mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeed, Constants.timeoutMS);      
+        mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedUp, Constants.timeoutMS);          
+        mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedUp, Constants.timeoutMS);      
         mElevA.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, Constants.lowElev_ID, Constants.timeoutMS);
         mElevA.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
         mElevA.setSelectedSensorPosition(0);
-        
+        mElevA.configForwardSoftLimitThreshold(Constants.kElevatorMaxPos);
+        mElevA.configForwardSoftLimitEnable(true);
         Notifier elevThread = new Notifier(() ->{
             if(getPos() > Constants.elevMidway){
                 mElevA.selectProfileSlot(Constants.highElev_ID, 0);
@@ -46,17 +49,33 @@ public class Elevator extends Subsystem{
 
     }
     public int getPos(){
-        return mElevA.getSelectedSensorPosition(Constants.lowElev_ID);
+        return mElevA.getSelectedSensorPosition(0);
     }
     public int getVelocity(){
-        return mElevA.getSelectedSensorVelocity(Constants.lowElev_ID);
+        return mElevA.getSelectedSensorVelocity(0);
+    }
+    public double getVoltage(){
+        return mElevA.getMotorOutputVoltage();
     }
 
     public void setPower(double power){
         mElevA.set(ControlMode.PercentOutput, -power);
     }
     public void setPos(int pos){
-        mElevA.set(ControlMode.MotionMagic, pos);
+        /*if(getPos() > Constants.elevMidway){
+            mElevA.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, Constants.elevatorAFF1);
+        } else{
+            mElevA.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, Constants.elevatorAFF2);
+        }*/
+        if(pos < getPos()){
+            mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedDown, Constants.timeoutMS);          
+            mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedDown, Constants.timeoutMS);
+            mElevA.set(ControlMode.MotionMagic, pos);  
+        } else {
+            mElevA.configMotionCruiseVelocity(Constants.elevatorCruiseSpeedUp, Constants.timeoutMS);          
+            mElevA.configMotionAcceleration(Constants.elevatorAccelerationSpeedUp, Constants.timeoutMS);
+            mElevA.set(ControlMode.MotionMagic, pos);  
+        }
     }
     public boolean getLimitSwitch(){
         return mElevA.getSensorCollection().isRevLimitSwitchClosed();

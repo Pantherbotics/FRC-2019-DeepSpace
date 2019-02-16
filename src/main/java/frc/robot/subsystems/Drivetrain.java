@@ -123,14 +123,14 @@ public class Drivetrain extends Subsystem {
     public void setFPS(double left, double right){
         mLeftA.set(ControlMode.Velocity, Units.FPSToTalonNative(left));
         mRightA.set(ControlMode.Velocity, Units.FPSToTalonNative(right));
-        System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
+        //System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
     }
 
     public double[] getEncoderVelocity(){ //0 for left, 1 for right
         return new double[]{mLeftA.getSelectedSensorVelocity(0), mRightA.getSelectedSensorVelocity(0)};
     }
 
-    public void zeroGyro(){ //Rella Rella Pizza Mozzerella
+    public void zeroGyro(){ //Pizza Mozzerella Pizza Mozzerella Rella Rella Rella Rella
         gyro.reset();
         System.out.println("Gyro Reset");
     }

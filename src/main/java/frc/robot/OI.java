@@ -24,16 +24,21 @@ public class OI{
     public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 8); //Right Trigger
     public JoystickButton partnerBack = new JoystickButton(partnerStick, 9);
     public JoystickButton partnerStart = new JoystickButton(partnerStick, 10);
-    public int partnerPOV;
+    int partnerPOV;
+    int currentElev, currentShoulder, currentWrist;
 
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
         //Elevator + Arm
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], 0)); //work in progress
-        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], 0));
-        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], 0));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], 0));
-        //Arm only
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], Constants.shoulderSetpoint[1], Constants.wristSetpoint[3])); //work in progress
+        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], Constants.shoulderSetpoint[1], Constants.wristSetpoint[2]));
+        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], Constants.shoulderSetpoint[1], Constants.wristSetpoint[1]));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[1], Constants.wristSetpoint[0]));
+        //Intake
+        partnerBumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
+        partnerTriggerL.whileHeld(new SuccDisk(true));
+        partnerBumperR.whileHeld(new FondleBall(false)); //Right Side Fondle
+        partnerTriggerR.whileHeld(new FondleBall(true));
 
         partnerStart.whenPressed(new ZeroElevator());
     }
@@ -43,13 +48,17 @@ public class OI{
         partnerPOV = partnerStick.getPOV();
         switch(partnerPOV){
             case 0:
-                new ToSetpoint(Constants.elevSetpoint[2], 0).start(); //Elev down,  
+                new ToSetpoint(Constants.elevSetpoint[2], 0, 0).start(); //Elev down, Cargo (Sicko) Mode
+                currentShoulder = 0;
+                currentWrist = 0;
             case 90:
-                new ToSetpoint(Constants.elevSetpoint[4], 0).start();
+                new ToSetpoint(Constants.elevSetpoint[4], currentShoulder, currentWrist).start();
             case 180:
-                new ToSetpoint(Constants.elevSetpoint[3], 0).start();
+                new ToSetpoint(Constants.elevSetpoint[3], 0, 0).start();
+                currentShoulder = 0;
+                currentWrist = 0;   
             case 270:
-                new ToSetpoint(Constants.elevSetpoint[0], 0).start();
+                new ToSetpoint(Constants.elevSetpoint[0], currentShoulder, currentWrist).start();
         }
     }
 
@@ -64,13 +73,13 @@ public class OI{
         if(Math.abs(stick.getRawAxis(Constants.JoystickLeftYAxis)) < Constants.deadband){
             return 0;
         }
-        return stick.getRawAxis(Constants.JoystickLeftYAxis);
+        return -stick.getRawAxis(Constants.JoystickLeftYAxis);
     }
     public double getRightYAxis(){
         if(Math.abs(stick.getRawAxis(Constants.JoystickRightYAxis)) < Constants.deadband){
             return 0;
         }
-        return stick.getRawAxis(Constants.JoystickRightYAxis);
+        return -stick.getRawAxis(Constants.JoystickRightYAxis);
     }
     public double getRightXAxis(){
         if(Math.abs(stick.getRawAxis(Constants.JoystickRightXAxis)) < Constants.deadband){
@@ -91,7 +100,7 @@ public class OI{
         //if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis)) < Constants.deadband){
          //   return 0;
         //}
-        return partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis);
+        return -partnerStick.getRawAxis(Constants.PartnerJoyLeftYAxis);
     }
     public double getPartnerRightXAxis(){
         if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyRightXAxis)) < Constants.deadband){
@@ -103,6 +112,6 @@ public class OI{
         if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis)) < Constants.deadband){
             return 0;
         }
-        return partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis);
+        return -partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis);
     }
 }

@@ -4,50 +4,90 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.commands.*;
 
 public class Arm extends Subsystem{
-    double FF = 0;
+    double sFF;
+    double wFF;
     int timeout_ms = 0;
-    TalonSRX mTalonA = new TalonSRX(Constants.kArmA); //On carriage
-    TalonSRX mTalonB = new TalonSRX(Constants.kArmB); //On intake
-
-    public Arm(){ //Arm is 22in long. Bigboi torque
+    TalonSRX mShoulder = new TalonSRX(Constants.kArmA); //On carriage
+    TalonSRX mWrist = new TalonSRX(Constants.kArmB); //On intake
+    private final int kPIDIdx = 0;
+    public Arm(){
         initPID();
+        //initPos();
     }
 
     public void initPID(){
         //Near elevator joint
-        mTalonA.configSelectedFeedbackSensor(FeedbackDevice.Analog, Constants.armA_ID, timeout_ms);
-        mTalonA.configAllowableClosedloopError(Constants.armA_ID, 1, timeout_ms);
-        mTalonA.config_kP(Constants.armA_ID, Constants.armAKP, timeout_ms);
-        mTalonA.config_kI(Constants.armA_ID, Constants.armAKI, timeout_ms);
-        mTalonA.config_kD(Constants.armA_ID, Constants.armAKD, timeout_ms);
-        //No kF allowed
+        mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
+        //mShoulder.setNeutralMode(NeutralMode.Brake);
+        mShoulder.setInverted(true);
+        mShoulder.setSensorPhase(false);
+        mShoulder.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
+        mShoulder.config_kP(kPIDIdx, Constants.armAKP, timeout_ms);
+        mShoulder.config_kI(kPIDIdx, Constants.armAKI, timeout_ms);
+        mShoulder.config_kD(kPIDIdx, Constants.armAKD, timeout_ms);
+        mShoulder.config_kF(kPIDIdx, Constants.armAKF, timeout_ms);
+        mShoulder.configMotionCruiseVelocity(Constants.shoulderCruiseSpeed, timeout_ms);
+        mShoulder.configMotionAcceleration(Constants.shoulderAccelerationSpeed, timeout_ms);
         //Far elevator joint
-        mTalonB.configSelectedFeedbackSensor(FeedbackDevice.Analog, Constants.armB_ID, timeout_ms);
-        mTalonB.configAllowableClosedloopError(Constants.armB_ID, 1, timeout_ms);
-        mTalonB.config_kP(Constants.armB_ID, Constants.armBKP, timeout_ms);
-        mTalonB.config_kI(Constants.armB_ID, Constants.armBKI, timeout_ms);
-        mTalonB.config_kD(Constants.armB_ID, Constants.armBKD, timeout_ms);
-        mTalonB.config_kF(Constants.armB_ID, Constants.armBKF, timeout_ms);
+        mWrist.configFactoryDefault(timeout_ms);
+        mWrist.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
+        //mWrist.setNeutralMode(NeutralMode.Brake);
+        mWrist.setInverted(true);
+        mWrist.setSensorPhase(false);
+        mWrist.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
+        mWrist.config_kP(kPIDIdx, Constants.armBKP, timeout_ms);
+        mWrist.config_kI(kPIDIdx, Constants.armBKI, timeout_ms);
+        mWrist.config_kD(kPIDIdx, Constants.armBKD, timeout_ms);
+        mWrist.config_kF(kPIDIdx, Constants.armBKF, timeout_ms);
+    }
+
+    private void initPos(){
+        mShoulder.setSelectedSensorPosition(0, 0, timeout_ms);
+        mWrist.setSelectedSensorPosition(0, 0, timeout_ms);
     }
     
-    public void powerArm(double input){
-        mTalonA.set(ControlMode.PercentOutput, input);
+    public void powerShoulder(double input){
+        mShoulder.set(ControlMode.PercentOutput, 0.25 * input);
+    }
+    public void powerWrist(double input){
+        mWrist.set(ControlMode.PercentOutput, 0.5 * input);
     }
 
-    public void setPos(int position){
-        FF = Math.cos(Constants.armAKF);
-        mTalonA.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, FF);
+    public int getPosA(){
+        return mShoulder.getSelectedSensorPosition(0); //Flat should be 0
+    }
+    public double getVoltA(){
+        return mShoulder.getMotorOutputVoltage();
     }
 
-    public void setIntake(int position){
-        mTalonB.set(ControlMode.MotionMagic, position);
+    public int getPosB(){
+        return mWrist.getSelectedSensorPosition(0);
+    }
+    public double getVoltB(){
+        return mWrist.getMotorOutputVoltage();
+    }
+
+    public void setPosA(int position){
+        sFF = Constants.armAAFF * Math.cos(Constants.encoder2Rad * (position));
+        mShoulder.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, sFF);
+        System.out.println("SHOULDER IS BEING CALLED");
+        //mShoulder.set(ControlMode.MotionMagic, positon);
+    }
+    public void setPosB(int position){ //[-200, 350]
+        System.out.println("WRIST IS BEING CALLED");
+        wFF = Constants.armBAFF * Math.cos(Constants.encoder2Rad * position);
+        mWrist.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, wFF);
+        //mWrist.set(ControlMode.MotionMagic, position);    
     }
 
     public void initDefaultCommand(){
-        //xd
+        //setDefaultCommand(new ShoulderPower());
     }
 }

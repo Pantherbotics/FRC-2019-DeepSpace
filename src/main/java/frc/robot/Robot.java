@@ -27,7 +27,8 @@ public class Robot extends TimedRobot {
   public static final Drivetrain kDrivetrain = new Drivetrain();
   public static final Elevator kElevator = new Elevator();
   public static final Arm kArm = new Arm();
-  public static final OI oi = new OI();
+  public static final Intake kIntake = new Intake();
+  public static final OI oi = new OI(); //Instantiate OI after instantiating all the subsystems
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private Command kAuto;
@@ -41,9 +42,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
+    //if(kArm.getPosA() > 200 || kArm.getPosA() < )
   }
 
   /**
@@ -56,7 +55,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    System.out.println(kElevator.getPos());
+    SmartDashboard.putNumber("Elev", kElevator.getPos());
+    SmartDashboard.putNumber("Shoulder", kArm.getPosA());
+    SmartDashboard.putNumber("Wrist", kArm.getPosB());
+    SmartDashboard.putNumber("Shoulder Volt", kArm.getVoltA());
+    SmartDashboard.putNumber("Wrist", kArm.getVoltB());
   }
 
   /**
