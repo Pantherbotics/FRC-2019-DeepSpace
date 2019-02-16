@@ -22,11 +22,11 @@ public class Constants{
                                         7500  //top of level 2
                                        };
     public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
-                                       {-45, //Hatch Panel Intake
-                                        10,  //Angled so the intake is on the ground
-                                        50,  //Design god Aaron Fang has forsaken me
-                                        100, //And I want to kashoot myself
-                                        220, //ERECTIN
+                                       {-45, //Hatch Panel Intake                    0
+                                        10,  //Angled so the intake is on the ground 1
+                                        50,  //Design god Aaron Fang has forsaken me 2
+                                        100, //And I want to kashoot myself          3
+                                        220, //ERECTIN                               4
                                        };
     public static final int[] wristSetpoint = //why
                                        {-30, //Grounded
@@ -44,8 +44,8 @@ public class Constants{
     public static final int kRightC = 0;
     public static final int kElevatorA = 12;
     public static final int kElevatorB = 3;
-    public static final int kArmA = 6; //Change in Phoenix tuner
-    public static final int kArmB = 7;
+    public static final int kArmA = 4; //Change in Phoenix tuner
+    public static final int kArmB = 5;
     public static final int kBallFondler = 8; //Inter-
     public static final int kDiskSuccer = 10;  //changeable
     //Drivetrain
@@ -100,4 +100,6 @@ public class Constants{
     public static final int intakeDeathZone = 1680; //13.5 inches
     public static final double elev2Edge = 18.5;
     public static final double shoulder2Wrist = 350/220;
+    public static final int shoulderOffset = -559;
+    public static final int wristOffset = -333;
 }

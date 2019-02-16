@@ -55,11 +55,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    /*SmartDashboard.putNumber("Elev", kElevator.getPos());
+    SmartDashboard.putNumber("Elev", kElevator.getPos());
     SmartDashboard.putNumber("Shoulder", kArm.getPosA());
     SmartDashboard.putNumber("Wrist", kArm.getPosB());
-    SmartDashboard.putNumber("Shoulder Volt", kArm.getVoltA());
-    SmartDashboard.putNumber("Wrist", kArm.getVoltB());*/
+    //SmartDashboard.putNumber("Shoulder Volt", kArm.getVoltA());
+    //SmartDashboard.putNumber("Wrist", kArm.getVoltB());
   }
 
   /**
