@@ -33,7 +33,7 @@ public class OI{
         partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], Constants.shoulderSetpoint[3], Constants.wristSetpoint[1])); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], Constants.shoulderSetpoint[2], Constants.wristSetpoint[1]));
         partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[1], Constants.shoulderSetpoint[1], Constants.wristSetpoint[1]));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[0], Constants.wristSetpoint[3]));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[0], Constants.wristSetpoint[3])); //Hatch Panel
         //Intake
         partnerBumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
         partnerTriggerL.whileHeld(new SuccDisk(true));

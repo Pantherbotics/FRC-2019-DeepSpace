@@ -90,13 +90,13 @@ public class Arm extends Subsystem{
     }
     public void setPosB(int wristPos, int shoulderPos){ //[-180, 220]
         wFF = Constants.armBAFF * Math.cos(Constants.encoder2Rad * wristPos);
-        pos = ((wristPos + Constants.wristOffset) - (shoulderPos + Constants.shoulderOffset));
+        pos = -shoulderPos + Constants.shoulder2WristOffset;
         if(pos > 215){
             pos = 215;
         } else if(pos < -180){
             pos = -180;
         }
-        mWrist.set(ControlMode.MotionMagic, wristPos + Constants.wristOffset, DemandType.ArbitraryFeedForward, wFF);
+        mWrist.set(ControlMode.MotionMagic, (pos + Constants.wristOffset), DemandType.ArbitraryFeedForward, wFF);
         SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
         System.out.println("WRIST IS BEING CALLED");
         //mWrist.set(ControlMode.MotionMagic, position);    

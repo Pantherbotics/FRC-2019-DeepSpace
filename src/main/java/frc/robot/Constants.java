@@ -19,7 +19,7 @@ public class Constants{
                                         2200, //Flip Pos
                                         3700, //carrage at top of level 1
                                         6000, //idk
-                                        7500  //top of level 2
+                                        7950  //top of level 2
                                        };
     public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
                                        {-40, //Hatch Panel Intake                    0
@@ -69,15 +69,15 @@ public class Constants{
     public static final int elevatorCruiseSpeedUp = 1198;
     public static final int elevatorAccelerationSpeedUp = 4792;
     public static final int elevatorCruiseSpeedDown = 700;
-    public static final int elevatorAccelerationSpeedDown = 1800;
+    public static final int elevatorAccelerationSpeedDown = 1000;
     public static final int elevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
-    public static final int kElevatorMaxPos = 7500;
+    public static final int kElevatorMaxPos = 7950;
 
     public static int timeoutMS = 10;
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
     //Arm
-    public static final double armAKP = 15.0;
+    public static final double armAKP = 20.0;
     public static final double armAKI = 0;
     public static final double armAKD = 0;
     public static final double armAKF = 1023.0/37.51;
@@ -85,7 +85,7 @@ public class Constants{
     public static final int shoulderAccelerationSpeed = 100;
     public static final double armAAFF = 0.0; //At horzontal, 0.52 = 44.33
 
-    public static final double armBKP = 15.0;
+    public static final double armBKP = 20.0;
     public static final double armBKI = 0;
     public static final double armBKD = 0;
     public static final double armBKF = 1023.0/37.51;
@@ -99,6 +99,7 @@ public class Constants{
     public static final double sin2Encoder = 2736.97905189;
     public static final int intakeDeathZone = 1680; //13.5 inches
     public static final double elev2Edge = 18.5;
-    public static final int shoulderOffset = -559;
+    public static final int shoulderOffset = -533;
     public static final int wristOffset = -333;
+    public static final int shoulder2WristOffset = 20;
 }
