@@ -17,6 +17,14 @@ public class Units { //GRAYTHING ENCODER HAS 128 CPR SO 512 TPR            oh it
     public static double TalonNativeToFeet(double nativeUnits){
         return nativeUnits *.003067961;
     }
+
+    public static double TalonAnalogToDegrees(int in){
+        return ((double)in / 1023.0 * 360.0);
+    }
+
+    public static int DegreesToTalonAnalog(double in){
+        return (int)((double) in / 360.0 * 1023.0);
+    }
     /*
     public static void main(String[] args){
         System.out.println(TalonNativeToFPS(770));
