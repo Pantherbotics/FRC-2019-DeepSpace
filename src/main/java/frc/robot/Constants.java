@@ -26,6 +26,7 @@ public class Constants{
                                         10,  //Angled so the intake is on the ground 1
                                         50,  //Design god Aaron Fang has forsaken me 2
                                         100, //And I want to kashoot myself          3
+                                        150, //lmao
                                         220, //ERECTIN                               4
                                        };
     public static final int[] wristSetpoint = //why
@@ -33,7 +34,7 @@ public class Constants{
                                         0,   //Flat
                                         100, //delet
                                         180, //Hatch Panel Intake
-                                        220, //90 deg
+                                        215, //90 deg
                                        };
     //Robot Talons
     public static final int kLeftA = 13;

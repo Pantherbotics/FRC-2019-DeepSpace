@@ -29,7 +29,7 @@ public class Arm extends Subsystem{
         //Near elevator joint
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
 
-        //mShoulder.setNeutralMode(NeutralMode.Brake);
+        mShoulder.setNeutralMode(NeutralMode.Brake);
         mShoulder.setInverted(true);
         mShoulder.setSensorPhase(false);
         mShoulder.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
@@ -44,7 +44,7 @@ public class Arm extends Subsystem{
         mWrist.configFactoryDefault(timeout_ms);
         mWrist.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
         mWrist.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
-        //mWrist.setNeutralMode(NeutralMode.Brake);
+        mWrist.setNeutralMode(NeutralMode.Brake);
         mWrist.setInverted(true);
         mWrist.setSensorPhase(false);
         mWrist.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
@@ -90,7 +90,7 @@ public class Arm extends Subsystem{
     }
     public void setPosB(int wristPos, int shoulderPos){ //[-180, 220]
         wFF = Constants.armBAFF * Math.cos(Constants.encoder2Rad * wristPos);
-        pos = -shoulderPos + Constants.shoulder2WristOffset;
+        pos = wristPos - shoulderPos + Constants.shoulder2WristOffset;
         if(pos > 215){
             pos = 215;
         } else if(pos < -180){
