@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -19,7 +20,7 @@ public class Arm extends Subsystem{
     private final int kPIDIdx = 0;
     public Arm(){
         initPID();
-        //initPos();
+        initPos();
     }
 
     public void initPID(){
