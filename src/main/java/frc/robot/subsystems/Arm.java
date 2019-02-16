@@ -86,9 +86,9 @@ public class Arm extends Subsystem{
         //mShoulder.set(ControlMode.MotionMagic, positon);
     }
     public void setPosB(int position){ //[-200, 350]
-        SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
         wFF = Constants.armBAFF * Math.cos(Constants.encoder2Rad * position);
         mWrist.set(ControlMode.MotionMagic, (position + Constants.wristOffset), DemandType.ArbitraryFeedForward, wFF);
+        SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
         System.out.println("WRIST IS BEING CALLED");
         //mWrist.set(ControlMode.MotionMagic, position);    
     }
