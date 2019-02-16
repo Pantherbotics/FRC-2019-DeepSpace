@@ -65,14 +65,14 @@ public class Arm extends Subsystem{
     }
 
     public int getPosA(){
-        return mShoulder.getSelectedSensorPosition(0); //Flat should be 0
+        return mShoulder.getSensorCollection().getAnalogInRaw(); //Flat should be 0
     }
     public double getVoltA(){
         return mShoulder.getMotorOutputVoltage();
     }
 
     public int getPosB(){
-        return mWrist.getSelectedSensorPosition(0);
+        return mWrist.getSensorCollection().getAnalogInRaw();
     }
     public double getVoltB(){
         return mWrist.getMotorOutputVoltage();
