@@ -13,12 +13,13 @@ public class Intake extends Subsystem{
 
     }
     
-    public void setSucc(int power){
+    public void setSucc(double power){
         mDiskSuccer.set(ControlMode.PercentOutput, power);
     }
 
-    public void setFondle(int power){
+    public void setFondle(double power){
         mBallFondler.set(ControlMode.PercentOutput, power);
+        mDiskSuccer.set(ControlMode.PercentOutput, -power);
     }
     public void initDefaultCommand(){
     }

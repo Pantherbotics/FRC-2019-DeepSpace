@@ -46,7 +46,7 @@ public class Constants{
     public static final int kElevatorB = 3;
     public static final int kArmA = 4; //Change in Phoenix tuner
     public static final int kArmB = 5;
-    public static final int kBallFondler = 11; //Inter-
+    public static final int kBallFondler = 8; //Inter-
     public static final int kDiskSuccer = 10;  //changeable
     //Drivetrain
     public static final double driveRamp = 0.25;
@@ -77,21 +77,21 @@ public class Constants{
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
     //Arm
-    public static final double armAKP = 8.0;
+    public static final double armAKP = 15.0;
     public static final double armAKI = 0;
     public static final double armAKD = 0;
     public static final double armAKF = 1023.0/37.51;
     public static final int shoulderCruiseSpeed = 37;
     public static final int shoulderAccelerationSpeed = 100;
-    public static final double armAAFF = 0;
+    public static final double armAAFF = 0.0; //At horzontal, 0.52 = 44.33
 
-    public static final double armBKP = 5.0;
+    public static final double armBKP = 15.0;
     public static final double armBKI = 0;
     public static final double armBKD = 0;
     public static final double armBKF = 1023.0/37.51;
     public static final int wristCruiseSpeed = 37;
     public static final int wristAccelerationSpeed = 100;
-    public static final double armBAFF = 0;
+    public static final double armBAFF = 0.0; //0.50 = 42.625
     public static final int armA_ID = 0;
     public static final int armB_ID = 1;
 

@@ -42,9 +42,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
     //if(kArm.getPosA() > 200 || kArm.getPosA() < )
   }
 
@@ -58,8 +55,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    System.out.println("Elev: " + kElevator.getPos() + "     Shoulder: " + kArm.getPosA() + "     Wrist: " + kArm.getPosB());
-    System.out.println(kArm.getVoltA() + "     " + kArm.getVoltB());
+    SmartDashboard.putNumber("Elev", kElevator.getPos());
+    SmartDashboard.putNumber("Shoulder", kArm.getPosA());
+    SmartDashboard.putNumber("Wrist", kArm.getPosB());
+    SmartDashboard.putNumber("Shoulder Volt", kArm.getVoltA());
+    SmartDashboard.putNumber("Wrist", kArm.getVoltB());
   }
 
   /**

@@ -23,7 +23,8 @@ public class ShoulderPower extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.kArm.powerArm(Robot.oi.getPartnerLeftYAxis());
+    Robot.kArm.powerShoulder(Robot.oi.getPartnerLeftYAxis());
+    Robot.kArm.powerWrist(Robot.oi.getPartnerRightYAxis());
   }
 
   // Make this return true when this Command no longer needs to run execute()
