@@ -25,6 +25,7 @@ public class Arm extends Subsystem{
     public void initPID(){
         //Near elevator joint
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
+
         //mShoulder.setNeutralMode(NeutralMode.Brake);
         mShoulder.setInverted(true);
         mShoulder.setSensorPhase(false);
@@ -35,9 +36,11 @@ public class Arm extends Subsystem{
         mShoulder.config_kF(kPIDIdx, Constants.armAKF, timeout_ms);
         mShoulder.configMotionCruiseVelocity(Constants.shoulderCruiseSpeed, timeout_ms);
         mShoulder.configMotionAcceleration(Constants.shoulderAccelerationSpeed, timeout_ms);
+        mShoulder.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
         //Far elevator joint
         mWrist.configFactoryDefault(timeout_ms);
         mWrist.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
+        mWrist.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
         //mWrist.setNeutralMode(NeutralMode.Brake);
         mWrist.setInverted(true);
         mWrist.setSensorPhase(false);
