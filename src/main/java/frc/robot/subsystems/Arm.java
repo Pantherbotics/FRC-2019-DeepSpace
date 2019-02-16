@@ -15,6 +15,7 @@ import frc.robot.commands.*;
 public class Arm extends Subsystem{
     double sFF;
     double wFF;
+    int pos;
     int timeout_ms = 0;
     TalonSRX mShoulder = new TalonSRX(Constants.kArmA); //On carriage
     TalonSRX mWrist = new TalonSRX(Constants.kArmB); //On intake
@@ -51,6 +52,8 @@ public class Arm extends Subsystem{
         mWrist.config_kI(kPIDIdx, Constants.armBKI, timeout_ms);
         mWrist.config_kD(kPIDIdx, Constants.armBKD, timeout_ms);
         mWrist.config_kF(kPIDIdx, Constants.armBKF, timeout_ms);
+        mWrist.configMotionCruiseVelocity(Constants.shoulderCruiseSpeed, timeout_ms);
+        mWrist.configMotionAcceleration(Constants.shoulderAccelerationSpeed, timeout_ms);
     }
 
     private void initPos(){
@@ -85,9 +88,15 @@ public class Arm extends Subsystem{
         System.out.println("SHOULDER IS BEING CALLED");
         //mShoulder.set(ControlMode.MotionMagic, positon);
     }
-    public void setPosB(int position){ //[-200, 350]
-        wFF = Constants.armBAFF * Math.cos(Constants.encoder2Rad * position);
-        mWrist.set(ControlMode.MotionMagic, (position + Constants.wristOffset), DemandType.ArbitraryFeedForward, wFF);
+    public void setPosB(int wristPos, int shoulderPos){ //[-180, 220]
+        wFF = Constants.armBAFF * Math.cos(Constants.encoder2Rad * wristPos);
+        pos = ((wristPos + Constants.wristOffset) - (shoulderPos + Constants.shoulderOffset));
+        if(pos > 215){
+            pos = 215;
+        } else if(pos < -180){
+            pos = -180;
+        }
+        mWrist.set(ControlMode.MotionMagic, wristPos + Constants.wristOffset, DemandType.ArbitraryFeedForward, wFF);
         SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
         System.out.println("WRIST IS BEING CALLED");
         //mWrist.set(ControlMode.MotionMagic, position);    

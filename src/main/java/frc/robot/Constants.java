@@ -22,7 +22,7 @@ public class Constants{
                                         7500  //top of level 2
                                        };
     public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
-                                       {-45, //Hatch Panel Intake                    0
+                                       {-40, //Hatch Panel Intake                    0
                                         10,  //Angled so the intake is on the ground 1
                                         50,  //Design god Aaron Fang has forsaken me 2
                                         100, //And I want to kashoot myself          3
@@ -31,9 +31,9 @@ public class Constants{
     public static final int[] wristSetpoint = //why
                                        {-30, //Grounded
                                         0,   //Flat
-                                        150, //delet
-                                        330, //Almost 90 deg
-                                        350, //90 deg
+                                        100, //delet
+                                        180, //Hatch Panel Intake
+                                        220, //90 deg
                                        };
     //Robot Talons
     public static final int kLeftA = 13;
@@ -99,7 +99,6 @@ public class Constants{
     public static final double sin2Encoder = 2736.97905189;
     public static final int intakeDeathZone = 1680; //13.5 inches
     public static final double elev2Edge = 18.5;
-    public static final double shoulder2Wrist = 350/220;
     public static final int shoulderOffset = -559;
     public static final int wristOffset = -333;
 }
