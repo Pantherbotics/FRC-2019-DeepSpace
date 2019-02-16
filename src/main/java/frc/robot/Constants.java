@@ -44,8 +44,8 @@ public class Constants{
     public static final int kRightC = 0;
     public static final int kElevatorA = 12;
     public static final int kElevatorB = 3;
-    public static final int kArmA = 4; //Change in Phoenix tuner
-    public static final int kArmB = 5;
+    public static final int kArmA = 6; //Change in Phoenix tuner
+    public static final int kArmB = 7;
     public static final int kBallFondler = 8; //Inter-
     public static final int kDiskSuccer = 10;  //changeable
     //Drivetrain

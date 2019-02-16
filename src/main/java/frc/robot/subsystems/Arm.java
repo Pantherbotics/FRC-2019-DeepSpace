@@ -37,7 +37,7 @@ public class Arm extends Subsystem{
         mShoulder.configMotionAcceleration(Constants.shoulderAccelerationSpeed, timeout_ms);
         //Far elevator joint
         mWrist.configFactoryDefault(timeout_ms);
-        mWrist.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, timeout_ms);
+        mWrist.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
         //mWrist.setNeutralMode(NeutralMode.Brake);
         mWrist.setInverted(true);
         mWrist.setSensorPhase(false);
@@ -74,23 +74,16 @@ public class Arm extends Subsystem{
         return mWrist.getMotorOutputVoltage();
     }
 
-    public void setPosA(int position, int wristPos){
-        sFF = Constants.armAAFF * Math.cos(Constants.encoder2Rad * (position + wristPos));
+    public void setPosA(int position){
+        sFF = Constants.armAAFF * Math.cos(Constants.encoder2Rad * (position));
         mShoulder.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, sFF);
         System.out.println("SHOULDER IS BEING CALLED");
         //mShoulder.set(ControlMode.MotionMagic, positon);
     }
-    public void setPosB(int position, int armPos){ //[-200, 350]
+    public void setPosB(int position){ //[-200, 350]
         System.out.println("WRIST IS BEING CALLED");
-        if(getPosB() >= 350){
-            position = 350;
-        } if(getPosB() <= -200){
-            position = -200;
-        }
         wFF = Constants.armBAFF * Math.cos(Constants.encoder2Rad * position);
-        System.out.println(position);
-        System.out.println((position - (int)(Constants.shoulder2Wrist* armPos)));
-        mWrist.set(ControlMode.MotionMagic, position - (int)(Constants.shoulder2Wrist* armPos), DemandType.ArbitraryFeedForward, wFF);
+        mWrist.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, wFF);
         //mWrist.set(ControlMode.MotionMagic, position);    
     }
 
