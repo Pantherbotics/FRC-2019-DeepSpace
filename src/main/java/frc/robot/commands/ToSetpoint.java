@@ -1,6 +1,7 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.Constants;
 
 public class ToSetpoint extends Command {
     int elevSet;
@@ -21,8 +22,8 @@ public class ToSetpoint extends Command {
     }
 
     protected void execute() { //Code the prevents the arm from slamming the intake into the electronics board
-        Robot.kArm.setShoulderPosition(shoulderSet);
-        Robot.kArm.setWristPosition(wristSet, shoulderSet);
+        Robot.kArm.setPosA(shoulderSet);
+        Robot.kArm.setPosB(wristSet, shoulderSet);
         Robot.kElevator.setPos(elevSet);
         /*
         borkDistance = elevSet + (int)(Constants.sin2Encoder * Math.sin(shoulderSet * Constants.encoder2Rad)) + Constants.intakeDeathZone;
