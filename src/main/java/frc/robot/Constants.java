@@ -1,6 +1,9 @@
 package frc.robot;
 
 public class Constants{
+    public static final boolean IS_COMPETITION_ROBOT = true;
+
+
     //Robot Joystick
     public static final int JoystickPort = 0; //PS4 Why do they cost $50 dollars ree
     public static final int JoystickLeftXAxis = 0;
@@ -37,23 +40,24 @@ public class Constants{
                                         210, //90 deg
                                        };
     //Robot Talons
-    public static final int kLeftA = 13;
-    public static final int kLeftB = 14;
-    public static final int kLeftC = 15;
-    public static final int kRightA = 2;
-    public static final int kRightB = 1;
-    public static final int kRightC = 0;
-    public static final int kElevatorA = 12;
-    public static final int kElevatorB = 3;
-    public static final int kshoulder = 4; //Change in Phoenix tuner
-    public static final int kwrist = 5;
-    public static final int kBallFondler = 8; //Inter-
-    public static final int kDiskSuccer = 10;  //changeable
+    public static final int leftAID = 13;
+    public static final int leftBID = 14;
+    public static final int leftCID = 15;
+    public static final int rightAID = 2;
+    public static final int rightBID = 1;
+    public static final int rightCID = 0;
+    public static final int elevatorAID = 12;
+    public static final int elevatorBID = 3;
+    public static final int shoulderID = 4; //Change in Phoenix tuner
+    public static final int wristID = 5;
+    public static final int ballIntakeID = 8; //Inter-
+    public static final int diskIntakeID = 10;  //changeable
+
     //Drivetrain
-    public static final double driveRamp = 0.25;
-    public static final int drivePeakCurrentLimit = 80;
-    public static final int drivePeakCurrentDuration = 10;
-    public static final int driveContinuousCurrentLimit = 36;
+    public static final double kDriveRamp = 0.25;
+    public static final int kDrivePeakCurrentLimit = 80;
+    public static final int kDrivePeakCurrentDuration = 10;
+    public static final int kDriveContinuousCurrentLimit = 36;
     //Drivetrain PID
     public static final double driveKP = 4.5;
     public static final double driveKI = 0;
@@ -64,46 +68,33 @@ public class Constants{
     public static final double elevatorKI = 0.0;
     public static final double elevatorKD = 0.05;
     public static final double elevatorKF1 = 1023.0/1198.0; //1198 is the calculated maximum speed
-    public static final double elevatorKF2 = 1023.0/2000.0;
-    public static final double elevatorAFF1 = 30;
-    public static final double elevatorAFF2 = 40;
-    public static final int elevatorCruiseSpeedUp = 1198;
-
-    public static final int elevatorAccelerationSpeedUp = 1500;
-
-    public static final int elevatorCruiseSpeedDown = 700;
-    public static final int elevatorAccelerationSpeedDown = 700;
-    public static final int elevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
+    public static final double elevatorKF2 = 1023.0/900.0;
+    public static final double elevatorAFF = 0.0293;
+    public static final int kElevatorCruiseSpeed = 1198;
+    public static final int kElevatorAccelerationSpeed = 1500;
+    public static final int kElevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
     public static final int kElevatorMaxPos = 7950;
 
     public static int timeoutMS = 10;
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
     //Arm
-    public static final double shoulderKP = 20.0;
+    public static final double shoulderKP = 10.0;
     public static final double shoulderKI = 0;
     public static final double shoulderKD = 0;
     public static final double shoulderKF = 1023.0/37.51;
-    public static final int shoulderCruiseSpeed = 37;
-    public static final int shoulderAccelerationSpeed = 100;
-    public static final double shoulderAFF = 0.0; //At horzontal, 0.52 = 44.33
+    public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
+    public static final int kShoulderAccelerationSpeed = 60;
+    public static final double shoulderAFF = 0.04166; //At horzontal, 0.52 = 44.33
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? -533 : 0;
 
-    public static final double wristKP = 20.0;
+    public static final double wristKP = 10.0;
     public static final double wristKI = 0;
     public static final double wristKD = 0;
     public static final double wristKF = 1023.0/37.51;
-    public static final int wristCruiseSpeed = 19;
-    public static final int wristAccelerationSpeed = 60;
-    public static final double wristAFF = 0.0; //0.50 = 42.625
-    public static final int shoulder_ID = 0;
-    public static final int wrist_ID = 1;
+    public static final int kWristCruiseSpeed = 37;  //maximum = 37
+    public static final int kWristAccelerationSpeed = 60;
+    public static final double wristAFF = 0.04166; //0.50v/12v
+    public static final int kWristOffset = IS_COMPETITION_ROBOT ? -333 : 0;
 
-
-    public static final double encoder2Rad = 0.00981747704;
-    public static final double sin2Encoder = 2736.97905189;
-    public static final int intakeDeathZone = 1680; //13.5 inches
-    public static final double elev2Edge = 18.5;
-    public static final int shoulderOffset = -533;
-    public static final int wristOffset = -333;
-    public static final int shoulder2WristOffset = 20;
 }

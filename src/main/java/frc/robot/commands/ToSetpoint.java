@@ -22,7 +22,7 @@ public class ToSetpoint extends Command {
 
     protected void execute() { //Code the prevents the arm from slamming the intake into the electronics board
         Robot.kArm.setShoulderPosition(shoulderSet);
-        Robot.kArm.setWristPosition(wristSet, shoulderSet);
+        Robot.kArm.setWristPosition(wristSet);
         Robot.kElevator.setPos(elevSet);
         /*
         borkDistance = elevSet + (int)(Constants.sin2Encoder * Math.sin(shoulderSet * Constants.encoder2Rad)) + Constants.intakeDeathZone;

@@ -30,10 +30,10 @@ public class OI{
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
         //Elevator + Arm
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], Constants.shoulderSetpoint[3], Constants.wristSetpoint[4])); //work in progress
-        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], Constants.shoulderSetpoint[3], Constants.wristSetpoint[4]));
-        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[1], Constants.shoulderSetpoint[2], Constants.wristSetpoint[4]));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[0], Constants.wristSetpoint[3])); //Hatch Panel
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], Constants.shoulderSetpoint[3], Constants.wristSetpoint[1])); //work in progress
+        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], Constants.shoulderSetpoint[3], Constants.wristSetpoint[1]));
+        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[1], Constants.shoulderSetpoint[2], Constants.wristSetpoint[1]));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[0], Constants.wristSetpoint[1])); //Hatch Panel
         //Intake
         partnerBumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
         partnerTriggerL.whileHeld(new SuccDisk(true));
