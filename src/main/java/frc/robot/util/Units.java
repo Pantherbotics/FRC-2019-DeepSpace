@@ -18,11 +18,11 @@ public class Units { //GRAYTHING ENCODER HAS 128 CPR SO 512 TPR            oh it
         return nativeUnits *.003067961;
     }
 
-    public static double TalonAnalogToDegrees(int in){
+    public static double talonToDegrees(int in){
         return ((double)in / 1023.0 * 360.0);
     }
 
-    public static int DegreesToTalonAnalog(double in){
+    public static int degreesToTalon(double in){
         return (int)((double) in / 360.0 * 1023.0);
     }
     /*
