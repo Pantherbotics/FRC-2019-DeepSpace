@@ -68,7 +68,9 @@ public class Constants{
     public static final double elevatorAFF1 = 30;
     public static final double elevatorAFF2 = 40;
     public static final int elevatorCruiseSpeedUp = 1198;
+
     public static final int elevatorAccelerationSpeedUp = 1500;
+
     public static final int elevatorCruiseSpeedDown = 700;
     public static final int elevatorAccelerationSpeedDown = 700;
     public static final int elevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
@@ -95,6 +97,7 @@ public class Constants{
     public static final double wristAFF = 0.0; //0.50 = 42.625
     public static final int shoulder_ID = 0;
     public static final int wrist_ID = 1;
+
 
     public static final double encoder2Rad = 0.00981747704;
     public static final double sin2Encoder = 2736.97905189;

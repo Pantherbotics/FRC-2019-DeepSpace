@@ -10,10 +10,12 @@ import frc.robot.Constants;
 import frc.robot.util.Units;
 
 public class Arm extends Subsystem{
+
     double shoulderkF;
     double wristkF;
     int shoulderPosition;
     int wristPosition;
+
     int timeout_ms = 0;
     State state;
     TalonSRX mShoulder = new TalonSRX(Constants.kshoulder); //On carriage
@@ -145,7 +147,7 @@ public class Arm extends Subsystem{
             SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
         }
         System.out.println("WRIST IS BEING CALLED");
-        //mWrist.set(ControlMode.MotionMagic, position);    
+        //mWrist.set(ControlMode.MotionMagic, position);
     }
 
     public void setFourBarDegrees(double degrees){
