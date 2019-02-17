@@ -15,7 +15,8 @@ import frc.robot.commands.*;
 public class Arm extends Subsystem{
     double sFF;
     double wFF;
-    int pos;
+    int sPos;
+    int wPos;
     int timeout_ms = 0;
     TalonSRX mShoulder = new TalonSRX(Constants.kArmA); //On carriage
     TalonSRX mWrist = new TalonSRX(Constants.kArmB); //On intake
@@ -69,14 +70,14 @@ public class Arm extends Subsystem{
     }
 
     public int getPosA(){
-        return mShoulder.getSensorCollection().getAnalogIn(); //Flat should be 0
+        return mShoulder.getSensorCollection().getAnalogInRaw(); //Flat should be 0
     }
     public double getVoltA(){
         return mShoulder.getMotorOutputVoltage();
     }
 
     public int getPosB(){
-        return mWrist.getSensorCollection().getAnalogIn();
+        return mWrist.getSensorCollection().getAnalogInRaw();
     }
     public double getVoltB(){
         return mWrist.getMotorOutputVoltage();
@@ -84,19 +85,23 @@ public class Arm extends Subsystem{
 
     public void setPosA(int position){
         sFF = Constants.armAAFF * Math.cos(Constants.encoder2Rad * (position));
+        sPos = position + Constants.shoulderOffset;
+        if(sPos > 220){ //[, 220]
+            sPos = 220;
+        } else if(sPos < )
         mShoulder.set(ControlMode.MotionMagic, (position + Constants.shoulderOffset), DemandType.ArbitraryFeedForward, sFF);
         System.out.println("SHOULDER IS BEING CALLED");
         //mShoulder.set(ControlMode.MotionMagic, positon);
     }
     public void setPosB(int wristPos, int shoulderPos){ //[-180, 220]
         wFF = Constants.armBAFF * Math.cos(Constants.encoder2Rad * wristPos);
-        pos = wristPos - shoulderPos + Constants.shoulder2WristOffset;
-        if(pos > 215){
-            pos = 215;
-        } else if(pos < -180){
-            pos = -180;
+        wPos = wristPos - shoulderPos + Constants.shoulder2WristOffset;
+        if(wPos > 215){
+            wPos = 215;
+        } else if(wPos < -180){
+            wPos = -180;
         }
-        mWrist.set(ControlMode.MotionMagic, (pos + Constants.wristOffset), DemandType.ArbitraryFeedForward, wFF);
+        mWrist.set(ControlMode.MotionMagic, (wPos + Constants.wristOffset), DemandType.ArbitraryFeedForward, wFF);
         SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
         System.out.println("WRIST IS BEING CALLED");
         //mWrist.set(ControlMode.MotionMagic, position);    

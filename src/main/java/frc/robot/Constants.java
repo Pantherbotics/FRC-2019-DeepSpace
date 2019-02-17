@@ -22,19 +22,19 @@ public class Constants{
                                         7950  //top of level 2
                                        };
     public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
-                                       {-40, //Hatch Panel Intake                    0
-                                        10,  //Angled so the intake is on the ground 1
+                                       {-30, //Hatch Panel Intake                    0
+                                        30,  //Angled so the intake is on the ground 1
                                         50,  //Design god Aaron Fang has forsaken me 2
                                         100, //And I want to kashoot myself          3
                                         150, //lmao
                                         220, //ERECTIN                               4
                                        };
     public static final int[] wristSetpoint = //why
-                                       {-30, //Grounded
+                                       {-45, //Grounded
                                         0,   //Flat
                                         100, //delet
                                         180, //Hatch Panel Intake
-                                        215, //90 deg
+                                        210, //90 deg
                                        };
     //Robot Talons
     public static final int kLeftA = 13;
@@ -68,7 +68,7 @@ public class Constants{
     public static final double elevatorAFF1 = 30;
     public static final double elevatorAFF2 = 40;
     public static final int elevatorCruiseSpeedUp = 1198;
-    public static final int elevatorAccelerationSpeedUp = 4792;
+    public static final int elevatorAccelerationSpeedUp = 2000;
     public static final int elevatorCruiseSpeedDown = 700;
     public static final int elevatorAccelerationSpeedDown = 1000;
     public static final int elevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
@@ -90,8 +90,8 @@ public class Constants{
     public static final double armBKI = 0;
     public static final double armBKD = 0;
     public static final double armBKF = 1023.0/37.51;
-    public static final int wristCruiseSpeed = 37;
-    public static final int wristAccelerationSpeed = 100;
+    public static final int wristCruiseSpeed = 19;
+    public static final int wristAccelerationSpeed = 60;
     public static final double armBAFF = 0.0; //0.50 = 42.625
     public static final int armA_ID = 0;
     public static final int armB_ID = 1;
