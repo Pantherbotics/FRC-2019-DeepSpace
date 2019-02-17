@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    //if(kArm.getPosA() > 200 || kArm.getPosA() < )
+    //if(kArm.getShoulderPosition() > 200 || kArm.getShoulderPosition() < )
   }
 
   /**
@@ -56,10 +56,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("Elev", kElevator.getPos());
-    SmartDashboard.putNumber("Shoulder", kArm.getPosA());
-    SmartDashboard.putNumber("Wrist", kArm.getPosB());
-    //SmartDashboard.putNumber("Shoulder Volt", kArm.getVoltA());
-    //SmartDashboard.putNumber("Wrist", kArm.getVoltB());
+    SmartDashboard.putNumber("Shoulder", kArm.getShoulderPosition());
+    SmartDashboard.putNumber("Wrist", kArm.getWristPosition());
+    //SmartDashboard.putNumber("Shoulder Volt", kArm.getShoulderVoltage());
+    //SmartDashboard.putNumber("Wrist", kArm.getWristVoltage());
   }
 
   /**

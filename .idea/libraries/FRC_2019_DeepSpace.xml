@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="FRC-2019-DeepSpace">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/libs/FRC-2019-DeepSpace.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
