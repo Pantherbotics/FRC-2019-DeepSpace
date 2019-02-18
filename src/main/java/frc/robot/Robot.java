@@ -55,9 +55,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Elev", kElevator.getPos());
-    SmartDashboard.putNumber("Shoulder", kArm.getShoulderPosition());
-    SmartDashboard.putNumber("Wrist", kArm.getWristPosition());
+    SmartDashboard.putNumber("Elevator (Ticks)", kElevator.getPos());
+    SmartDashboard.putNumber("Shoulder (Ticks)", kArm.getShoulderPosition());
+    SmartDashboard.putNumber("Wrist (Ticks)", kArm.getWristPosition());
+
+    SmartDashboard.putNumber("Shoulder (Degrees)", kArm.getShoulderDegrees());
+    SmartDashboard.putNumber("Wrist (Degrees)", kArm.getWristDegrees());
     //SmartDashboard.putNumber("Shoulder Volt", kArm.getShoulderVoltage());
     //SmartDashboard.putNumber("Wrist", kArm.getWristVoltage());
   }

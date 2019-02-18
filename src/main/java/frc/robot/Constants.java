@@ -1,5 +1,7 @@
 package frc.robot;
 
+import frc.robot.util.Setpoint;
+
 public class Constants{
     public static final boolean IS_COMPETITION_ROBOT = true;
 
@@ -39,6 +41,18 @@ public class Constants{
                                         180, //Hatch Panel Intake
                                         210, //90 deg
                                        };
+
+    public static final Setpoint armToBallCargoShip = new Setpoint(0, 79.82, 30.27);
+    public static final Setpoint intakeFromGround = new Setpoint(0, 12.43, -17.88);
+    public static final Setpoint armToDiskCargoShip = new Setpoint(0, -20.33, 17.41);
+    public static final Setpoint lowRocketBall = new Setpoint(0, 60.2, 0);
+    public static final Setpoint mediumRocketBall = new Setpoint(44.0, 0, 0);
+    public static final Setpoint highRocketBall = new Setpoint(66, 24.5, 0);
+
+    public static final Setpoint mediumRocketDisk = new Setpoint(28.5, 0, 80);
+    public static final Setpoint highRocketDisk = new Setpoint (55.5, 0, 80);
+
+
     //Robot Talons
     public static final int leftAID = 13;
     public static final int leftBID = 14;

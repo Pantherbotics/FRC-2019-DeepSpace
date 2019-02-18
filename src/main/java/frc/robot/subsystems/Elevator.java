@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import frc.robot.util.Units;
 
 public class Elevator extends Subsystem{
     private TalonSRX mElevA = new TalonSRX(Constants.elevatorAID);
@@ -70,4 +71,5 @@ public class Elevator extends Subsystem{
     public void setElevatorEncoder(int pos){
         mElevA.setSelectedSensorPosition(pos, Constants.lowElev_ID, Constants.timeoutMS);
     }
+
 }

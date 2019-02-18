@@ -1,6 +1,7 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.util.Setpoint;
 
 public class ToSetpoint extends Command {
     int elevSet;
@@ -15,6 +16,12 @@ public class ToSetpoint extends Command {
         elevSet = elevPreset;
         shoulderSet = shoulderPreset;
         wristSet = wristPreset;
+    }
+
+    public ToSetpoint(Setpoint setpoint){
+        elevSet = setpoint.getElevatorTicks();
+        shoulderSet = setpoint.getShoulderTicks();
+        wristSet = setpoint.getWristTicks();
     }
 
     protected void initialize() {
