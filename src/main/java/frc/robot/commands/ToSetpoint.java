@@ -1,7 +1,7 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.Constants;
+import frc.robot.util.Setpoint;
 
 public class ToSetpoint extends Command {
     int elevSet;
@@ -18,13 +18,19 @@ public class ToSetpoint extends Command {
         wristSet = wristPreset;
     }
 
+    public ToSetpoint(Setpoint setpoint){
+        elevSet = setpoint.getElevatorTicks();
+        shoulderSet = setpoint.getShoulderTicks();
+        wristSet = setpoint.getWristTicks();
+    }
+
     protected void initialize() {
     }
 
     protected void execute() { //Code the prevents the arm from slamming the intake into the electronics board
-        Robot.kArm.setPosA(shoulderSet);
-        Robot.kArm.setPosB(wristSet);
-        //Robot.kElevator.setPos(elevSet);
+        Robot.kArm.setShoulderPosition(shoulderSet);
+        Robot.kArm.setWristPosition(wristSet);
+        Robot.kElevator.setPos(elevSet);
         /*
         borkDistance = elevSet + (int)(Constants.sin2Encoder * Math.sin(shoulderSet * Constants.encoder2Rad)) + Constants.intakeDeathZone;
         toEdge = 22 * Math.cos(shoulderSet * Constants.encoder2Rad);

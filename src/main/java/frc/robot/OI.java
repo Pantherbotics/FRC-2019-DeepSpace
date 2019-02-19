@@ -30,10 +30,12 @@ public class OI{
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
         //Elevator + Arm
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.elevSetpoint[4], Constants.shoulderSetpoint[1], Constants.wristSetpoint[3])); //work in progress
-        partnerButtonX.whenPressed(new ToSetpoint(Constants.elevSetpoint[3], Constants.shoulderSetpoint[1], Constants.wristSetpoint[2]));
-        partnerButtonB.whenPressed(new ToSetpoint(Constants.elevSetpoint[2], Constants.shoulderSetpoint[1], Constants.wristSetpoint[1]));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevSetpoint[0], Constants.shoulderSetpoint[1], Constants.wristSetpoint[0]));
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.highElevator)); //work in progress
+        partnerButtonX.whenPressed(new ToSetpoint(Constants.testOne));
+        partnerButtonB.whenPressed(new ToSetpoint(Constants.testTwo));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevatorDown)); //Hatch Panel
+
+
         //Intake
         partnerBumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
         partnerTriggerL.whileHeld(new SuccDisk(true));
@@ -52,7 +54,7 @@ public class OI{
                 currentShoulder = 0;
                 currentWrist = 0;
             case 90:
-                new ToSetpoint(Constants.elevSetpoint[4], currentShoulder, currentWrist).start();
+                new ToSetpoint(Constants.elevSetpoint[4], 0, 0).start();
             case 180:
                 new ToSetpoint(Constants.elevSetpoint[3], 0, 0).start();
                 currentShoulder = 0;

@@ -12,7 +12,7 @@ public class DriveOpenLoop extends Command{
     }
     protected void execute(){ //You are already obsolete
         double antiTipScalar = 1.0;
-        if(Robot.kElevator.getPos() > Constants.elevMidway){
+        if(Robot.kElevator.getPos() > Constants.kElevMidway){
             antiTipScalar = Robot.kElevator.getPos() / Constants.kElevatorMaxPos;
         }
         double throttle = Robot.oi.getLeftYAxis() * antiTipScalar; //NANI

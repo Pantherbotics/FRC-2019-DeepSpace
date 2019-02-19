@@ -6,8 +6,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class Intake extends Subsystem{
-    TalonSRX mBallFondler = new TalonSRX(Constants.kBallFondler);
-    TalonSRX mDiskSuccer = new TalonSRX(Constants.kDiskSuccer);
+    TalonSRX mBallFondler = new TalonSRX(Constants.ballIntakeID);
+    TalonSRX mDiskSuccer = new TalonSRX(Constants.diskIntakeID);
     
     public Intake(){
 

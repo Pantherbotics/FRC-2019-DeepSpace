@@ -21,12 +21,12 @@ import frc.robot.util.*;
 public class Drivetrain extends Subsystem {
     public int timeoutMS = 0;
     int drive_ID = 0;
-    TalonSRX mLeftA = new TalonSRX(Constants.kLeftA);
-    TalonSRX mLeftB = new TalonSRX(Constants.kLeftB);
-    TalonSRX mLeftC = new TalonSRX(Constants.kLeftC);
-    TalonSRX mRightA = new TalonSRX(Constants.kRightA);
-    TalonSRX mRightB = new TalonSRX(Constants.kRightB);
-    TalonSRX mRightC = new TalonSRX(Constants.kRightC);
+    TalonSRX mLeftA = new TalonSRX(Constants.leftAID);
+    TalonSRX mLeftB = new TalonSRX(Constants.leftBID);
+    TalonSRX mLeftC = new TalonSRX(Constants.leftCID);
+    TalonSRX mRightA = new TalonSRX(Constants.rightAID);
+    TalonSRX mRightB = new TalonSRX(Constants.rightBID);
+    TalonSRX mRightC = new TalonSRX(Constants.rightCID);
     
     AHRS gyro = new AHRS(I2C.Port.kOnboard);
 
@@ -55,19 +55,19 @@ public class Drivetrain extends Subsystem {
         mRightB.setNeutralMode(NeutralMode.Coast);
         mRightC.setNeutralMode(NeutralMode.Coast);
         //Ramp
-        mLeftA.configClosedloopRamp(Constants.driveRamp, timeoutMS);
-        mLeftB.configClosedloopRamp(Constants.driveRamp, timeoutMS);
-        mLeftC.configClosedloopRamp(Constants.driveRamp, timeoutMS);
-        mRightA.configClosedloopRamp(Constants.driveRamp, timeoutMS);
-        mRightB.configClosedloopRamp(Constants.driveRamp, timeoutMS);
-        mRightC.configClosedloopRamp(Constants.driveRamp, timeoutMS);
+        mLeftA.configClosedloopRamp(Constants.kDriveRamp, timeoutMS);
+        mLeftB.configClosedloopRamp(Constants.kDriveRamp, timeoutMS);
+        mLeftC.configClosedloopRamp(Constants.kDriveRamp, timeoutMS);
+        mRightA.configClosedloopRamp(Constants.kDriveRamp, timeoutMS);
+        mRightB.configClosedloopRamp(Constants.kDriveRamp, timeoutMS);
+        mRightC.configClosedloopRamp(Constants.kDriveRamp, timeoutMS);
         //Electricity Stuff
-        mLeftA.configPeakCurrentLimit(Constants.drivePeakCurrentLimit, timeoutMS);
-        mLeftA.configPeakCurrentDuration(Constants.drivePeakCurrentDuration, timeoutMS);
-        mLeftA.configContinuousCurrentLimit(Constants.driveContinuousCurrentLimit, timeoutMS);
-        mLeftB.configPeakCurrentLimit(Constants.drivePeakCurrentLimit, timeoutMS);
-        mLeftB.configPeakCurrentDuration(Constants.drivePeakCurrentDuration, timeoutMS);
-        mLeftB.configContinuousCurrentLimit(Constants.driveContinuousCurrentLimit, timeoutMS);
+        mLeftA.configPeakCurrentLimit(Constants.kDrivePeakCurrentLimit, timeoutMS);
+        mLeftA.configPeakCurrentDuration(Constants.kDrivePeakCurrentDuration, timeoutMS);
+        mLeftA.configContinuousCurrentLimit(Constants.kDriveContinuousCurrentLimit, timeoutMS);
+        mLeftB.configPeakCurrentLimit(Constants.kDrivePeakCurrentLimit, timeoutMS);
+        mLeftB.configPeakCurrentDuration(Constants.kDrivePeakCurrentDuration, timeoutMS);
+        mLeftB.configContinuousCurrentLimit(Constants.kDriveContinuousCurrentLimit, timeoutMS);
         //Changed name of slave method to be more PC
         mLeftB.follow(mLeftA);
         mLeftC.follow(mLeftA);
@@ -111,7 +111,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveClosedLoop()); //It worked but only partially
+        setDefaultCommand(new DriveOpenLoop()); //It worked but only partially
     }
 
     public void setMotorPower(double left, double right){

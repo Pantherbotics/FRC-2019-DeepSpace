@@ -1,90 +1,142 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.ParamEnum;
 
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
-import frc.robot.commands.*;
+import frc.robot.util.Units;
 
 public class Arm extends Subsystem{
-    double sFF;
-    double wFF;
+
+    private double shoulderkF;
+    private double wristkF;
+    private int shoulderPosition;
+    private int shoulderSetpoint, wristSetpoint;
+
     int timeout_ms = 0;
-    TalonSRX mShoulder = new TalonSRX(Constants.kArmA); //On carriage
-    TalonSRX mWrist = new TalonSRX(Constants.kArmB); //On intake
+    TalonSRX mShoulder = new TalonSRX(Constants.shoulderID); //On carriage
+    TalonSRX mWrist = new TalonSRX(Constants.wristID); //On intake
     private final int kPIDIdx = 0;
     public Arm(){
+
+        shoulderSetpoint = 0;
+        wristSetpoint = 0;
         initPID();
         //initPos();
+
+
+        Notifier feedForwardThread = new Notifier(() ->{
+            shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
+            wristkF = Constants.wristAFF * Math.abs(Math.cos(Math.toRadians(getWristDegrees() + getShoulderDegrees())));
+
+            mShoulder.set(ControlMode.MotionMagic,shoulderSetpoint + Constants.kShoulderOffset, DemandType.ArbitraryFeedForward, shoulderkF);
+
+            //since our wrist TalonSRX is being driven off the SUM of both its position and the shoulder position, we get 4-bar like motion when we drive the wrist to a setpoint.
+            //(wristAngle + kWristOffset) + (shoulderAngle + kShoulderOffset) = setpoint + kShoulderOffset + kWristOffset
+            mWrist.set(ControlMode.MotionMagic, wristSetpoint + Constants.kWristOffset + Constants.kShoulderOffset, DemandType.ArbitraryFeedForward, wristkF);
+
+            SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
+            SmartDashboard.putNumber("Wrist Sensor Sum", mWrist.getSelectedSensorPosition());
+            SmartDashboard.putNumber("Shoulder Setpoint", mShoulder.getClosedLoopTarget(0));
+
+        });
+
+        //feedForwardThread.startPeriodic(0.02);
+
     }
 
     public void initPID(){
         //Near elevator joint
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
-        //mShoulder.setNeutralMode(NeutralMode.Brake);
-        mShoulder.setInverted(true);
+
+        mShoulder.setNeutralMode(NeutralMode.Coast);
+        mShoulder.setInverted(false);
         mShoulder.setSensorPhase(false);
         mShoulder.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
-        mShoulder.config_kP(kPIDIdx, Constants.armAKP, timeout_ms);
-        mShoulder.config_kI(kPIDIdx, Constants.armAKI, timeout_ms);
-        mShoulder.config_kD(kPIDIdx, Constants.armAKD, timeout_ms);
-        mShoulder.config_kF(kPIDIdx, Constants.armAKF, timeout_ms);
-        mShoulder.configMotionCruiseVelocity(Constants.shoulderCruiseSpeed, timeout_ms);
-        mShoulder.configMotionAcceleration(Constants.shoulderAccelerationSpeed, timeout_ms);
+        mShoulder.config_kP(kPIDIdx, Constants.shoulderKP, timeout_ms);
+        mShoulder.config_kI(kPIDIdx, Constants.shoulderKI, timeout_ms);
+        mShoulder.config_kD(kPIDIdx, Constants.shoulderKD, timeout_ms);
+        mShoulder.config_kF(kPIDIdx, Constants.shoulderKF, timeout_ms);
+        mShoulder.configMotionCruiseVelocity(Constants.kShoulderCruiseSpeed, timeout_ms);
+        mShoulder.configMotionAcceleration(Constants.kShoulderAccelerationSpeed, timeout_ms);
+        mShoulder.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
         //Far elevator joint
+
         mWrist.configFactoryDefault(timeout_ms);
-        mWrist.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
-        //mWrist.setNeutralMode(NeutralMode.Brake);
-        mWrist.setInverted(true);
+        mWrist.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
+        mWrist.configRemoteFeedbackFilter(mShoulder.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 0, timeout_ms);
+        mWrist.configRemoteFeedbackFilter(0x00, RemoteSensorSource.Off, 1, timeout_ms);
+        mWrist.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, timeout_ms);
+        mWrist.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.Analog, timeout_ms);
+        mWrist.configSelectedFeedbackSensor(FeedbackDevice.SensorSum);
+        mWrist.setNeutralMode(NeutralMode.Coast);
+
+        mWrist.setInverted(false);
         mWrist.setSensorPhase(false);
-        mWrist.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
-        mWrist.config_kP(kPIDIdx, Constants.armBKP, timeout_ms);
-        mWrist.config_kI(kPIDIdx, Constants.armBKI, timeout_ms);
-        mWrist.config_kD(kPIDIdx, Constants.armBKD, timeout_ms);
-        mWrist.config_kF(kPIDIdx, Constants.armBKF, timeout_ms);
+        mWrist.configAllowableClosedloopError(kPIDIdx, 0, timeout_ms);
+        mWrist.config_kP(kPIDIdx, Constants.wristKP, timeout_ms);
+        mWrist.config_kI(kPIDIdx, Constants.wristKI, timeout_ms);
+        mWrist.config_kD(kPIDIdx, Constants.wristKD, timeout_ms);
+        mWrist.config_kF(kPIDIdx, Constants.wristKF, timeout_ms);
+        mWrist.configMotionCruiseVelocity(Constants.kWristCruiseSpeed, timeout_ms);
+        mWrist.configMotionAcceleration(Constants.kWristAccelerationSpeed, timeout_ms);
     }
+
 
     private void initPos(){
         mShoulder.setSelectedSensorPosition(0, 0, timeout_ms);
         mWrist.setSelectedSensorPosition(0, 0, timeout_ms);
     }
-    
+
     public void powerShoulder(double input){
-        mShoulder.set(ControlMode.PercentOutput, 0.25 * input);
+        mShoulder.set(ControlMode.PercentOutput, 0.5 * input);
     }
     public void powerWrist(double input){
         mWrist.set(ControlMode.PercentOutput, 0.5 * input);
     }
 
-    public int getPosA(){
-        return mShoulder.getSelectedSensorPosition(0); //Flat should be 0
+    public int getShoulderPosition(){
+        return mShoulder.getSensorCollection().getAnalogInRaw()+Constants.kShoulderOffset; //Flat should be 0
     }
-    public double getVoltA(){
+
+    public int getShoulderPositionRaw(){
+        return mShoulder.getSelectedSensorPosition();
+    }
+
+    public int getWristPositionRaw(){
+        return mWrist.getSensorCollection().getAnalogInRaw();
+    }
+    public double getShoulderDegrees(){
+        return Units.talonToDegrees(getShoulderPosition());
+    }
+
+    public double getShoulderVoltage(){
         return mShoulder.getMotorOutputVoltage();
     }
 
-    public int getPosB(){
-        return mWrist.getSelectedSensorPosition(0);
+    public int getWristPosition(){
+        return mWrist.getSensorCollection().getAnalogInRaw()+Constants.kWristOffset;
     }
-    public double getVoltB(){
+
+    public double getWristDegrees(){
+        return Units.talonToDegrees(getWristPosition());
+    }
+
+    public double getWristVoltage(){
         return mWrist.getMotorOutputVoltage();
     }
 
-    public void setPosA(int position){
-        sFF = Constants.armAAFF * Math.cos(Constants.encoder2Rad * (position));
-        mShoulder.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, sFF);
+    public void setShoulderPosition(int position){
+        shoulderSetpoint = position;
         System.out.println("SHOULDER IS BEING CALLED");
-        //mShoulder.set(ControlMode.MotionMagic, positon);
     }
-    public void setPosB(int position){ //[-200, 350]
+    public void setWristPosition(int position){ //[-180, 220]
+        wristSetpoint = position;
         System.out.println("WRIST IS BEING CALLED");
-        wFF = Constants.armBAFF * Math.cos(Constants.encoder2Rad * position);
-        mWrist.set(ControlMode.MotionMagic, position, DemandType.ArbitraryFeedForward, wFF);
-        //mWrist.set(ControlMode.MotionMagic, position);    
     }
 
     public void initDefaultCommand(){

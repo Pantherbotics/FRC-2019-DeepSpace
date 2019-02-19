@@ -20,7 +20,7 @@ public class DriveClosedLoop extends Command {
   protected void execute() { //generally choose this one
     Robot.oi.checkPartnerPOV(); //does this work
     double antiTipScalar = 1.0;
-    if(Robot.kElevator.getPos() > Constants.elevMidway){
+    if(Robot.kElevator.getPos() > Constants.kElevMidway){
       antiTipScalar = Robot.kElevator.getPos() / Constants.kElevatorMaxPos;
     }
     double zoom = Robot.oi.getLeftYAxis() * antiTipScalar; //zoom = forward backwards
