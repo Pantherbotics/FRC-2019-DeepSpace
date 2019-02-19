@@ -30,10 +30,10 @@ public class OI{
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
         //Elevator + Arm
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.intakeFromGround)); //work in progress
-        partnerButtonX.whenPressed(new ToSetpoint(Constants.armToBallCargoShip));
-        partnerButtonB.whenPressed(new ToSetpoint(Constants.highRocketBall));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.mediumRocketBall)); //Hatch Panel
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.highElevator)); //work in progress
+        partnerButtonX.whenPressed(new ToSetpoint(Constants.testOne));
+        partnerButtonB.whenPressed(new ToSetpoint(Constants.testTwo));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevatorDown)); //Hatch Panel
 
 
         //Intake
@@ -54,7 +54,7 @@ public class OI{
                 currentShoulder = 0;
                 currentWrist = 0;
             case 90:
-                new ToSetpoint(Constants.elevSetpoint[4], currentShoulder, currentWrist).start();
+                new ToSetpoint(Constants.elevSetpoint[4], 0, 0).start();
             case 180:
                 new ToSetpoint(Constants.elevSetpoint[3], 0, 0).start();
                 currentShoulder = 0;

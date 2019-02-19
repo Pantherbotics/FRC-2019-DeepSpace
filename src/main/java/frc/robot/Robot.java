@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.hal.sim.DriverStationSim;
+import frc.robot.commands.IncrementShoulder;
 import frc.robot.subsystems.*;
 
 /**
@@ -59,10 +60,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Shoulder (Ticks)", kArm.getShoulderPosition());
     SmartDashboard.putNumber("Wrist (Ticks)", kArm.getWristPosition());
 
+    SmartDashboard.putNumber("Shoulder RAW (Ticks)", kArm.getShoulderPositionRaw());
+    SmartDashboard.putNumber("Wrist RAW (Ticks)", kArm.getWristPositionRaw());
+
     SmartDashboard.putNumber("Shoulder (Degrees)", kArm.getShoulderDegrees());
     SmartDashboard.putNumber("Wrist (Degrees)", kArm.getWristDegrees());
-    //SmartDashboard.putNumber("Shoulder Volt", kArm.getShoulderVoltage());
-    //SmartDashboard.putNumber("Wrist", kArm.getWristVoltage());
+    SmartDashboard.putNumber("Shoulder Voltage", kArm.getShoulderVoltage());
+    SmartDashboard.putNumber("Wrist Voltage", kArm.getWristVoltage());
   }
 
   /**
@@ -111,6 +115,13 @@ public class Robot extends TimedRobot {
     if(kAuto != null){
       kAuto.cancel();
     }
+
+
+    //CODE FOR CONTROLLING SHOULDER POSITION MANUALLY
+    double increment = oi.getPartnerLeftYAxis() * Constants.kIncrementDegrees;
+    new IncrementShoulder(increment).start();
+
+
     Scheduler.getInstance().run();
 
     //System.out.println(kElevator.getVelocity());
