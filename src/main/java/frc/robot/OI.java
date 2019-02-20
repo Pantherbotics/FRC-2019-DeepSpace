@@ -30,10 +30,10 @@ public class OI{
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
         //Elevator + Arm
-        partnerButtonY.whenPressed(new ToSetpoint(Constants.highElevator)); //work in progress
-        partnerButtonX.whenPressed(new ToSetpoint(Constants.testOne));
-        partnerButtonB.whenPressed(new ToSetpoint(Constants.testTwo));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.elevatorDown)); //Hatch Panel
+        partnerButtonY.whenPressed(new ToSetpoint(Constants.highRocketBall)); //work in progress
+        partnerButtonX.whenPressed(new ToSetpoint(Constants.lowRocketBall));
+        partnerButtonB.whenPressed(new ToSetpoint(Constants.mediumRocketBall));
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.intakeFromGround)); //Hatch Panel
 
 
         //Intake

@@ -29,15 +29,15 @@ public class Arm extends Subsystem{
         //initPos();
 
 
-        Notifier feedForwardThread = new Notifier(() ->{
+        Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units
             shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
             wristkF = Constants.wristAFF * Math.abs(Math.cos(Math.toRadians(getWristDegrees() + getShoulderDegrees())));
 
-            mShoulder.set(ControlMode.MotionMagic,shoulderSetpoint + Constants.kShoulderOffset, DemandType.ArbitraryFeedForward, shoulderkF);
+            mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, shoulderkF);
 
             //since our wrist TalonSRX is being driven off the SUM of both its position and the shoulder position, we get 4-bar like motion when we drive the wrist to a setpoint.
             //(wristAngle + kWristOffset) + (shoulderAngle + kShoulderOffset) = setpoint + kShoulderOffset + kWristOffset
-            mWrist.set(ControlMode.MotionMagic, wristSetpoint + Constants.kWristOffset + Constants.kShoulderOffset, DemandType.ArbitraryFeedForward, wristkF);
+            mWrist.set(ControlMode.MotionMagic, wristSetpoint - (Constants.kWristOffset + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, wristkF);
 
             SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
             SmartDashboard.putNumber("Wrist Sensor Sum", mWrist.getSelectedSensorPosition());
@@ -45,12 +45,12 @@ public class Arm extends Subsystem{
 
         });
 
-        //feedForwardThread.startPeriodic(0.02);
+        feedForwardThread.startPeriodic(0.02);
 
     }
 
     public void initPID(){
-        //Near elevator joint
+        //Shoulder
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
 
         mShoulder.setNeutralMode(NeutralMode.Coast);
@@ -64,8 +64,10 @@ public class Arm extends Subsystem{
         mShoulder.configMotionCruiseVelocity(Constants.kShoulderCruiseSpeed, timeout_ms);
         mShoulder.configMotionAcceleration(Constants.kShoulderAccelerationSpeed, timeout_ms);
         mShoulder.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
-        //Far elevator joint
-
+        //Wrist
+        mWrist.setNeutralMode(NeutralMode.Coast);
+        mWrist.setInverted(true);
+        mWrist.setSensorPhase(false);
         mWrist.configFactoryDefault(timeout_ms);
         mWrist.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
         mWrist.configRemoteFeedbackFilter(mShoulder.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 0, timeout_ms);
@@ -73,10 +75,7 @@ public class Arm extends Subsystem{
         mWrist.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, timeout_ms);
         mWrist.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.Analog, timeout_ms);
         mWrist.configSelectedFeedbackSensor(FeedbackDevice.SensorSum);
-        mWrist.setNeutralMode(NeutralMode.Coast);
 
-        mWrist.setInverted(false);
-        mWrist.setSensorPhase(false);
         mWrist.configAllowableClosedloopError(kPIDIdx, 0, timeout_ms);
         mWrist.config_kP(kPIDIdx, Constants.wristKP, timeout_ms);
         mWrist.config_kI(kPIDIdx, Constants.wristKI, timeout_ms);
@@ -100,18 +99,18 @@ public class Arm extends Subsystem{
     }
 
     public int getShoulderPosition(){
-        return mShoulder.getSensorCollection().getAnalogInRaw()+Constants.kShoulderOffset; //Flat should be 0
+        return mShoulder.getSensorCollection().getAnalogInRaw()-Constants.kShoulderOffset; //Flat should be 0
     }
 
     public int getShoulderPositionRaw(){
-        return mShoulder.getSelectedSensorPosition();
+        return mShoulder.getSensorCollection().getAnalogInRaw();
     }
 
     public int getWristPositionRaw(){
         return mWrist.getSensorCollection().getAnalogInRaw();
     }
     public double getShoulderDegrees(){
-        return Units.talonToDegrees(getShoulderPosition());
+        return -Units.talonToDegrees(getShoulderPosition());
     }
 
     public double getShoulderVoltage(){
@@ -119,11 +118,11 @@ public class Arm extends Subsystem{
     }
 
     public int getWristPosition(){
-        return mWrist.getSensorCollection().getAnalogInRaw()+Constants.kWristOffset;
+        return mWrist.getSensorCollection().getAnalogInRaw()-Constants.kWristOffset;
     }
 
     public double getWristDegrees(){
-        return Units.talonToDegrees(getWristPosition());
+        return -Units.talonToDegrees(getWristPosition());
     }
 
     public double getWristVoltage(){

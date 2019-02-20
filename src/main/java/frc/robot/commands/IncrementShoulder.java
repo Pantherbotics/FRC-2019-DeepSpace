@@ -21,7 +21,7 @@ public class IncrementShoulder extends Command {
   }
 
   protected void execute() { //generally choose this one
-    kArm.setShoulderPosition(Units.degreesToTalon(increment) + kArm.getShoulderPosition());
+    //kArm.setShoulderPosition(Units.degreesToTalon(increment) + kArm.getShoulderPosition());
   }
 
   protected boolean isFinished() {
