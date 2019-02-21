@@ -12,6 +12,16 @@ public class OI{
     public JoystickButton buttonS = new JoystickButton(stick, 1); //Square
     public JoystickButton buttonC = new JoystickButton(stick, 2); //Circle
     public JoystickButton buttonX = new JoystickButton(stick, 3); //X
+    public JoystickButton bumperL = new JoystickButton(stick, 5); //Left Bumper
+    public JoystickButton bumperR = new JoystickButton(stick, 6); //Right Bumper
+    public JoystickButton triggerL = new JoystickButton(stick, 7); //Left Trigger
+    public JoystickButton triggerR = new JoystickButton(stick, 8); //Right Trigger
+    public JoystickButton buttonShare = new JoystickButton(stick, 9); //Share
+    public JoystickButton buttonOption = new JoystickButton(stick, 10); //Option
+    public JoystickButton buttonLJoy = new JoystickButton(stick, 11); //Press the left Joystick
+    public JoystickButton buttonRJoy = new JoystickButton(stick, 12); //Press right Joystick
+    public JoystickButton buttonPS4 = new JoystickButton(stick, 13); //PS4 Button
+    public JoystickButton touchpad = new JoystickButton(stick, 14); //Hit touchpad
 
     //Partner Joystick
     public JoystickButton partnerButtonY = new JoystickButton(partnerStick, 4);
@@ -25,22 +35,22 @@ public class OI{
     public JoystickButton partnerBack = new JoystickButton(partnerStick, 9);
     public JoystickButton partnerStart = new JoystickButton(partnerStick, 10);
     int partnerPOV;
-    int currentElev, currentShoulder, currentWrist;
+    boolean isDisk;
 
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
-        //Elevator + Arm
+        //Elevator + Arm (partner)
         partnerButtonY.whenPressed(new ToSetpoint(Constants.highRocketBall)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(Constants.lowRocketBall));
         partnerButtonB.whenPressed(new ToSetpoint(Constants.mediumRocketBall));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.intakeFromGround)); //Hatch Panel
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.ballIntake)); //Hatch Panel
 
 
-        //Intake
-        partnerBumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
-        partnerTriggerL.whileHeld(new SuccDisk(true));
-        partnerBumperR.whileHeld(new FondleBall(false)); //Right Side Fondle
-        partnerTriggerR.whileHeld(new FondleBall(true));
+        //Intake (main)
+        bumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
+        triggerL.whileHeld(new SuccDisk(true));
+        bumperR.whileHeld(new FondleBall(false)); //Right Side Fondle
+        triggerR.whileHeld(new FondleBall(true));
 
         partnerStart.whenPressed(new ZeroElevator());
     }
@@ -50,17 +60,23 @@ public class OI{
         partnerPOV = partnerStick.getPOV();
         switch(partnerPOV){
             case 0:
-                new ToSetpoint(Constants.elevSetpoint[2], 0, 0).start(); //Elev down, Cargo (Sicko) Mode
-                currentShoulder = 0;
-                currentWrist = 0;
+                isDisk = true;
+                new ToSetpoint(Constants.diskIntake).start(); //Hatch Panel (Sicko) Mode
             case 90:
-                new ToSetpoint(Constants.elevSetpoint[4], 0, 0).start();
+                if(isDisk){
+                    new IncrementElevator(Constants.highRocketDisk).start();
+                } else if(!isDisk){
+                    new IncrementElevator(Constants.highRocketBalll).start();
+                }
             case 180:
-                new ToSetpoint(Constants.elevSetpoint[3], 0, 0).start();
-                currentShoulder = 0;
-                currentWrist = 0;   
+                isDisk = false;
+                new ToSetpoint(Constants.ballIntake).start();
             case 270:
-                new ToSetpoint(Constants.elevSetpoint[0], currentShoulder, currentWrist).start();
+                if(isDisk){
+                    new IncrementElevator(Constants.mediumRocketDisk).start();
+                } else if(!isDisk){
+                    new IncrementElevator(Constants.mediumRocketBalll).start();
+                }
         }
     }
 
