@@ -34,6 +34,7 @@ public class OI{
     public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 8); //Right Trigger
     public JoystickButton partnerBack = new JoystickButton(partnerStick, 9);
     public JoystickButton partnerStart = new JoystickButton(partnerStick, 10);
+    int POV;
     int partnerPOV;
     boolean isDisk;
 
@@ -55,7 +56,20 @@ public class OI{
         partnerStart.whenPressed(new ZeroElevator());
     }
 
-    //POV
+    public void checkPOV(){
+        POV = stick.getPOV();
+        switch(POV){
+            case 0:
+                //lul
+            case 90:
+                //lul
+            case 180:
+                //lul
+            case 270:
+                //lul
+        }
+    }
+    //Partner POV
     public void checkPartnerPOV(){ //wtf is this
         partnerPOV = partnerStick.getPOV();
         switch(partnerPOV){
@@ -70,7 +84,7 @@ public class OI{
                 }
             case 180:
                 isDisk = false;
-                new ToSetpoint(Constants.ballIntake).start();
+                new ToSetpoint(Constants.ballIntake).start(); //Cargo (Less Sicko) Mode
             case 270:
                 if(isDisk){
                     new IncrementElevator(Constants.mediumRocketDisk).start();
