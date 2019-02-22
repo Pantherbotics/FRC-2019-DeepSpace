@@ -23,8 +23,8 @@ public class Arm extends Subsystem{
     private final int kPIDIdx = 0;
     public Arm(){
 
-        shoulderSetpoint = 0;
-        wristSetpoint = 0;
+        shoulderSetpoint = Units.degreesToTalon(14.0);
+        wristSetpoint = Units.degreesToTalon(0);
         initPID();
         //initPos();
 

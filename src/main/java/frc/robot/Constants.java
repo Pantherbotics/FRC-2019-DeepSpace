@@ -43,11 +43,11 @@ public class Constants{
                                        };
 
     public static final Setpoint armToBallCargoShip = new Setpoint(0, 79.82, 30.27);
-    public static final Setpoint ballIntake = new Setpoint(0, 12.43, -17.88);
+    public static final Setpoint ballIntake = new Setpoint(0.5, 13.5, -3.5);
     public static final Setpoint armToDiskCargoShip = new Setpoint(0, -20.33, 17.41);
     public static final Setpoint lowRocketBall = new Setpoint(0, 60.2, 0);
     public static final Setpoint mediumRocketBall = new Setpoint(44.0, 0, 0);
-    public static final Setpoint highRocketBall = new Setpoint(66, 24.5, 0);
+    public static final Setpoint highRocketBall = new Setpoint(64, 24.5, 0);
     public static final Setpoint diskIntake = new Setpoint(0, -18.5, 72.5);
 
     //WTF IS GOING ON??
@@ -88,14 +88,14 @@ public class Constants{
     public static final double driveKD = 0.05;
     public static final double driveKF = 0.50979366385; //Probably wrong
     //Robot Elevator
-    public static final double elevatorKP = 0.5;
+    public static final double elevatorKP = 3.0;
     public static final double elevatorKI = 0.0;
-    public static final double elevatorKD = 0.05;
+    public static final double elevatorKD = 0.02;
     public static final double elevatorKF1 = 1023.0/1198.0; //1198 is the calculated maximum speed
     public static final double elevatorKF2 = 1023.0/900.0;
-    public static final double elevatorAFF = 0.05;
+    public static final double elevatorAFF = 0.06;
     public static final int kElevatorCruiseSpeed = 1198;
-    public static final int kElevatorAccelerationSpeed = 1500;
+    public static final int kElevatorAccelerationSpeed = 1000; //my sat score
     public static final int kElevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
     public static final int kElevatorMaxPos = 7950;
 
