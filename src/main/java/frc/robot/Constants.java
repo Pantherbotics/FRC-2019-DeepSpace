@@ -42,13 +42,14 @@ public class Constants{
                                         210, //90 deg
                                        };
 
-    public static final Setpoint armToBallCargoShip = new Setpoint(0, 79.82, 30.27);
-    public static final Setpoint ballIntake = new Setpoint(0.5, 13.5, -3.5);
-    public static final Setpoint armToDiskCargoShip = new Setpoint(0, -20.33, 17.41);
-    public static final Setpoint lowRocketBall = new Setpoint(0, 60.2, 0);
-    public static final Setpoint mediumRocketBall = new Setpoint(44.0, 0, 0);
-    public static final Setpoint highRocketBall = new Setpoint(64, 24.5, 0);
-    public static final Setpoint diskIntake = new Setpoint(0, -18.5, 72.5);
+    public static final Setpoint ballIntake = new Setpoint(0.5, 15.15, -9.85); //u
+    public static final Setpoint diskIntake = new Setpoint(0, -17.75, 106.5); //u
+    public static final Setpoint diskIntakeGround = new Setpoint(0, 11.26, 0); //u
+    public static final Setpoint ballCargoShip = new Setpoint(0, 79.82, 30.27);
+    public static final Setpoint diskCargoShip = new Setpoint(0, -20.33, 17.41);
+    public static final Setpoint lowRocketBall = new Setpoint(0, 60.2, 39.4); //u
+    public static final Setpoint mediumRocketBall = new Setpoint(44.0, 0, 39.4); //u
+    public static final Setpoint highRocketBall = new Setpoint(64, 24.5, 39.4); //u
 
     //WTF IS GOING ON??
     public static final Setpoint testOne = new Setpoint(0, 60, 0);
@@ -102,7 +103,7 @@ public class Constants{
     public static int timeoutMS = 10;
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
-    //Arm
+    //Shoulder
     public static final double shoulderKP = 15.0;
     public static final double shoulderKI = 0;
     public static final double shoulderKD = 0;
@@ -112,7 +113,7 @@ public class Constants{
     public static final double shoulderAFF = 0.04166; //At horzontal, 0.52 = 44.33
     public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 290 : 0;
     public static final double kIncrementDegrees = 20;
-
+    //Wrist
     public static final double wristKP = 10.0;
     public static final double wristKI = 0;
     public static final double wristKD = 0;
@@ -120,6 +121,9 @@ public class Constants{
     public static final int kWristCruiseSpeed = 37;  //maximum = 37
     public static final int kWristAccelerationSpeed = 60;
     public static final double wristAFF = 0.04166; //0.50v/12v
-    public static final int kWristOffset = IS_COMPETITION_ROBOT ? 350 : 0;
-
+    public static final int kWristOffset = IS_COMPETITION_ROBOT ? 410 : 0;
+    //Intake
+    public static final double succLimit = -0.4; //Percentage
+    public static final double fondleLimit = 0.4;
+    public static final double intakeAFF = 0.1;
 }

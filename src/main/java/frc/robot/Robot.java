@@ -65,8 +65,12 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Shoulder (Degrees)", kArm.getShoulderDegrees());
     SmartDashboard.putNumber("Wrist (Degrees)", kArm.getWristDegrees());
+
+    SmartDashboard.putNumber("Elevator Voltage", kElevator.getVoltage());
     SmartDashboard.putNumber("Shoulder Voltage", kArm.getShoulderVoltage());
     SmartDashboard.putNumber("Wrist Voltage", kArm.getWristVoltage());
+    SmartDashboard.putNumber("Succ Voltage", kIntake.getSuccVoltage());
+    SmartDashboard.putNumber("Fondle Voltage", kIntake.getFondleVoltage());
   }
 
   /**

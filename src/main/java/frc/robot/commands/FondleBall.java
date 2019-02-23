@@ -26,9 +26,9 @@ public class FondleBall extends Command {
   @Override
   protected void execute() {
     if(fondle){
-      Robot.kIntake.setFondle(1);
+      Robot.kIntake.setFondle(0.5);
     } else{
-      Robot.kIntake.setFondle(-1);
+      Robot.kIntake.setFondle(-0.75);
     }
   }
 

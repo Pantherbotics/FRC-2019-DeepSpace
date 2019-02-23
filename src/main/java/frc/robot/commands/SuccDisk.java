@@ -26,9 +26,9 @@ public class SuccDisk extends Command {
   @Override
   protected void execute() {
     if(succ){
-      Robot.kIntake.setSucc(0.25);
+      Robot.kIntake.setSucc(0.4);
     } else{
-      Robot.kIntake.setSucc(-0.25);
+      Robot.kIntake.setSucc(-0.4);
     }
   }
 
