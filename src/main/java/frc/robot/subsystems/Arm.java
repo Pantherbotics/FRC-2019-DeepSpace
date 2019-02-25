@@ -33,11 +33,11 @@ public class Arm extends Subsystem{
             shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
             wristkF = Constants.wristAFF * Math.abs(Math.cos(Math.toRadians(getWristDegrees() + getShoulderDegrees())));
 
-            //mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, shoulderkF);
+            mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, shoulderkF);
 
             //since our wrist TalonSRX is being driven off the SUM of both its position and the shoulder position, we get 4-bar like motion when we drive the wrist to a setpoint.
             //(wristAngle + kWristOffset) + (shoulderAngle + kShoulderOffset) = setpoint + kShoulderOffset + kWristOffset
-            //mWrist.set(ControlMode.MotionMagic, wristSetpoint - (Constants.kWristOffset + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, wristkF);
+            mWrist.set(ControlMode.MotionMagic, wristSetpoint - (Constants.kWristOffset + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, wristkF);
 
             SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
             SmartDashboard.putNumber("Wrist Sensor Sum", mWrist.getSelectedSensorPosition());

@@ -1,4 +1,5 @@
 package frc.robot;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Constants;
@@ -46,19 +47,20 @@ public class OI{
         partnerButtonB.whenPressed(new ToSetpoint(Constants.mediumRocketBall));
         partnerButtonA.whenPressed(new ToSetpoint(Constants.ballIntake)); //Hatch Panel
 
-
         //Intake (main)
         bumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
-        triggerL.whileHeld(new SuccDisk(true));
+        triggerL.whileHeld(new SuccDisk(true)); //true = in
         bumperR.whileHeld(new FondleBall(false)); //Right Side Fondle
-        triggerR.whileHeld(new FondleBall(true));
+        triggerR.whileHeld(new FondleBall(true)); //true = in
 
         partnerStart.whenPressed(new ZeroElevator());
     }
-
+    //Main POV
     public void checkPOV(){
-        POV = stick.getPOV();
+        POV = stick.getPOV(Constants.JoystickPort);
         switch(POV){
+            case -1:
+                break;
             case 0:
                 //lul
             case 90:
@@ -68,11 +70,14 @@ public class OI{
             case 270:
                 //lul
         }
+        POV = -1;
     }
     //Partner POV
     public void checkPartnerPOV(){ //wtf is this
-        partnerPOV = partnerStick.getPOV();
+        partnerPOV = partnerStick.getPOV(Constants.PartnerJoyPort);
         switch(partnerPOV){
+            case -1:
+                break;
             case 0:
                 isDisk = true;
                 new ToSetpoint(Constants.diskIntake).start(); //Hatch Panel (Sicko) Mode
@@ -92,6 +97,7 @@ public class OI{
                     new IncrementElevator(Constants.mediumRocketBalll).start();
                 }
         }
+        partnerPOV = -1;
     }
 
     //Joystick
