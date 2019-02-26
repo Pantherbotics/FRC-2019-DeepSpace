@@ -123,6 +123,8 @@ public class Constants{
     public static final int kWristAccelerationSpeed = 60;
     public static final double wristAFF = 0.04166; //0.50v/12v
     public static final int kWristOffset = IS_COMPETITION_ROBOT ? 304 : 0;
+    public static final int kWristMaxPos = 1023;
+    public static final int kWristMinPos = 0;
     //Intake
     public static final double succLimit = -0.4; //Percentage
     public static final double fondleLimit = 0.4;

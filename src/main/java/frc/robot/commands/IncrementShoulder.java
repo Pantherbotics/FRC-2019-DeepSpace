@@ -8,24 +8,24 @@ import frc.robot.util.DriveSignal;
 import frc.robot.util.Units;
 
 import static frc.robot.Robot.kArm;
+import static frc.robot.Robot.oi;
 
 public class IncrementShoulder extends Command {
 
-  private double increment;
-  public IncrementShoulder(double increment) {
+  public IncrementShoulder() {
     requires(kArm);
-    this.increment = increment;
   }
 
   protected void initialize() {
   }
 
   protected void execute() { //generally choose this one
-    //kArm.setShoulderPosition(Units.degreesToTalon(increment) + kArm.getShoulderPosition());
+    double increment = 5.0 * oi.getPartnerRightYAxis();
+    kArm.setShoulderPosition(Units.degreesToTalon(increment) + kArm.getShoulderPosition());
   }
 
   protected boolean isFinished() {
-    return true;
+    return false;
   }
 
   protected void end() {

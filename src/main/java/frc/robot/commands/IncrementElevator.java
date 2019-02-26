@@ -4,23 +4,24 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.util.Units;
 
+import static frc.robot.Robot.oi;
+
 public class IncrementElevator extends Command{
 
-    private int increment;
-    public IncrementElevator(double increment) {
+    public IncrementElevator() {
         requires(Robot.kElevator);
-        this.increment = Units.inchesToElevatorTicks(increment);
     }
 
     protected void initialize() {
     }
 
     protected void execute() { //?
-        Robot.kElevator.setPos(increment);
+        int increment = (int)(100 * oi.getPartnerLeftYAxis());
+        Robot.kElevator.setPos(Robot.kElevator.getPos() + increment);
     }
 
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     protected void end() {

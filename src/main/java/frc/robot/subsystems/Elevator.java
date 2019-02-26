@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import frc.robot.commands.IncrementElevator;
 import frc.robot.util.Units;
 
 public class Elevator extends Subsystem{
@@ -48,7 +49,7 @@ public class Elevator extends Subsystem{
         elevThread.startPeriodic(0.01);
     }
     public void initDefaultCommand(){
-
+        setDefaultCommand(new IncrementElevator());
     }
     public int getPos(){
         return mElevA.getSelectedSensorPosition(0);
