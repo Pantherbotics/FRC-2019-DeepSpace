@@ -1,5 +1,5 @@
 package frc.robot;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.Constants;
@@ -78,19 +78,19 @@ public class OI{
         switch(partnerPOV){
             case -1:
                 break;
-            case 0:
+            case 90:
                 isDisk = true;
                 new ToSetpoint(Constants.diskIntake).start(); //Hatch Panel (Sicko) Mode
-            case 90:
+            case 180:
                 if(isDisk){
                     new IncrementElevator(Constants.highRocketDisk).start();
                 } else if(!isDisk){
                     new IncrementElevator(Constants.highRocketBalll).start();
                 }
-            case 180:
+            case 270:
                 isDisk = false;
                 new ToSetpoint(Constants.ballIntake).start(); //Cargo (Less Sicko) Mode
-            case 270:
+            case 0:
                 if(isDisk){
                     new IncrementElevator(Constants.mediumRocketDisk).start();
                 } else if(!isDisk){
