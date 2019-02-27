@@ -38,6 +38,7 @@ public class Elevator extends Subsystem{
         mElevA.setSelectedSensorPosition(0);
         mElevA.configForwardSoftLimitThreshold(Constants.kElevatorMaxPos);
         mElevA.configForwardSoftLimitEnable(true);
+
         Notifier elevThread = new Notifier(() ->{
             if(getPos() > Constants.kElevMidway){
                 mElevA.selectProfileSlot(Constants.highElev_ID, 0);
