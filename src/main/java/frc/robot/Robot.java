@@ -120,12 +120,6 @@ public class Robot extends TimedRobot {
       kAuto.cancel();
     }
 
-
-    //CODE FOR CONTROLLING SHOULDER POSITION MANUALLY
-    double increment = oi.getPartnerLeftYAxis() * Constants.kIncrementDegrees;
-    new IncrementShoulder(increment).start();
-
-
     Scheduler.getInstance().run();
 
     //System.out.println(kElevator.getVelocity());

@@ -42,15 +42,15 @@ public class Constants{
                                         210, //90 deg
                                        };
 
-    public static final Setpoint ballIntake = new Setpoint(0, 22.5, 7.5);
+    public static final Setpoint ballIntake = new Setpoint(0, 0, 0);
 
-    public static final Setpoint diskIntake = new Setpoint(0, -17.75, 106.5);
+    public static final Setpoint diskIntake = new Setpoint(0, 10.2, 7.5);
     public static final Setpoint diskIntakeGround = new Setpoint(0, 11.26, 0);
     public static final Setpoint ballCargoShip = new Setpoint(0, 79.82, 30.27);
     public static final Setpoint diskCargoShip = new Setpoint(0, -20.33, 17.41);
-    public static final Setpoint lowRocketBall = new Setpoint(0, 60.2, 0.0); //u
+    public static final Setpoint lowRocketBall = new Setpoint(0, 0, 0.0); //u
     public static final Setpoint mediumRocketBall = new Setpoint(44.0, 0, 0.0); //u
-    public static final Setpoint highRocketBall = new Setpoint(64, 24.5, 0.0); //u
+    public static final Setpoint highRocketBall = new Setpoint(64, 0, 0); //u
 
     //WTF IS GOING ON??
     public static final Setpoint testOne = new Setpoint(0, 60, 0);
@@ -92,12 +92,12 @@ public class Constants{
     //Robot Elevator
     public static final double elevatorKP = 5.0;
     public static final double elevatorKI = 0.0;
-    public static final double elevatorKD = 0.1;
+    public static final double elevatorKD = 0.4;
     public static final double elevatorKF1 = 1023.0/1198.0; //1198 is the calculated maximum speed
     public static final double elevatorKF2 = 1023.0/900.0;
-    public static final double elevatorAFF = 0.06;
+    public static final double elevatorAFF = 0.09;
     public static final int kElevatorCruiseSpeed = 1198;
-    public static final int kElevatorAccelerationSpeed = 1000; //my sat score
+    public static final int kElevatorAccelerationSpeed = 600; //my sat score
     public static final int kElevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
     public static final int kElevatorMaxPos = 7975;
 
@@ -111,7 +111,7 @@ public class Constants{
     public static final double shoulderKF = 1023.0/37.51;
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 60;
-    public static final double shoulderAFF = 0.04166; //At horzontal, 0.52 = 44.33
+    public static final double shoulderAFF = 0.08; //At horzontal, 0.52 = 44.33
     public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 290 : 0;
     public static final double kIncrementDegrees = 20;
     //Wrist

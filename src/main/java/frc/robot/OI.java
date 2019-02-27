@@ -147,9 +147,9 @@ public class OI{
         return partnerStick.getRawAxis(Constants.PartnerJoyRightXAxis);
     }
     public double getPartnerRightYAxis(){
-        if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis)) < Constants.deadband){
+        /*if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis)) < Constants.deadband){
             return 0;
-        }
+        }*/
         return -partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis);
     }
 }
