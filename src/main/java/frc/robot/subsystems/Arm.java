@@ -147,6 +147,6 @@ public class Arm extends Subsystem{
 
     public void initDefaultCommand(){
         //setDefaultCommand(new ShoulderPower());
-        setDefaultCommand(new IncrementShoulder());
+        setDefaultCommand(new IncrementShoulder(0));
     }
 }

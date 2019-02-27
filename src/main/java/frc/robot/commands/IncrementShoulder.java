@@ -12,7 +12,7 @@ import static frc.robot.Robot.oi;
 
 public class IncrementShoulder extends Command {
 
-  public IncrementShoulder() {
+  public IncrementShoulder(double increment) {
     requires(kArm);
   }
 
