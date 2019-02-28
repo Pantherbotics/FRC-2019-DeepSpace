@@ -16,6 +16,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.hal.sim.DriverStationSim;
 import frc.robot.commands.IncrementShoulder;
 import frc.robot.subsystems.*;
+import jaci.pathfinder.Trajectory;
+import java.util.HashMap;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import jaci.pathfinder.Pathfinder;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +38,8 @@ public class Robot extends TimedRobot {
   public static final Arm kArm = new Arm();
   public static final Intake kIntake = new Intake();
   public static final OI oi = new OI(); //Instantiate OI after instantiating all the subsystems
+  public static HashMap<String, Trajectory> paths;
+  public static final Vision vision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private Command kAuto;
@@ -43,6 +53,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    paths = collectPathsFromDirectory(Constants.PATH_LOCATION);
     //if(kArm.getShoulderPosition() > 200 || kArm.getShoulderPosition() < )
   }
 
@@ -137,5 +148,48 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+  public void outputPathsToDashboard(HashMap<String, Trajectory> paths, SendableChooser<String> chooser){
+    System.out.println(paths.isEmpty());
+    for(String key : paths.keySet()){
+        System.out.println(key);
+        chooser.addObject(key, key);
+    }
+  }
+
+  public HashMap<String, Trajectory> collectPathsFromDirectory(String dir){
+      HashMap<String, Trajectory> paths = new HashMap<>();
+
+          ArrayList<File> filesInFolder = listf(dir);
+
+          for(int i = filesInFolder.size()-1; i >=0 ; i--){
+              File traj = filesInFolder.get(i);
+              if (!traj.getName().contains("_source_Jaci.csv")){
+                  filesInFolder.remove(i);
+              }
+          }
+          for(File traj: filesInFolder){
+              System.out.println(traj.getName());                                                                          //take all the File objects we just created & convert them into Trajectories to put into HashMap
+              paths.put(traj.getName().replace("_source_Jaci.csv", ""), Pathfinder.readFromCSV(traj));
+          }
+          return paths;
+  }
+
+
+  public static ArrayList<File> listf(String directoryName) {
+      File directory = new File(directoryName);
+
+      // get all the files from a directory
+      File[] fList = directory.listFiles();
+      ArrayList<File> resultList = new ArrayList<File>(Arrays.asList(fList));
+      for (File file : fList) {
+          if (file.isFile()) {
+              System.out.println(file.getAbsolutePath());
+          } else if (file.isDirectory()) {
+              resultList.addAll(listf(file.getAbsolutePath()));
+          }
+      }
+      //System.out.println(fList);
+      return resultList;
   }
 }

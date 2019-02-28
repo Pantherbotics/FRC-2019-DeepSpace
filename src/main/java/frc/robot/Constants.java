@@ -1,6 +1,7 @@
 package frc.robot;
 
 import frc.robot.util.Setpoint;
+import edu.wpi.first.wpilibj.SerialPort;
 
 public class Constants{
     public static final boolean IS_COMPETITION_ROBOT = true;
@@ -129,4 +130,8 @@ public class Constants{
     public static final double succLimit = -0.4; //Percentage
     public static final double fondleLimit = 0.4;
     public static final double intakeAFF = 0.1;
+    //Vision
+    public static final int kVisionBaud = 115200;
+    public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;
+    public static final String PATH_LOCATION = "/home/lvuser/paths/";
 }
