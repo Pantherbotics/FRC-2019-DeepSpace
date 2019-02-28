@@ -46,7 +46,7 @@ public class Elevator extends Subsystem{
                 mElevA.selectProfileSlot(Constants.lowElev_ID, 0);
             }
         });
-        elevThread.startPeriodic(0.01);
+        //elevThread.startPeriodic(0.01);
     }
     public void initDefaultCommand(){
 
@@ -73,5 +73,4 @@ public class Elevator extends Subsystem{
     public void setElevatorEncoder(int pos){
         mElevA.setSelectedSensorPosition(pos, Constants.lowElev_ID, Constants.timeoutMS);
     }
-
 }
