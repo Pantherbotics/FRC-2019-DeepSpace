@@ -1,15 +1,11 @@
 //this code was made by team 3863 FIRST Robotics, Newbury Park, CA 91320
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Notifier;
 import frc.robot.Constants;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import frc.robot.util.Units;
 
 public class Elevator extends Subsystem{
@@ -21,6 +17,7 @@ public class Elevator extends Subsystem{
         mElevB.setInverted(false);
         mElevA.setInverted(false);
         mElevA.setSensorPhase(true);
+        mElevA.setNeutralMode(NeutralMode.Brake);
         mElevA.config_kP(Constants.lowElev_ID, Constants.elevatorKP, Constants.timeoutMS);
         mElevA.config_kI(Constants.lowElev_ID, Constants.elevatorKI, Constants.timeoutMS);
         mElevA.config_kD(Constants.lowElev_ID, Constants.elevatorKD, Constants.timeoutMS);

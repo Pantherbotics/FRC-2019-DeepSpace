@@ -9,12 +9,14 @@ import frc.robot.util.Units;
 
 import static frc.robot.Robot.kArm;
 
-public class IncrementShoulder extends Command {
+public class IncrementShoulder extends Command { //Should really be called incrementArm
 
-  private double increment;
-  public IncrementShoulder(double increment) {
-    requires(kArm);
-    this.increment = increment;
+  private double incrementS;
+  private double incrementW;
+
+  public IncrementShoulder() {
+    incrementS = Robot.oi.getPartnerLeftYAxis();
+
   }
 
   protected void initialize() {

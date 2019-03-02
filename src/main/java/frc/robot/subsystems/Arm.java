@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.robot.commands.IncrementShoulder;
 import frc.robot.commands.PowerArmOpenLoop;
 import frc.robot.util.Units;
 
@@ -24,8 +25,8 @@ public class Arm extends Subsystem{
     private final int kPIDIdx = 0;
     public Arm(){
 
-        shoulderSetpoint = 0;
-        wristSetpoint = 0;
+        shoulderSetpoint = Units.degreesToTalon(30.0);
+        wristSetpoint = Units.degreesToTalon(0.00);
         initPID();
         //initPos();
 
@@ -34,18 +35,15 @@ public class Arm extends Subsystem{
             shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
             wristkF = Constants.wristAFF * Math.abs(Math.cos(Math.toRadians(getWristDegrees() + getShoulderDegrees())));
 
-            mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, shoulderkF);
-            //mShoulder.set(ControlMode.PercentOutput, shoulderSetpoint, DemandType.ArbitraryFeedForward, -shoulderkF);
+            mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, -shoulderkF);
 
             //since our wrist TalonSRX is being driven off the SUM of both its position and the shoulder position, we get 4-bar like motion when we drive the wrist to a setpoint.
             //(wristAngle + kWristOffset) + (shoulderAngle + kShoulderOffset) = setpoint + kShoulderOffset + kWristOffset
-            mWrist.set(ControlMode.MotionMagic, (wristSetpoint + Constants.kWristOffset + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, wristkF);
-            //mWrist.set(ControlMode.PercentOutput, wristSetpoint, DemandType.ArbitraryFeedForward, wristkF);
+            mWrist.set(ControlMode.MotionMagic, (wristSetpoint - (Constants.kWristOffset + Constants.kShoulderOffset)), DemandType.ArbitraryFeedForward, wristkF);
 
             SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
             SmartDashboard.putNumber("Wrist Sensor Sum", mWrist.getSelectedSensorPosition());
             SmartDashboard.putNumber("Shoulder Setpoint", mShoulder.getClosedLoopTarget(0));
-
         });
 
         feedForwardThread.startPeriodic(0.02);
@@ -58,7 +56,7 @@ public class Arm extends Subsystem{
 
         mShoulder.setNeutralMode(NeutralMode.Brake);
         mShoulder.setInverted(false);
-        mShoulder.setSensorPhase(true);
+        mShoulder.setSensorPhase(false);
         mShoulder.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
         mShoulder.config_kP(kPIDIdx, Constants.shoulderKP, timeout_ms);
         mShoulder.config_kI(kPIDIdx, Constants.shoulderKI, timeout_ms);
@@ -143,5 +141,6 @@ public class Arm extends Subsystem{
 
     public void initDefaultCommand(){
         //setDefaultCommand(new PowerArmOpenLoop());
+        setDefaultCommand(new IncrementShoulder());
     }
 }

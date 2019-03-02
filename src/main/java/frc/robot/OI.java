@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.Constants;
 import frc.robot.commands.*;
 
@@ -35,6 +36,10 @@ public class OI{
     public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 8); //Right Trigger
     public JoystickButton partnerBack = new JoystickButton(partnerStick, 9);
     public JoystickButton partnerStart = new JoystickButton(partnerStick, 10);
+    public POVButton partnerPOVU = new POVButton(partnerStick, 0);  //Up
+    public POVButton partnerPOVR = new POVButton(partnerStick, 90); //Right
+    public POVButton partnerPOVD = new POVButton(partnerStick, 180);//Down
+    public POVButton partnerPOVL = new POVButton(partnerStick, 270);//Left
     int POV;
     int partnerPOV;
     boolean isDisk;
@@ -45,7 +50,11 @@ public class OI{
         partnerButtonY.whenPressed(new ToSetpoint(Constants.highRocketBall)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(Constants.lowRocketBall));
         partnerButtonB.whenPressed(new ToSetpoint(Constants.mediumRocketBall));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.ballIntake)); //Hatch Panel
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.groundIntake)); //Hatch Panel
+        partnerPOVU.whenPressed(new ToSetpoint(Constants.testOne));
+        partnerPOVR.whenPressed(new ToSetpoint(Constants.lowRocketDisk));
+        partnerPOVL.whenPressed(new ToSetpoint(Constants.mediumRocketDisk));
+        partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntake));
 
         //Intake (main)
         bumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
@@ -54,50 +63,7 @@ public class OI{
         triggerR.whileHeld(new FondleBall(true)); //true = in
 
         partnerStart.whenPressed(new ZeroElevator());
-    }
-    //Main POV
-    public void checkPOV(){
-        POV = stick.getPOV(Constants.JoystickPort);
-        switch(POV){
-            case -1:
-                break;
-            case 0:
-                //lul
-            case 90:
-                //lul
-            case 180:
-                //lul
-            case 270:
-                //lul
-        }
-        POV = -1;
-    }
-    //Partner POV
-    public void checkPartnerPOV(){ //wtf is this
-        partnerPOV = partnerStick.getPOV(Constants.PartnerJoyPort);
-        switch(partnerPOV){
-            case -1:
-                break;
-            case 90:
-                isDisk = true;
-                new ToSetpoint(Constants.diskIntake).start(); //Hatch Panel (Sicko) Mode
-            case 180:
-                if(isDisk){
-                    new IncrementElevator(Constants.highRocketDisk).start();
-                } else if(!isDisk){
-                    new IncrementElevator(Constants.highRocketBalll).start();
-                }
-            case 270:
-                isDisk = false;
-                new ToSetpoint(Constants.ballIntake).start(); //Cargo (Less Sicko) Mode
-            case 0:
-                if(isDisk){
-                    new IncrementElevator(Constants.mediumRocketDisk).start();
-                } else if(!isDisk){
-                    new IncrementElevator(Constants.mediumRocketBalll).start();
-                }
-        }
-        partnerPOV = -1;
+        partnerBack.whenPressed(new ToSetpoint(Constants.linkReaction));
     }
 
     //Joystick
