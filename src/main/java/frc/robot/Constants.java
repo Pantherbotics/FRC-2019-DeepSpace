@@ -2,6 +2,9 @@ package frc.robot;
 
 import frc.robot.util.Setpoint;
 
+import javax.print.attribute.SetOfIntegerSyntax;
+import java.util.Set;
+
 public class Constants{
     public static final boolean IS_COMPETITION_ROBOT = true;
 
@@ -17,42 +20,21 @@ public class Constants{
     public static final int PartnerJoyLeftYAxis = 1;
     public static final int PartnerJoyRightXAxis = 2;
     public static final int PartnerJoyRightYAxis = 3;
-    //Other Joystick Stuff
     public static final double deadband = 0.05;
-    public static final int[] elevSetpoint =
-                                       {0, //bottom
-                                        2200, //Flip Pos
-                                        3700, //carrage at top of level 1
-                                        6000, //idk
-                                        7950  //top of level 2
-                                       };
-    public static final int[] shoulderSetpoint = //These probably shouldn't be in numerical order
-                                       {-30, //Hatch Panel Intake                    0
-                                        30,  //Angled so the intake is on the ground 1
-                                        50,  //Design god Aaron Fang has forsaken me 2
-                                        100, //And I want to kashoot myself          3
-                                        150, //lmao
-                                        220, //ERECTIN                               4
-                                       };
-    public static final int[] wristSetpoint = //why
-                                       {-45, //Grounded
-                                        0,   //Flat
-                                        100, //delet
-                                        180, //Hatch Panel Intake
-                                        210, //90 deg
-                                       };
 
-    public static final Setpoint groundIntake = new Setpoint(0.00, 15.0, -20.00);
+    public static final Setpoint groundIntake = new Setpoint(0.00, 13.5, -20.0);
     public static final Setpoint linkReaction = new Setpoint(0.00, 30.0, 0.00);
-    public static final Setpoint diskIntake = new Setpoint(0, 0.00, 36.00);
-    public static final Setpoint ballCargoShip = new Setpoint(0, 79.82, 30.27);
-    public static final Setpoint diskCargoShip = new Setpoint(0, -20.33, 17.41);
+    public static final Setpoint diskIntake = new Setpoint(0, 1.5, 47.5);
+    public static final Setpoint diskIntake2 = new Setpoint(0, 5.0, 73.5);
+    public static final Setpoint diskOuttake = new Setpoint(0.0, -14.0, 73.5);
+    public static final Setpoint ballCargoShip = new Setpoint(25.0, 30.0, 0.00);
+    public static final Setpoint ballCargoShipFlip = new Setpoint(17.5, 80.00, 168.0);
     public static final Setpoint lowRocketBall = new Setpoint(0, 15.0, 32.0);
     public static final Setpoint mediumRocketBall = new Setpoint(30, 45.0, 32.0);
     public static final Setpoint highRocketBall = new Setpoint(64, 40.0, 32.0);
-    public static final Setpoint lowRocketDisk = new Setpoint(0.00, -4.50, 80.75);
-    public static final Setpoint mediumRocketDisk = new Setpoint(0.00 , 30.00, 80.75);
-    public static final Setpoint highRocketDisk = new Setpoint(0.00 , 30.00, 80.75);
+    public static final Setpoint lowRocketDisk = new Setpoint(0.00, -7.00, 73.5);
+    public static final Setpoint mediumRocketDisk = new Setpoint(0.00 , 30.00, 73.5);
+    public static final Setpoint highRocketDisk = new Setpoint(0.00 , 30.00, 73.5);
 
     //WTF IS GOING ON??
     public static final Setpoint testOne = new Setpoint(30, 0, 0);
@@ -106,25 +88,25 @@ public class Constants{
     public static int timeoutMS = 10;
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
-    //Shoulder
+    //Shoulder [-17deg,
     public static final double shoulderKP = 17.5;
     public static final double shoulderKI = 0;
-    public static final double shoulderKD = 0.2;
+    public static final double shoulderKD = 0.35;
     public static final double shoulderKF = 1023.0/37.51;
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 60;
     public static final double shoulderAFF = 0.166; //At horizontal, 1.5/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 276 : 0;
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 260 : 0;
     public static final double kIncrementDegrees = 20;
-    //Wrist
+    //Wrist [-35deg, 87deg]
     public static final double wristKP = 20.0;
     public static final double wristKI = 0;
-    public static final double wristKD = 0.15;
+    public static final double wristKD = 0.35;
     public static final double wristKF = 1023.0/37.51;
     public static final int kWristCruiseSpeed = 37;  //maximum = 37
     public static final int kWristAccelerationSpeed = 60;
     public static final double wristAFF = 0.125; //1.5v/12v
-    public static final int kWristOffset = IS_COMPETITION_ROBOT ? 364 : 0;
+    public static final int kWristOffset = IS_COMPETITION_ROBOT ? 327 : 0;
     //Intake
     public static final double succLimit = -0.4; //Percentage
     public static final double fondleLimit = 0.4;

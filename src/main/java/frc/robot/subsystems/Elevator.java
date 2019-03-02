@@ -51,6 +51,9 @@ public class Elevator extends Subsystem{
     public int getPos(){
         return mElevA.getSelectedSensorPosition(0);
     }
+    public double getPosInches(){
+        return Units.elevatorTicksToInches(mElevA.getSelectedSensorPosition(0));
+    }
     public int getVelocity(){
         return mElevA.getSelectedSensorVelocity(0);
     }
@@ -66,7 +69,7 @@ public class Elevator extends Subsystem{
     }
     public boolean getLimitSwitch(){
         return mElevA.getSensorCollection().isRevLimitSwitchClosed();
-    } 
+    }
     public void setElevatorEncoder(int pos){
         mElevA.setSelectedSensorPosition(pos, Constants.lowElev_ID, Constants.timeoutMS);
     }

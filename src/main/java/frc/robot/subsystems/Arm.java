@@ -141,6 +141,6 @@ public class Arm extends Subsystem{
 
     public void initDefaultCommand(){
         //setDefaultCommand(new PowerArmOpenLoop());
-        setDefaultCommand(new IncrementShoulder());
+        //setDefaultCommand(new IncrementShoulder());
     }
 }

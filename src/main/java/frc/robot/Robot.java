@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Shoulder (Degrees)", kArm.getShoulderDegrees());
     SmartDashboard.putNumber("Wrist (Degrees)", kArm.getWristDegrees());
     SmartDashboard.putNumber("Wrist (DegFromHori)", (kArm.getShoulderDegrees() + kArm.getWristDegrees()));
+    SmartDashboard.putNumber("Elevator (Inches)", kElevator.getPosInches());
 
     SmartDashboard.putNumber("Elevator Voltage", kElevator.getVoltage());
     SmartDashboard.putNumber("Shoulder Voltage", kArm.getShoulderVoltage());

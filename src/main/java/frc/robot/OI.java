@@ -46,21 +46,28 @@ public class OI{
 
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
-        //Elevator + Arm (partner)
+        //Rocket Cargo
         partnerButtonY.whenPressed(new ToSetpoint(Constants.highRocketBall)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(Constants.lowRocketBall));
         partnerButtonB.whenPressed(new ToSetpoint(Constants.mediumRocketBall));
         partnerButtonA.whenPressed(new ToSetpoint(Constants.groundIntake)); //Hatch Panel
-        partnerPOVU.whenPressed(new ToSetpoint(Constants.testOne));
+        //Cargo Ship
+        partnerBumperL.whenPressed(new ToSetpoint(Constants.ballCargoShip));
+        //Hatch Panel
+        partnerPOVU.whenPressed(new ToSetpoint(Constants.highRocketDisk));
         partnerPOVR.whenPressed(new ToSetpoint(Constants.lowRocketDisk));
         partnerPOVL.whenPressed(new ToSetpoint(Constants.mediumRocketDisk));
         partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntake));
 
         //Intake (main)
-        bumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
-        triggerL.whileHeld(new SuccDisk(true)); //true = in
+        bumperL.whileHeld(new SuccDisk(-0.4)); //Left Side Succ
+        triggerL.whileHeld(new SuccDisk(0.6)); //true = in
         bumperR.whileHeld(new FondleBall(false)); //Right Side Fondle
         triggerR.whileHeld(new FondleBall(true)); //true = in
+        buttonOption.whileHeld(new SuccDisk(-1));
+        buttonOption.whenPressed(new ToSetpoint(Constants.diskOuttake));
+        buttonShare.whileHeld(new SuccDisk(0.6));
+        buttonShare.whenPressed(new ToSetpoint(Constants.diskIntake2));
 
         partnerStart.whenPressed(new ZeroElevator());
         partnerBack.whenPressed(new ToSetpoint(Constants.linkReaction));

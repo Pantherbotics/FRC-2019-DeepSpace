@@ -13,9 +13,10 @@ public class IncrementShoulder extends Command { //Should really be called incre
 
   private double incrementS;
   private double incrementW;
+  private double shoulderPos;
+  private double wristPos;
 
   public IncrementShoulder() {
-    incrementS = Robot.oi.getPartnerLeftYAxis();
 
   }
 
@@ -23,7 +24,14 @@ public class IncrementShoulder extends Command { //Should really be called incre
   }
 
   protected void execute() { //generally choose this one
-    //kArm.setShoulderPosition(Units.degreesToTalon(increment) + kArm.getShoulderPosition());
+    shoulderPos = kArm.getShoulderPosition();
+    if(Robot.oi.getPartnerLeftYAxis() > Constants.deadband) {
+      incrementS = 50 * Robot.oi.getPartnerLeftYAxis();
+      Robot.kArm.setShoulderPosition((int) (shoulderPos + incrementS));
+    } if(Robot.oi.getPartnerRightYAxis() > Constants.deadband) {
+      incrementW = 50 * Robot.oi.getPartnerRightYAxis();
+      Robot.kArm.setWristPosition((int) (wristPos + incrementW));
+    }
   }
 
   protected boolean isFinished() {
@@ -34,5 +42,6 @@ public class IncrementShoulder extends Command { //Should really be called incre
   }
 
   protected void interrupted() {
+    isFinished();
   }
 }
