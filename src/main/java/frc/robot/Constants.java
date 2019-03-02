@@ -112,7 +112,7 @@ public class Constants{
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 60;
     public static final double shoulderAFF = 0.08; //At horzontal, 0.52 = 44.33
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 290 : 0;
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 276 : 0;
     public static final double kIncrementDegrees = 20;
     //Wrist
     public static final double wristKP = 20.0;
@@ -122,7 +122,7 @@ public class Constants{
     public static final int kWristCruiseSpeed = 37;  //maximum = 37
     public static final int kWristAccelerationSpeed = 60;
     public static final double wristAFF = 0.04166; //0.50v/12v
-    public static final int kWristOffset = IS_COMPETITION_ROBOT ? 304 : 0;
+    public static final int kWristOffset = IS_COMPETITION_ROBOT ? 364 : 0;
     //Intake
     public static final double succLimit = -0.4; //Percentage
     public static final double fondleLimit = 0.4;

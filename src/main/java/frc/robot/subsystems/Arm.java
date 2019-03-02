@@ -34,12 +34,13 @@ public class Arm extends Subsystem{
             shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
             wristkF = Constants.wristAFF * Math.abs(Math.cos(Math.toRadians(getWristDegrees() + getShoulderDegrees())));
 
-            //mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, shoulderkF);
-            mShoulder.set(ControlMode.PercentOutput, shoulderSetpoint, DemandType.ArbitraryFeedForward, -shoulderkF);
+            mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, shoulderkF);
+            //mShoulder.set(ControlMode.PercentOutput, shoulderSetpoint, DemandType.ArbitraryFeedForward, -shoulderkF);
 
             //since our wrist TalonSRX is being driven off the SUM of both its position and the shoulder position, we get 4-bar like motion when we drive the wrist to a setpoint.
             //(wristAngle + kWristOffset) + (shoulderAngle + kShoulderOffset) = setpoint + kShoulderOffset + kWristOffset
-            mWrist.set(ControlMode.PercentOutput, wristSetpoint, DemandType.ArbitraryFeedForward, wristkF);
+            mWrist.set(ControlMode.MotionMagic, (wristSetpoint + Constants.kWristOffset + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, wristkF);
+            //mWrist.set(ControlMode.PercentOutput, wristSetpoint, DemandType.ArbitraryFeedForward, wristkF);
 
             SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
             SmartDashboard.putNumber("Wrist Sensor Sum", mWrist.getSelectedSensorPosition());
@@ -57,7 +58,7 @@ public class Arm extends Subsystem{
 
         mShoulder.setNeutralMode(NeutralMode.Brake);
         mShoulder.setInverted(false);
-        mShoulder.setSensorPhase(false);
+        mShoulder.setSensorPhase(true);
         mShoulder.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
         mShoulder.config_kP(kPIDIdx, Constants.shoulderKP, timeout_ms);
         mShoulder.config_kI(kPIDIdx, Constants.shoulderKI, timeout_ms);
@@ -141,6 +142,6 @@ public class Arm extends Subsystem{
     }
 
     public void initDefaultCommand(){
-        setDefaultCommand(new PowerArmOpenLoop());
+        //setDefaultCommand(new PowerArmOpenLoop());
     }
 }

@@ -12,7 +12,7 @@ public class Setpoint {
     }
 
     public int checkViable(){
-
+        return 0;
     }
 
     public int getElevatorTicks(){
