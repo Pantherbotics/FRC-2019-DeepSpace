@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.ParamEnum;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,20 +20,20 @@ public class Arm extends Subsystem{
     private int shoulderSetpoint, wristSetpoint;
 
     private int timeout_ms = 0;
-    private LazyTalonSRX mShoulder = new LazyTalonSRX(Constants.shoulderID); //On carriage
-    private LazyTalonSRX mWrist = new LazyTalonSRX(Constants.wristID); //On intake
+    private TalonSRX mShoulder = new TalonSRX(Constants.shoulderID); //On carriage
+    private TalonSRX mWrist = new TalonSRX(Constants.wristID); //On intake
     private final int kPIDIdx = 0;
     public Arm(){
 
-        shoulderSetpoint = Units.degreesToTalon(14.0);
-        wristSetpoint = Units.degreesToTalon(0);
+        shoulderSetpoint = Units.degreesToTalon(11.5);
+        wristSetpoint = Units.degreesToTalon(-42);
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
 
         //INITIALIZE SHOULDER PARAMETERS
         mShoulder.setNeutralMode(NeutralMode.Coast);
 
         //SHOULDER SENSOR CONFIG
-        mShoulder.setInverted(false);
+        mShoulder.setInverted(true);
         mShoulder.setSensorPhase(false);
 
         //SHOULDER PID PARAMETERS
@@ -46,7 +47,7 @@ public class Arm extends Subsystem{
         mShoulder.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
 
         //WRIST PARAMETERS
-        mWrist.setNeutralMode(NeutralMode.Coast);
+        mWrist.setNeutralMode(NeutralMode.Brake);
 
         //WRIST SENSOR CONFIG
         mWrist.setInverted(true);
@@ -74,7 +75,7 @@ public class Arm extends Subsystem{
             shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
             wristkF = Constants.wristAFF * Math.abs(Math.cos(Math.toRadians(getWristDegrees() + getShoulderDegrees())));
 
-            mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, shoulderkF);
+            mShoulder.set(ControlMode.MotionMagic,(shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, shoulderkF);
 
             //since our wrist TalonSRX is being driven off the SUM of both its position and the shoulder position, we get 4-bar like motion when we drive the wrist to a setpoint.
             //(wristAngle + kWristOffset) + (shoulderAngle + kShoulderOffset) = setpoint + kShoulderOffset + kWristOffset
@@ -106,15 +107,15 @@ public class Arm extends Subsystem{
     }
 
     public int getShoulderPosition(){
-        return mShoulder.getSensorCollection().getAnalogInRaw()-Constants.kShoulderOffset; //Flat should be 0
+        return mShoulder.getSensorCollection().getAnalogInRaw()+Constants.kShoulderOffset; //Flat should be 0
     }
 
     public int getShoulderPositionRaw(){
-        return mShoulder.getSensorCollection().getAnalogInRaw();
+        return mShoulder.getSelectedSensorPosition();
     }
 
     public int getWristPositionRaw(){
-        return mWrist.getSensorCollection().getAnalogInRaw();
+        return mWrist.getSensorCollection().getAnalogIn();
     }
     public double getShoulderDegrees(){
         return -Units.talonToDegrees(getShoulderPosition());
@@ -147,6 +148,6 @@ public class Arm extends Subsystem{
 
     public void initDefaultCommand(){
         //setDefaultCommand(new ShoulderPower());
-        setDefaultCommand(new IncrementShoulder(0));
+        //setDefaultCommand(new IncrementShoulder());
     }
 }

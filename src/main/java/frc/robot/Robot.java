@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    paths = collectPathsFromDirectory(Constants.PATH_LOCATION);
+    //paths = collectPathsFromDirectory(Constants.PATH_LOCATION);
     //if(kArm.getShoulderPosition() > 200 || kArm.getShoulderPosition() < )
   }
 
@@ -133,8 +133,8 @@ public class Robot extends TimedRobot {
 
 
     //CODE FOR CONTROLLING SHOULDER POSITION MANUALLY
-    double increment = oi.getPartnerLeftYAxis() * Constants.kIncrementDegrees;
-    new IncrementShoulder(increment).start();
+   // double increment = oi.getPartnerLeftYAxis() * Constants.kIncrementDegrees;
+   // new IncrementShoulder(increment).start();
 
 
     Scheduler.getInstance().run();

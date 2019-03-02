@@ -57,6 +57,10 @@ public class OI{
         bumperR.whileHeld(new FondleBall(false)); //Right Side Fondle
         triggerR.whileHeld(new FondleBall(true)); //true = in
 
+        //partnerButtonUp.whenPressed(new ToggleIntake(true));
+        //partnerButtonDown.whenPressed(new ToggleIntake(false));
+
+        partnerButtonUp.whenPressed(new ToSetpoint(Constants.lowRocketHatch));
         partnerStart.whenPressed(new ZeroElevator());
     }
 

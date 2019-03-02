@@ -2,8 +2,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.Constants;
+import frc.robot.util.CheesyDriveHelper;
 
 public class DriveOpenLoop extends Command{
+    CheesyDriveHelper chez = new CheesyDriveHelper();
     public DriveOpenLoop(){
         requires(Robot.kDrivetrain);
     }
@@ -17,8 +19,8 @@ public class DriveOpenLoop extends Command{
         }*/
         double throttle = Robot.oi.getLeftYAxis() * antiTipScalar; //NANI
         double steering = Robot.oi.getRightXAxis() * antiTipScalar; //*DriveClosedLoop screeching*
-        double left = (throttle + steering); //*Dies in open loop*
-        double right = (throttle -steering); 
+        double left = chez.cheesyDrive(throttle, steering, true).getLeft();
+        double right = chez.cheesyDrive(throttle, steering, true).getRight();
         Robot.kDrivetrain.setMotorPower(left, right); //High-tier cringe
     }
     protected boolean isFinished(){
