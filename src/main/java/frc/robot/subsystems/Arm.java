@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.commands.IncrementShoulder;
 import frc.robot.util.LazyTalonSRX;
+import frc.robot.commands.PowerArmOpenLoop;
 import frc.robot.util.Units;
 
 public class Arm extends Subsystem{
@@ -17,7 +18,7 @@ public class Arm extends Subsystem{
     private double shoulderkF;
     private double wristkF;
     private int shoulderPosition;
-    private int shoulderSetpoint, wristSetpoint;
+    private double shoulderSetpoint, wristSetpoint;
 
     private int timeout_ms = 0;
     private TalonSRX mShoulder = new TalonSRX(Constants.shoulderID); //On carriage
@@ -25,15 +26,37 @@ public class Arm extends Subsystem{
     private final int kPIDIdx = 0;
     public Arm(){
 
-        shoulderSetpoint = Units.degreesToTalon(11.5);
-        wristSetpoint = Units.degreesToTalon(-42);
+        shoulderSetpoint = Units.degreesToTalon(30.0);
+        wristSetpoint = Units.degreesToTalon(0.00);
+        initPID();
+        //initPos();
+
+
+        Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units
+            shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
+            wristkF = Constants.wristAFF * Math.abs(Math.cos(Math.toRadians(getWristDegrees() + getShoulderDegrees())));
+
+            mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, -shoulderkF);
+
+            //since our wrist TalonSRX is being driven off the SUM of both its position and the shoulder position, we get 4-bar like motion when we drive the wrist to a setpoint.
+            //(wristAngle + kWristOffset) + (shoulderAngle + kShoulderOffset) = setpoint + kShoulderOffset + kWristOffset
+            mWrist.set(ControlMode.MotionMagic, (wristSetpoint - (Constants.kWristOffset + Constants.kShoulderOffset)), DemandType.ArbitraryFeedForward, wristkF);
+
+            SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
+            SmartDashboard.putNumber("Wrist Sensor Sum", mWrist.getSelectedSensorPosition());
+            SmartDashboard.putNumber("Shoulder Setpoint", mShoulder.getClosedLoopTarget(0));
+        });
+
+        feedForwardThread.startPeriodic(0.02);
+
+    }
+
+    public void initPID(){
+        //Shoulder
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
 
-        //INITIALIZE SHOULDER PARAMETERS
-        mShoulder.setNeutralMode(NeutralMode.Coast);
-
-        //SHOULDER SENSOR CONFIG
-        mShoulder.setInverted(true);
+        mShoulder.setNeutralMode(NeutralMode.Brake);
+        mShoulder.setInverted(false);
         mShoulder.setSensorPhase(false);
 
         //SHOULDER PID PARAMETERS
@@ -45,11 +68,8 @@ public class Arm extends Subsystem{
         mShoulder.configMotionCruiseVelocity(Constants.kShoulderCruiseSpeed, timeout_ms);
         mShoulder.configMotionAcceleration(Constants.kShoulderAccelerationSpeed, timeout_ms);
         mShoulder.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
-
-        //WRIST PARAMETERS
+        //Wrist
         mWrist.setNeutralMode(NeutralMode.Brake);
-
-        //WRIST SENSOR CONFIG
         mWrist.setInverted(true);
         mWrist.setSensorPhase(false);
         mWrist.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
@@ -100,10 +120,10 @@ public class Arm extends Subsystem{
 
 
     public void powerShoulder(double input){
-        mShoulder.set(ControlMode.PercentOutput, 0.5 * input);
+        shoulderSetpoint = input;
     }
     public void powerWrist(double input){
-        mWrist.set(ControlMode.PercentOutput, 0.5 * input);
+        wristSetpoint = input;
     }
 
     public int getShoulderPosition(){
@@ -147,7 +167,7 @@ public class Arm extends Subsystem{
     }
 
     public void initDefaultCommand(){
-        //setDefaultCommand(new ShoulderPower());
+        //setDefaultCommand(new PowerArmOpenLoop());
         //setDefaultCommand(new IncrementShoulder());
     }
 }

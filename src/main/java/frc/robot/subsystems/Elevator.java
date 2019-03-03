@@ -1,6 +1,7 @@
 //this code was made by team 3863 FIRST Robotics, Newbury Park, CA 91320
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Notifier;
 import frc.robot.Constants;
@@ -22,6 +23,7 @@ public class Elevator extends Subsystem{
         mElevB.setInverted(false);
         mElevA.setInverted(false);
         mElevA.setSensorPhase(true);
+        mElevA.setNeutralMode(NeutralMode.Brake);
         mElevA.config_kP(Constants.lowElev_ID, Constants.elevatorKP, Constants.timeoutMS);
         mElevA.config_kI(Constants.lowElev_ID, Constants.elevatorKI, Constants.timeoutMS);
         mElevA.config_kD(Constants.lowElev_ID, Constants.elevatorKD, Constants.timeoutMS);
@@ -39,6 +41,7 @@ public class Elevator extends Subsystem{
         mElevA.setSelectedSensorPosition(0);
         mElevA.configForwardSoftLimitThreshold(Constants.kElevatorMaxPos);
         mElevA.configForwardSoftLimitEnable(true);
+
         Notifier elevThread = new Notifier(() ->{
             if(getPos() > Constants.kElevMidway){
                 mElevA.selectProfileSlot(Constants.highElev_ID, 0);
@@ -46,13 +49,16 @@ public class Elevator extends Subsystem{
                 mElevA.selectProfileSlot(Constants.lowElev_ID, 0);
             }
         });
-        elevThread.startPeriodic(0.01);
+        //elevThread.startPeriodic(0.01);
     }
     public void initDefaultCommand(){
        //setDefaultCommand(new IncrementElevator());
     }
     public int getPos(){
         return mElevA.getSelectedSensorPosition(0);
+    }
+    public double getPosInches(){
+        return Units.elevatorTicksToInches(mElevA.getSelectedSensorPosition(0));
     }
     public int getVelocity(){
         return mElevA.getSelectedSensorVelocity(0);
@@ -69,9 +75,8 @@ public class Elevator extends Subsystem{
     }
     public boolean getLimitSwitch(){
         return mElevA.getSensorCollection().isRevLimitSwitchClosed();
-    } 
+    }
     public void setElevatorEncoder(int pos){
         mElevA.setSelectedSensorPosition(pos, Constants.lowElev_ID, Constants.timeoutMS);
     }
-
 }

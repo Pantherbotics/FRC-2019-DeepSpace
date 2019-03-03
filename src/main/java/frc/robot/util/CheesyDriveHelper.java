@@ -14,7 +14,7 @@ public class CheesyDriveHelper {
     private static final double kHighWheelNonLinearity = 0.65;
     private static final double kLowWheelNonLinearity = 0.5;
 
-    private static final double kHighNegInertiaScalar = 4.0;
+    private static final double kHighNegInertiaScalar = 6.0;
 
     private static final double kLowNegInertiaThreshold = 0.65;
     private static final double kLowNegInertiaTurnScalar = 3.5; //3.5
@@ -29,8 +29,8 @@ public class CheesyDriveHelper {
     private static final double kQuickStopScalar = 5.0;  //5.0
 
     private double mOldWheel = 0.0;
-    private double mQuickStopAccumlator = 0.0;
-    private double mNegInertiaAccumlator = 0.0;
+    private double mQuickStopAccumlator = 2.0;
+    private double mNegInertiaAccumlator = 2.0;
 
     public static double limit(double v, double min, double max) {
         return Math.min(max, Math.max(min, v));

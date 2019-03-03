@@ -11,10 +11,10 @@ import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SuccDisk extends Command {
-  boolean succ;
-  public SuccDisk(boolean ifSucc) {
+  double power;
+  public SuccDisk(double power) {
     requires(Robot.kIntake);
-    succ = ifSucc;
+    this.power = power;
   }
 
   // Called just before this Command runs the first time
@@ -25,11 +25,7 @@ public class SuccDisk extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(succ){
-      Robot.kIntake.setSucc(0.8);
-    } else{
-      Robot.kIntake.setSucc(-0.4);
-    }
+    Robot.kIntake.setSucc(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -36,32 +36,47 @@ public class OI{
     public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 8); //Right Trigger
     public JoystickButton partnerBack = new JoystickButton(partnerStick, 9);
     public JoystickButton partnerStart = new JoystickButton(partnerStick, 10);
-    public POVButton partnerButtonUp = new POVButton(partnerStick, 0);
-    public POVButton partnerButtonRight = new POVButton(partnerStick, 90);
-    public POVButton partnerButtonDown = new POVButton(partnerStick, 180);
-    public POVButton partnerButtonLeft = new POVButton(partnerStick, 270);
-
+    public POVButton partnerPOVU = new POVButton(partnerStick, 0);  //Up
+    public POVButton partnerPOVR = new POVButton(partnerStick, 90); //Right
+    public POVButton partnerPOVD = new POVButton(partnerStick, 180);//Down
+    public POVButton partnerPOVL = new POVButton(partnerStick, 270);//Left
+    int POV;
+    int partnerPOV;
+    boolean isDisk;
 
 
     public OI(){ //Drive and Intake on stick, elevator and arm on partnerStick
-        //Elevator + Arm (partner)
+        //Rocket Cargo
         partnerButtonY.whenPressed(new ToSetpoint(Constants.highRocketBall)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(Constants.lowRocketBall));
         partnerButtonB.whenPressed(new ToSetpoint(Constants.mediumRocketBall));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.ballIntake)); //Hatch Panel
-
-        //partnerButtonUp.whenPressed(new ToSetpoint());
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.groundIntakeBall)); //Hatch Panel
+        //Cargo Ship
+        partnerBumperL.whenPressed(new ToSetpoint(Constants.ballCargoShip));
+        //partnerBumperR.whenPressed(new ToSetpoint(Constants.ballCargoShipFlip));
+        //partnerTriggerR.whenPressed(new ToSetpoint(Constants.backflip));
+        //Hatch Panel
+        partnerPOVU.whenPressed(new ToSetpoint(Constants.highRocketDisk));
+        partnerPOVR.whenPressed(new ToSetpoint(Constants.lowRocketDisk));
+        partnerPOVL.whenPressed(new ToSetpoint(Constants.mediumRocketDisk));
+        partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntake));
+        partnerStart.whenPressed(new ToSetpoint(Constants.groundIntakeDisk));
+        //Outtaking Hatch Panel
+        buttonT.whileHeld(new SuccDisk(-1));
+        buttonT.whenPressed(new ToSetpoint(Constants.outtakeHigh));
+        buttonS.whileHeld(new SuccDisk(-1));
+        buttonS.whenPressed(new ToSetpoint(Constants.outtakeMedium));
+        buttonC.whileHeld(new SuccDisk(-1));
+        buttonC.whenPressed(new ToSetpoint(Constants.outtakeLow));
         //Intake (main)
-        bumperL.whileHeld(new SuccDisk(false)); //Left Side Succ
-        triggerL.whileHeld(new SuccDisk(true)); //true = in
+        bumperL.whileHeld(new SuccDisk(-0.4)); //Left Side Succ
+        triggerL.whileHeld(new SuccDisk(0.5)); //true = in
         bumperR.whileHeld(new FondleBall(false)); //Right Side Fondle
         triggerR.whileHeld(new FondleBall(true)); //true = in
+        buttonOption.whileHeld(new SuccDisk(0.6));
+        buttonOption.whenPressed(new ToSetpoint(Constants.diskIntake2));
 
-        //partnerButtonUp.whenPressed(new ToggleIntake(true));
-        //partnerButtonDown.whenPressed(new ToggleIntake(false));
-
-        partnerButtonUp.whenPressed(new ToSetpoint(Constants.lowRocketHatch));
-        partnerStart.whenPressed(new ZeroElevator());
+        partnerBack.whenPressed(new ToSetpoint(Constants.linkReaction));
     }
 
     //Joystick
@@ -111,9 +126,9 @@ public class OI{
         return partnerStick.getRawAxis(Constants.PartnerJoyRightXAxis);
     }
     public double getPartnerRightYAxis(){
-        if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis)) < Constants.deadband){
+        /*if(Math.abs(partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis)) < Constants.deadband){
             return 0;
-        }
+        }*/
         return -partnerStick.getRawAxis(Constants.PartnerJoyRightYAxis);
     }
 }
