@@ -2,9 +2,6 @@ package frc.robot;
 
 import frc.robot.util.Setpoint;
 
-import javax.print.attribute.SetOfIntegerSyntax;
-import java.util.Set;
-
 public class Constants{
     public static final boolean IS_COMPETITION_ROBOT = true;
 
@@ -22,20 +19,25 @@ public class Constants{
     public static final int PartnerJoyRightYAxis = 3;
     public static final double deadband = 0.05;
 
-    public static final Setpoint groundIntake = new Setpoint(0.00, 13.5, -20.0);
+    public static final Setpoint groundIntakeBall = new Setpoint(0.00, 17.5, -22.5);
+    public static final Setpoint groundIntakeDisk = new Setpoint(0.00, 15.5, -20.0);
     public static final Setpoint linkReaction = new Setpoint(0.00, 30.0, 0.00);
     public static final Setpoint diskIntake = new Setpoint(0, 1.5, 47.5);
     public static final Setpoint diskIntake2 = new Setpoint(0, 5.0, 73.5);
-    public static final Setpoint diskOuttake = new Setpoint(0.0, -14.0, 73.5);
     public static final Setpoint ballCargoShip = new Setpoint(25.0, 30.0, 0.00);
     public static final Setpoint ballCargoShipFlip = new Setpoint(17.5, 80.00, 168.0);
-    public static final Setpoint lowRocketBall = new Setpoint(0, 15.0, 32.0);
-    public static final Setpoint mediumRocketBall = new Setpoint(30, 45.0, 32.0);
-    public static final Setpoint highRocketBall = new Setpoint(64, 40.0, 32.0);
-    public static final Setpoint lowRocketDisk = new Setpoint(0.00, -7.00, 73.5);
-    public static final Setpoint mediumRocketDisk = new Setpoint(0.00 , 30.00, 73.5);
-    public static final Setpoint highRocketDisk = new Setpoint(0.00 , 30.00, 73.5);
+    public static final Setpoint backflip = new Setpoint(17.5, 35.0, 0.00);
 
+    public static final Setpoint lowRocketBall = new Setpoint(0, 47.5, 30.0);
+    public static final Setpoint mediumRocketBall = new Setpoint(27.5, 45.0, 30.0);
+    public static final Setpoint highRocketBall = new Setpoint(52.5, 40.0, 30.0);
+    public static final Setpoint lowRocketDisk = new Setpoint(0.00, -7.00, 73.5);
+    public static final Setpoint mediumRocketDisk = new Setpoint(12.0, 30.00, 73.5);
+    public static final Setpoint highRocketDisk = new Setpoint(39.0, 30.00, 73.5);
+
+    public static final Setpoint outtakeLow = new Setpoint(0.0, -14.0, 73.5);
+    public static final Setpoint outtakeMedium = new Setpoint(10.0, 25.0, 73.5);
+    public static final Setpoint outtakeHigh = new Setpoint(0,0,0);
     //WTF IS GOING ON??
     public static final Setpoint testOne = new Setpoint(30, 0, 0);
     public static final Setpoint testTwo = new Setpoint(0, 0, 0);
@@ -81,7 +83,7 @@ public class Constants{
     public static final double elevatorKF2 = 1023.0/900.0;
     public static final double elevatorAFF = 0.125;
     public static final int kElevatorCruiseSpeed = 1198;
-    public static final int kElevatorAccelerationSpeed = 600; //my sat score
+    public static final int kElevatorAccelerationSpeed = 450; //my sat score
     public static final int kElevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
     public static final int kElevatorMaxPos = 7975;
 
@@ -89,14 +91,16 @@ public class Constants{
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
     //Shoulder [-17deg,
-    public static final double shoulderKP = 17.5;
+    public static final double shoulderKP = 10.0;
     public static final double shoulderKI = 0;
-    public static final double shoulderKD = 0.35;
+    public static final double shoulderKD = 2.75;
     public static final double shoulderKF = 1023.0/37.51;
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
-    public static final int kShoulderAccelerationSpeed = 60;
+    public static final int kShoulderAccelerationSpeed = 10;
     public static final double shoulderAFF = 0.166; //At horizontal, 1.5/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 260 : 0;
+
+
+j    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 260 : 0;
     public static final double kIncrementDegrees = 20;
     //Wrist [-35deg, 87deg]
     public static final double wristKP = 20.0;
