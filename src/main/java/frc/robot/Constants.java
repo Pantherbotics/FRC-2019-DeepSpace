@@ -6,9 +6,8 @@ import edu.wpi.first.wpilibj.SerialPort;
 public class Constants{
     public static final boolean IS_COMPETITION_ROBOT = true;
 
-
     //Robot Joystick
-    public static final int JoystickPort = 0; //PS4 Why do they cost $50 dollars ree
+    public static final int JoystickPort = 0; //Need new PS4 wire
     public static final int JoystickLeftXAxis = 0;
     public static final int JoystickLeftYAxis = 1;
     public static final int JoystickRightXAxis = 2;
@@ -19,33 +18,31 @@ public class Constants{
     public static final int PartnerJoyRightXAxis = 2;
     public static final int PartnerJoyRightYAxis = 3;
     public static final double deadband = 0.05;
-
+    //Intaking
     public static final Setpoint groundIntakeBall = new Setpoint(0.00, 17.5, -22.5);
     public static final Setpoint groundIntakeDisk = new Setpoint(0.00, 15.5, -20.0);
     public static final Setpoint linkReaction = new Setpoint(0.00, 30.0, 0.00);
     public static final Setpoint diskIntake = new Setpoint(0, 1.5, 47.5);
     public static final Setpoint diskIntake2 = new Setpoint(0, 5.0, 73.5);
+    //Cargo Ship
     public static final Setpoint ballCargoShip = new Setpoint(25.0, 30.0, 0.00);
     public static final Setpoint ballCargoShipFlip = new Setpoint(17.5, 80.00, 168.0);
     public static final Setpoint backflip = new Setpoint(17.5, 35.0, 0.00);
-
+    //Rocket
     public static final Setpoint lowRocketBall = new Setpoint(0, 47.5, 30.0);
     public static final Setpoint mediumRocketBall = new Setpoint(27.5, 45.0, 30.0);
     public static final Setpoint highRocketBall = new Setpoint(52.5, 40.0, 30.0);
     public static final Setpoint lowRocketDisk = new Setpoint(0.00, -7.00, 73.5);
     public static final Setpoint mediumRocketDisk = new Setpoint(12.0, 30.00, 73.5);
     public static final Setpoint highRocketDisk = new Setpoint(39.0, 30.00, 73.5);
-
+    //Outtaking
     public static final Setpoint outtakeLow = new Setpoint(0.0, -14.0, 73.5);
     public static final Setpoint outtakeMedium = new Setpoint(10.0, 25.0, 73.5);
     public static final Setpoint outtakeHigh = new Setpoint(0,0,0);
-    //WTF IS GOING ON??
+    //WTF IS GOING ON?? Me too Aaron
     public static final Setpoint testOne = new Setpoint(30, 0, 0);
     public static final Setpoint testTwo = new Setpoint(0, 0, 0);
     public static final Setpoint testThree = new Setpoint(0, 60, 10);
-
-    public static final Setpoint highElevator = new Setpoint (55.5, 0, 0);
-    public static final Setpoint elevatorDown = new Setpoint (0, 0, 0);
 
     //Elevator Increments
     public static final double mediumRocketDiskIncrement = 28.5;
