@@ -1,5 +1,6 @@
 package frc.robot.subsystems; //Name the cargo intake ball fondler
 
+import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -7,34 +8,34 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 
 public class Intake extends Subsystem{
-    TalonSRX mBallFondler = new TalonSRX(Constants.ballIntakeID);
-    TalonSRX mDiskSuccer = new TalonSRX(Constants.diskIntakeID);
-    
+    TalonSRX mCargo = new TalonSRX(Constants.ballIntakeID);
+    Solenoid cargoSolenoid = new Solenoid(Constants.kCargoSolenoidId);  //we are using single solenoids, which are only controlled by a single boolean flag
+    Solenoid hatchSolenoid = new Solenoid(Constants.kHatchSolenoidId);
+
     public Intake(){
 
     }
-    
-    public void setSucc(double power){
-        mDiskSuccer.set(ControlMode.PercentOutput, power);
+
+    public void setCargoIntakePower(double power){
+        mCargo.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, Constants.intakeAFF);
     }
 
-    public void setFondle(double power){
-        mBallFondler.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, Constants.intakeAFF);
-        mDiskSuccer.set(ControlMode.PercentOutput, -power);
+    public void extendCargoArms(){
+        cargoSolenoid.set(true);
     }
 
-    public double getSuccVoltage(){
-        return mDiskSuccer.getMotorOutputVoltage();
+    public void closeCargoArms(){
+        cargoSolenoid.set(false);
     }
-    public double getFondleVoltage(){
-        return mBallFondler.getMotorOutputVoltage();
+
+    public void grabHatchPanel(){
+        hatchSolenoid.set(false);
     }
-    public double getSuccPercent(){
-        return mDiskSuccer.getMotorOutputPercent();
+
+    public void releaseHatchPanel(){
+        hatchSolenoid.set(true);
     }
-    public double getFondlePercent(){
-        return mBallFondler.getMotorOutputPercent();
-    }
+
     public void initDefaultCommand(){
     }
 }

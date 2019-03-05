@@ -3,7 +3,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
-import frc.robot.Constants;
 import frc.robot.commands.*;
 
 public class OI{
@@ -62,19 +61,21 @@ public class OI{
         partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntake));
         partnerStart.whenPressed(new ToSetpoint(Constants.groundIntakeDisk));
         //Outtaking Hatch Panel
-        buttonT.whileHeld(new SuccDisk(-1));
+        /*
+        buttonT.whileHeld(new PrepareHatchGrab(-1));
         buttonT.whenPressed(new ToSetpoint(Constants.outtakeHigh));
-        buttonS.whileHeld(new SuccDisk(-1));
+        buttonS.whileHeld(new PrepareHatchGrab(-1));
         buttonS.whenPressed(new ToSetpoint(Constants.outtakeMedium));
-        buttonC.whileHeld(new SuccDisk(-1));
+        buttonC.whileHeld(new PrepareHatchGrab(-1));
         buttonC.whenPressed(new ToSetpoint(Constants.outtakeLow));
+        */
         //Intake (main)
-        bumperL.whileHeld(new SuccDisk(-0.4)); //Left Side Succ
-        triggerL.whileHeld(new SuccDisk(0.5)); //true = in
-        bumperR.whileHeld(new FondleBall(false)); //Right Side Fondle
-        triggerR.whileHeld(new FondleBall(true)); //true = in
-        buttonOption.whileHeld(new SuccDisk(0.6));
-        buttonOption.whenPressed(new ToSetpoint(Constants.diskIntake2));
+        bumperL.whenPressed(new PrepareHatchGrab()); //Left Side Succ
+        triggerL.whenPressed(new HatchGrab()); //true = in
+        bumperR.whileHeld(new IntakeCargo()); //Right Side Fondle
+        triggerR.whileHeld(new OuttakeCargo()); //true = in
+        //buttonOption.whileHeld(new PrepareHatchGrab(0.6));
+        //buttonOption.whenPressed(new ToSetpoint(Constants.diskIntake2));
 
         partnerBack.whenPressed(new ToSetpoint(Constants.linkReaction));
     }

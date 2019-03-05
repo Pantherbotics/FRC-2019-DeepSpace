@@ -61,7 +61,6 @@ public class Constants{
     public static final int shoulderID = 4; //Change in Phoenix tuner
     public static final int wristID = 5;
     public static final int ballIntakeID = 8; //Inter-
-    public static final int diskIntakeID = 10;  //changeable
 
     //Drivetrain
     public static final double kDriveRamp = 0.25;
@@ -109,10 +108,14 @@ public class Constants{
     public static final int kWristAccelerationSpeed = 60;
     public static final double wristAFF = 0.125; //1.5v/12v
     public static final int kWristOffset = IS_COMPETITION_ROBOT ? 327 : 0;
+    public static final int kWristMaxPos = 1023;
+    public static final int kWristMinPos = 0;
     //Intake
     public static final double succLimit = -0.4; //Percentage
     public static final double fondleLimit = 0.4;
     public static final double intakeAFF = 0.1;
+    public static final int kCargoSolenoidId = 1;
+    public static final int kHatchSolenoidId = 2;
     //Vision
     public static final int kVisionBaud = 115200;
     public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;

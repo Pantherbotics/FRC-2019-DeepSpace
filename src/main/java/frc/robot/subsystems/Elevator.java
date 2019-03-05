@@ -79,4 +79,8 @@ public class Elevator extends Subsystem{
     public void setElevatorEncoder(int pos){
         mElevA.setSelectedSensorPosition(pos, Constants.lowElev_ID, Constants.timeoutMS);
     }
+
+    public int getError(){
+        return mElevA.getClosedLoopError();
+    }
 }
