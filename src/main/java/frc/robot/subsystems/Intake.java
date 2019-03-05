@@ -8,7 +8,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 
 public class Intake extends Subsystem{
-    TalonSRX mCargo = new TalonSRX(Constants.ballIntakeID);
+    TalonSRX mCargoL = new TalonSRX(Constants.ballIntakeLID);
+    TalonSRX mCargoR = new TalonSRX(Constants.ballIntakeRID);
     Solenoid cargoSolenoid = new Solenoid(Constants.kCargoSolenoidId);  //we are using single solenoids, which are only controlled by a single boolean flag
     Solenoid hatchSolenoid = new Solenoid(Constants.kHatchSolenoidId);
 
@@ -17,7 +18,8 @@ public class Intake extends Subsystem{
     }
 
     public void setCargoIntakePower(double power){
-        mCargo.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, Constants.intakeAFF);
+        mCargoL.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, Constants.intakeAFF);
+        mCargoR.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, Constants.intakeAFF);
     }
 
     public void extendCargoArms(){

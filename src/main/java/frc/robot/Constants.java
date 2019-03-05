@@ -60,7 +60,8 @@ public class Constants{
     public static final int elevatorBID = 3;
     public static final int shoulderID = 4; //Change in Phoenix tuner
     public static final int wristID = 5;
-    public static final int ballIntakeID = 8; //Inter-
+    public static final int ballIntakeLID = 8; //Inter-
+    public static final int ballIntakeRID = 9;
 
     //Drivetrain
     public static final double kDriveRamp = 0.25;
