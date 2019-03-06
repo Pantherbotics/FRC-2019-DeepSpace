@@ -72,21 +72,14 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     SmartDashboard.putNumber("Elevator (Ticks)", kElevator.getPos());
     SmartDashboard.putNumber("Shoulder (Ticks)", kArm.getShoulderPosition());
-    SmartDashboard.putNumber("Wrist (Ticks)", kArm.getWristPosition());
 
     SmartDashboard.putNumber("Shoulder RAW (Ticks)", kArm.getShoulderPositionRaw());
-    SmartDashboard.putNumber("Wrist RAW (Ticks)", kArm.getWristPositionRaw());
 
     SmartDashboard.putNumber("Shoulder (Degrees)", kArm.getShoulderDegrees());
-    SmartDashboard.putNumber("Wrist (Degrees)", kArm.getWristDegrees());
-    SmartDashboard.putNumber("Wrist (DegFromHori)", (kArm.getShoulderDegrees() + kArm.getWristDegrees()));
     SmartDashboard.putNumber("Elevator (Inches)", kElevator.getPosInches());
 
     SmartDashboard.putNumber("Elevator Voltage", kElevator.getVoltage());
     SmartDashboard.putNumber("Shoulder Voltage", kArm.getShoulderVoltage());
-    SmartDashboard.putNumber("Wrist Voltage", kArm.getWristVoltage());
-    SmartDashboard.putNumber("Succ Voltage", kIntake.getSuccVoltage());
-    SmartDashboard.putNumber("Fondle Voltage", kIntake.getFondleVoltage());
   }
 
   /**

@@ -13,9 +13,7 @@ import static frc.robot.Robot.oi;
 public class IncrementShoulder extends Command { //Should really be called incrementArm
 
   private double incrementS;
-  private double incrementW;
   private double shoulderPos;
-  private double wristPos;
 
   public IncrementShoulder() {
 
@@ -29,9 +27,6 @@ public class IncrementShoulder extends Command { //Should really be called incre
     if(Robot.oi.getPartnerLeftYAxis() > Constants.deadband) {
       incrementS = 50 * Robot.oi.getPartnerLeftYAxis();
       Robot.kArm.setShoulderPosition((int) (shoulderPos + incrementS));
-    } if(Robot.oi.getPartnerRightYAxis() > Constants.deadband) {
-      incrementW = 50 * Robot.oi.getPartnerRightYAxis();
-      Robot.kArm.setWristPosition((int) (wristPos + incrementW));
     }
   }
 

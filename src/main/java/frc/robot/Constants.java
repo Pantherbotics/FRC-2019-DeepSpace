@@ -19,30 +19,27 @@ public class Constants{
     public static final int PartnerJoyRightYAxis = 3;
     public static final double deadband = 0.05;
     //Intaking
-    public static final Setpoint groundIntakeBall = new Setpoint(0.00, 17.5, -22.5);
-    public static final Setpoint groundIntakeDisk = new Setpoint(0.00, 15.5, -20.0);
-    public static final Setpoint linkReaction = new Setpoint(0.00, 30.0, 0.00);
-    public static final Setpoint diskIntake = new Setpoint(0, 1.5, 47.5);
-    public static final Setpoint diskIntake2 = new Setpoint(0, 5.0, 73.5);
+    public static final Setpoint ballIntake = new Setpoint(0.00, 17.5);
+    public static final Setpoint diskIntake = new Setpoint(12.0, 0.0);
     //Cargo Ship
-    public static final Setpoint ballCargoShip = new Setpoint(25.0, 30.0, 0.00);
-    public static final Setpoint ballCargoShipFlip = new Setpoint(17.5, 80.00, 168.0);
-    public static final Setpoint backflip = new Setpoint(17.5, 35.0, 0.00);
+    public static final Setpoint ballCargoShip = new Setpoint(25.0, 30.0);
+    public static final Setpoint ballCargoShipFlip = new Setpoint(17.5, 80.00);
+    public static final Setpoint backflip = new Setpoint(17.5, 35.0);
     //Rocket
-    public static final Setpoint lowRocketBall = new Setpoint(0, 47.5, 30.0);
-    public static final Setpoint mediumRocketBall = new Setpoint(27.5, 45.0, 30.0);
-    public static final Setpoint highRocketBall = new Setpoint(52.5, 40.0, 30.0);
-    public static final Setpoint lowRocketDisk = new Setpoint(0.00, -7.00, 73.5);
-    public static final Setpoint mediumRocketDisk = new Setpoint(12.0, 30.00, 73.5);
-    public static final Setpoint highRocketDisk = new Setpoint(39.0, 30.00, 73.5);
+    public static final Setpoint lowRocketBall = new Setpoint(0, 30.0);
+    public static final Setpoint mediumRocketBall = new Setpoint(27.5, 30.0);
+    public static final Setpoint highRocketBall = new Setpoint(52.5, 30.0);
+    public static final Setpoint lowRocketDisk = diskIntake;
+    public static final Setpoint mediumRocketDisk = new Setpoint(24.0, 0.0);
+    public static final Setpoint highRocketDisk = new Setpoint(39.0, 0.0);
     //Outtaking
-    public static final Setpoint outtakeLow = new Setpoint(0.0, -14.0, 73.5);
-    public static final Setpoint outtakeMedium = new Setpoint(10.0, 25.0, 73.5);
-    public static final Setpoint outtakeHigh = new Setpoint(0,0,0);
+    public static final Setpoint outtakeLow = new Setpoint(0.0, -14.0);
+    public static final Setpoint outtakeMedium = new Setpoint(10.0, 25.0);
+    public static final Setpoint outtakeHigh = new Setpoint(0,0);
     //WTF IS GOING ON?? Me too Aaron
-    public static final Setpoint testOne = new Setpoint(30, 0, 0);
-    public static final Setpoint testTwo = new Setpoint(0, 0, 0);
-    public static final Setpoint testThree = new Setpoint(0, 60, 10);
+    public static final Setpoint testOne = new Setpoint(30, 0);
+    public static final Setpoint testTwo = new Setpoint(0, 0);
+    public static final Setpoint testThree = new Setpoint(0, 60);
 
     //Elevator Increments
     public static final double mediumRocketDiskIncrement = 28.5;
@@ -59,7 +56,6 @@ public class Constants{
     public static final int elevatorAID = 12;
     public static final int elevatorBID = 3;
     public static final int shoulderID = 4; //Change in Phoenix tuner
-    public static final int wristID = 5;
     public static final int ballIntakeLID = 8; //Inter-
     public static final int ballIntakeRID = 9;
 
@@ -96,23 +92,8 @@ public class Constants{
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 10;
     public static final double shoulderAFF = 0.166; //At horizontal, 1.5/12
-
-
     public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 260 : 0;
-    public static final double kIncrementDegrees = 20;
-    //Wrist [-35deg, 87deg]
-    public static final double wristKP = 20.0;
-    public static final double wristKI = 0;
-    public static final double wristKD = 0.35;
-    public static final double wristKF = 1023.0/37.51;
-    public static final int kWristCruiseSpeed = 37;  //maximum = 37
-    public static final int kWristAccelerationSpeed = 60;
-    public static final double wristAFF = 0.125; //1.5v/12v
-    public static final int kWristOffset = IS_COMPETITION_ROBOT ? 327 : 0;
-    public static final int kWristMaxPos = 1023;
-    public static final int kWristMinPos = 0;
     //Intake
-    public static final double succLimit = -0.4; //Percentage
     public static final double fondleLimit = 0.4;
     public static final double intakeAFF = 0.1;
     public static final int kCargoSolenoidId = 1;

@@ -24,7 +24,6 @@ public class PowerArmOpenLoop extends Command {
         double shoulder = oi.getPartnerLeftYAxis() * 0.5;
         double wrist = oi.getPartnerRightYAxis() * 0.5;
         kArm.powerShoulder(shoulder);
-        kArm.powerWrist(wrist);
         System.out.println("yes");
     }
 

@@ -1,14 +1,11 @@
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.util.Units;
+import frc.robot.Robot;
 
-public class ToggleIntake extends Command {
-    boolean isIntakeBall;
-    public ToggleIntake(boolean isIntakeBall) {
-        this.isIntakeBall = isIntakeBall;
-        requires(Robot.kElevator);
+public class HatchPush extends Command {
+    public HatchPush() {
+        requires(Robot.kIntake);
     }
 
     // Called just before this Command runs the first time
@@ -19,11 +16,8 @@ public class ToggleIntake extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if(isIntakeBall){
-            Robot.kArm.setWristPosition(Units.degreesToTalon(90));
-        } else{
-            Robot.kArm.setWristPosition(Units.degreesToTalon(0));
-        }
+        Robot.kIntake.extendCargoArms();
+        Robot.kIntake.releaseHatchPanel();
     }
 
     // Make this return true when this Command no longer needs to run execute()

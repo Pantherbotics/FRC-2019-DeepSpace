@@ -22,28 +22,18 @@ public class Arm extends Subsystem{
 
     private int timeout_ms = 0;
     private TalonSRX mShoulder = new TalonSRX(Constants.shoulderID); //On carriage
-    private TalonSRX mWrist = new TalonSRX(Constants.wristID); //On intake
     private final int kPIDIdx = 0;
     public Arm(){
 
-        shoulderSetpoint = Units.degreesToTalon(30.0);
-        wristSetpoint = Units.degreesToTalon(0.00);
+        shoulderSetpoint = Units.degreesToTalon(10.0);
         initPID();
         //initPos();
 
 
         Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units
             shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
-            wristkF = Constants.wristAFF * Math.abs(Math.cos(Math.toRadians(getWristDegrees() + getShoulderDegrees())));
 
             mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, -shoulderkF);
-
-            //since our wrist TalonSRX is being driven off the SUM of both its position and the shoulder position, we get 4-bar like motion when we drive the wrist to a setpoint.
-            //(wristAngle + kWristOffset) + (shoulderAngle + kShoulderOffset) = setpoint + kShoulderOffset + kWristOffset
-            mWrist.set(ControlMode.MotionMagic, (wristSetpoint - (Constants.kWristOffset + Constants.kShoulderOffset)), DemandType.ArbitraryFeedForward, wristkF);
-
-            SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
-            SmartDashboard.putNumber("Wrist Sensor Sum", mWrist.getSelectedSensorPosition());
             SmartDashboard.putNumber("Shoulder Setpoint", mShoulder.getClosedLoopTarget(0));
         });
 
@@ -68,62 +58,11 @@ public class Arm extends Subsystem{
         mShoulder.configMotionCruiseVelocity(Constants.kShoulderCruiseSpeed, timeout_ms);
         mShoulder.configMotionAcceleration(Constants.kShoulderAccelerationSpeed, timeout_ms);
         mShoulder.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
-        //Wrist
-        mWrist.setNeutralMode(NeutralMode.Brake);
-        mWrist.setInverted(true);
-        mWrist.setSensorPhase(false);
-        mWrist.configSetParameter(ParamEnum.eFeedbackNotContinuous, 1, 0x00, 0x00, 0x00);
-        mWrist.configRemoteFeedbackFilter(mShoulder.getDeviceID(), RemoteSensorSource.TalonSRX_SelectedSensor, 0, timeout_ms);
-        mWrist.configRemoteFeedbackFilter(0x00, RemoteSensorSource.Off, 1, timeout_ms);
-        mWrist.configSensorTerm(SensorTerm.Sum0, FeedbackDevice.RemoteSensor0, timeout_ms);
-        mWrist.configSensorTerm(SensorTerm.Sum1, FeedbackDevice.Analog, timeout_ms);
-        mWrist.configSelectedFeedbackSensor(FeedbackDevice.SensorSum);
-
-        //WRIST PID PARAMETERS
-
-        mWrist.configAllowableClosedloopError(kPIDIdx, 0, timeout_ms);
-        mWrist.config_kP(kPIDIdx, Constants.wristKP, timeout_ms);
-        mWrist.config_kI(kPIDIdx, Constants.wristKI, timeout_ms);
-        mWrist.config_kD(kPIDIdx, Constants.wristKD, timeout_ms);
-        mWrist.config_kF(kPIDIdx, Constants.wristKF, timeout_ms);
-        mWrist.configMotionCruiseVelocity(Constants.kWristCruiseSpeed, timeout_ms);
-        mWrist.configMotionAcceleration(Constants.kWristAccelerationSpeed, timeout_ms);
-
-
-        //CREATE THREAD FOR SETTING TALONS
-        Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units
-            shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
-            wristkF = Constants.wristAFF * Math.abs(Math.cos(Math.toRadians(getWristDegrees() + getShoulderDegrees())));
-
-            mShoulder.set(ControlMode.MotionMagic,(shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, shoulderkF);
-
-            //since our wrist TalonSRX is being driven off the SUM of both its position and the shoulder position, we get 4-bar like motion when we drive the wrist to a setpoint.
-            //(wristAngle + kWristOffset) + (shoulderAngle + kShoulderOffset) = setpoint + kShoulderOffset + kWristOffset
-
-            //SET WRIST SOFT LIMITS
-            wristSetpoint = getWristPositionRaw() >= Constants.kWristMaxPos ? Constants.kWristMaxPos : wristSetpoint;
-            wristSetpoint = getWristPositionRaw() <= Constants.kWristMinPos ? Constants.kWristMinPos : wristSetpoint;
-
-            //SET WRIST
-
-            mWrist.set(ControlMode.MotionMagic, wristSetpoint - (Constants.kWristOffset + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, wristkF);
-
-            SmartDashboard.putNumber("Wrist Setpoint", mWrist.getClosedLoopTarget(0));
-            SmartDashboard.putNumber("Wrist Sensor Sum", mWrist.getSelectedSensorPosition());
-            SmartDashboard.putNumber("Shoulder Setpoint", mShoulder.getClosedLoopTarget(0));
-
-        });
-
-        feedForwardThread.startPeriodic(0.02);
-
     }
 
 
     public void powerShoulder(double input){
         shoulderSetpoint = input;
-    }
-    public void powerWrist(double input){
-        wristSetpoint = input;
     }
 
     public int getShoulderPosition(){
@@ -134,9 +73,6 @@ public class Arm extends Subsystem{
         return mShoulder.getSelectedSensorPosition();
     }
 
-    public int getWristPositionRaw(){
-        return mWrist.getSensorCollection().getAnalogIn();
-    }
     public double getShoulderDegrees(){
         return -Units.talonToDegrees(getShoulderPosition());
     }
@@ -145,25 +81,9 @@ public class Arm extends Subsystem{
         return mShoulder.getMotorOutputVoltage();
     }
 
-    public int getWristPosition(){
-        return mWrist.getSensorCollection().getAnalogInRaw()-Constants.kWristOffset;
-    }
-
-    public double getWristDegrees(){
-        return -Units.talonToDegrees(getWristPosition());
-    }
-
-    public double getWristVoltage(){
-        return mWrist.getMotorOutputVoltage();
-    }
-
     public void setShoulderPosition(int position){
         shoulderSetpoint = position;
         System.out.println("SHOULDER IS BEING CALLED");
-    }
-    public void setWristPosition(int position){ //[-180, 220]
-        wristSetpoint = position;
-        System.out.println("WRIST IS BEING CALLED");
     }
 
     public void initDefaultCommand(){

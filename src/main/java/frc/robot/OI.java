@@ -49,7 +49,7 @@ public class OI{
         partnerButtonY.whenPressed(new ToSetpoint(Constants.highRocketBall)); //work in progress
         partnerButtonX.whenPressed(new ToSetpoint(Constants.lowRocketBall));
         partnerButtonB.whenPressed(new ToSetpoint(Constants.mediumRocketBall));
-        partnerButtonA.whenPressed(new ToSetpoint(Constants.groundIntakeBall)); //Hatch Panel
+        partnerButtonA.whenPressed(new ToSetpoint(Constants.ballIntake)); //Hatch Panel
         //Cargo Ship
         partnerBumperL.whenPressed(new ToSetpoint(Constants.ballCargoShip));
         //partnerBumperR.whenPressed(new ToSetpoint(Constants.ballCargoShipFlip));
@@ -59,7 +59,7 @@ public class OI{
         partnerPOVR.whenPressed(new ToSetpoint(Constants.lowRocketDisk));
         partnerPOVL.whenPressed(new ToSetpoint(Constants.mediumRocketDisk));
         partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntake));
-        partnerStart.whenPressed(new ToSetpoint(Constants.groundIntakeDisk));
+
         //Outtaking Hatch Panel
         /*
         buttonT.whileHeld(new PrepareHatchGrab(-1));
@@ -72,12 +72,9 @@ public class OI{
         //Intake (main)
         bumperL.whenPressed(new PrepareHatchGrab()); //Left Side Succ
         triggerL.whenPressed(new HatchGrab()); //true = in
-        bumperR.whileHeld(new IntakeCargo()); //Right Side Fondle
-        triggerR.whileHeld(new OuttakeCargo()); //true = in
-        //buttonOption.whileHeld(new PrepareHatchGrab(0.6));
-        //buttonOption.whenPressed(new ToSetpoint(Constants.diskIntake2));
-
-        partnerBack.whenPressed(new ToSetpoint(Constants.linkReaction));
+        bumperR.whileHeld(new IntakeCargo(-1.0)); //Right Side Fondle
+        triggerR.whileHeld(new IntakeCargo(1.0)); //true = in
+        buttonOption.whenPressed(new HatchPush());
     }
 
     //Joystick

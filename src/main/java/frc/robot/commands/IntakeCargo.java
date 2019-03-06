@@ -12,8 +12,9 @@ import frc.robot.Robot;
 
 public class IntakeCargo extends Command {
   double power;
-  public IntakeCargo() {
+  public IntakeCargo(double power) {
     requires(Robot.kIntake);
+    this.power = power;
   }
 
   // Called just before this Command runs the first time
@@ -25,7 +26,7 @@ public class IntakeCargo extends Command {
   @Override
   protected void execute() {
     Robot.kIntake.extendCargoArms();
-    Robot.kIntake.setCargoIntakePower(1.0);
+    Robot.kIntake.setCargoIntakePower(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
