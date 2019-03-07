@@ -88,12 +88,12 @@ public class Constants{
     public static final double shoulderAFF = 0.1; //At horizontal, 1.5/12
     public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 565 : 0;
     //Intake
-    public static final double fondleLimit = 0.4;
     public static final double intakeAFF = -0.1;
     public static final int kCargoSolenoidId = 0;
     public static final int kHatchSolenoidId = 1;
     //Vision
     public static final int kVisionBaud = 115200;
     public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;
+    //Ramsete
     public static final String PATH_LOCATION = "/home/lvuser/deploy/";
 }
