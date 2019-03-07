@@ -26,6 +26,7 @@ public class Constants{
     public static final Setpoint ballCargoShipFlip = new Setpoint(17.5, 80.00);
     public static final Setpoint backflip = new Setpoint(17.5, 35.0);
     //Rocket
+    public static final double lowDiskElev = 12.0;
     public static final Setpoint lowRocketBall = new Setpoint(0, 30.0);
     public static final Setpoint mediumRocketBall = new Setpoint(27.5, 30.0);
     public static final Setpoint highRocketBall = new Setpoint(52.5, 30.0);
@@ -56,8 +57,8 @@ public class Constants{
     public static final int elevatorAID = 12;
     public static final int elevatorBID = 3;
     public static final int shoulderID = 4; //Change in Phoenix tuner
-    public static final int ballIntakeLID = 8; //Inter-
-    public static final int ballIntakeRID = 9;
+    public static final int ballIntakeLID = 10; //Inter-
+    public static final int ballIntakeRID = 8;
 
     //Drivetrain
     public static final double kDriveRamp = 0.25;
@@ -85,19 +86,19 @@ public class Constants{
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
     //Shoulder [-17deg,
-    public static final double shoulderKP = 10.0;
+    public static final double shoulderKP = 15.0; //[-11, 72]
     public static final double shoulderKI = 0;
-    public static final double shoulderKD = 2.75;
+    public static final double shoulderKD = 3.0;
     public static final double shoulderKF = 1023.0/37.51;
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 10;
-    public static final double shoulderAFF = 0.166; //At horizontal, 1.5/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 260 : 0;
+    public static final double shoulderAFF = 0.1; //At horizontal, 1.5/12
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 565 : 0;
     //Intake
     public static final double fondleLimit = 0.4;
-    public static final double intakeAFF = 0.1;
-    public static final int kCargoSolenoidId = 1;
-    public static final int kHatchSolenoidId = 2;
+    public static final double intakeAFF = -0.1;
+    public static final int kCargoSolenoidId = 0;
+    public static final int kHatchSolenoidId = 1;
     //Vision
     public static final int kVisionBaud = 115200;
     public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;

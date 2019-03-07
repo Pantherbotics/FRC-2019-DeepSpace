@@ -14,7 +14,7 @@ public class Intake extends Subsystem{
     Solenoid hatchSolenoid = new Solenoid(Constants.kHatchSolenoidId);
 
     public Intake(){
-
+        //mCargoL.setInverted(true);
     }
 
     public void setCargoIntakePower(double power){

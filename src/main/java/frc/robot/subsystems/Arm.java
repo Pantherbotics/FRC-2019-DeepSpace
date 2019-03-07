@@ -16,9 +16,8 @@ import frc.robot.util.Units;
 public class Arm extends Subsystem{
 
     private double shoulderkF;
-    private double wristkF;
     private int shoulderPosition;
-    private double shoulderSetpoint, wristSetpoint;
+    private double shoulderSetpoint;
 
     private int timeout_ms = 0;
     private TalonSRX mShoulder = new TalonSRX(Constants.shoulderID); //On carriage
@@ -33,7 +32,8 @@ public class Arm extends Subsystem{
         Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units
             shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
 
-            mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, -shoulderkF);
+            //mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, -shoulderkF);
+            mShoulder.set(ControlMode.PercentOutput, shoulderSetpoint, DemandType.ArbitraryFeedForward, shoulderkF);
             SmartDashboard.putNumber("Shoulder Setpoint", mShoulder.getClosedLoopTarget(0));
         });
 
@@ -46,8 +46,8 @@ public class Arm extends Subsystem{
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
 
         mShoulder.setNeutralMode(NeutralMode.Brake);
-        mShoulder.setInverted(false);
-        mShoulder.setSensorPhase(false);
+        mShoulder.setInverted(true);
+        mShoulder.setSensorPhase(true);
 
         //SHOULDER PID PARAMETERS
         mShoulder.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
@@ -87,7 +87,7 @@ public class Arm extends Subsystem{
     }
 
     public void initDefaultCommand(){
-        //setDefaultCommand(new PowerArmOpenLoop());
+        setDefaultCommand(new PowerArmOpenLoop());
         //setDefaultCommand(new IncrementShoulder());
     }
 }

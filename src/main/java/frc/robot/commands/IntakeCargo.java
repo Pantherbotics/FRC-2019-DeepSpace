@@ -26,6 +26,7 @@ public class IntakeCargo extends Command {
   @Override
   protected void execute() {
     Robot.kIntake.extendCargoArms();
+    Robot.kIntake.grabHatchPanel();
     Robot.kIntake.setCargoIntakePower(power);
   }
 
@@ -44,6 +45,6 @@ public class IntakeCargo extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.kIntake.closeCargoArms();
+    Robot.kIntake.setCargoIntakePower(0);
   }
 }
