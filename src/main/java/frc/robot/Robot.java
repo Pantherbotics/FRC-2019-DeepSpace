@@ -25,6 +25,7 @@ import java.util.HashMap;
 import jaci.pathfinder.Pathfinder;
 
 
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -58,6 +59,7 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     kCamera.enableCameras();
+    paths = collectPathsFromDirectory(Constants.PATH_LOCATION); //IF THE ROBOT CODE FAILS COMMENT ME OUT
   }
 
   /**
@@ -147,6 +149,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
   public void outputPathsToDashboard(HashMap<String, Trajectory> paths, SendableChooser<String> chooser){
     System.out.println(paths.isEmpty());
     for(String key : paths.keySet()){
@@ -168,7 +171,7 @@ public class Robot extends TimedRobot {
           }
           for(File traj: filesInFolder){
               System.out.println(traj.getName());                                                                          //take all the File objects we just created & convert them into Trajectories to put into HashMap
-              paths.put(traj.getName().replace("_source_Jaci.csv", ""), Pathfinder.readFromCSV(traj));
+              paths.put(traj.getName().replace("_left.csv", ""), Pathfinder.readFromCSV(traj));         //choose the left one arbitrarily (they're the same bc wheelbase = 0 in vannaka's)
           }
           return paths;
   }

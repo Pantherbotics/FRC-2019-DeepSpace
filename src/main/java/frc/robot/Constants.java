@@ -19,34 +19,27 @@ public class Constants{
     public static final int PartnerJoyRightYAxis = 3;
     public static final double deadband = 0.05;
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(0.00, 17.5);
-    public static final Setpoint diskIntake = new Setpoint(12.0, 0.0);
+    public static final Setpoint ballIntake = new Setpoint(0.00, -11.67);
+    public static final Setpoint diskIntake = new Setpoint(7.63, 0.0);
     //Cargo Ship
     public static final Setpoint ballCargoShip = new Setpoint(25.0, 30.0);
-    public static final Setpoint ballCargoShipFlip = new Setpoint(17.5, 80.00);
-    public static final Setpoint backflip = new Setpoint(17.5, 35.0);
+    public static final Setpoint hatchCargoShip = diskIntake;
     //Rocket
-    public static final double lowDiskElev = 12.0;
-    public static final Setpoint lowRocketBall = new Setpoint(0, 30.0);
-    public static final Setpoint mediumRocketBall = new Setpoint(27.5, 30.0);
-    public static final Setpoint highRocketBall = new Setpoint(52.5, 30.0);
+    public static final Setpoint lowRocketBall = new Setpoint(7.63, 10.0);
+    public static final Setpoint mediumRocketBall = new Setpoint(35.75, 10.0);
+    public static final Setpoint highRocketBall = new Setpoint(63.0, 10.0);
+
     public static final Setpoint lowRocketDisk = diskIntake;
-    public static final Setpoint mediumRocketDisk = new Setpoint(24.0, 0.0);
-    public static final Setpoint highRocketDisk = new Setpoint(39.0, 0.0);
-    //Outtaking
-    public static final Setpoint outtakeLow = new Setpoint(0.0, -14.0);
-    public static final Setpoint outtakeMedium = new Setpoint(10.0, 25.0);
-    public static final Setpoint outtakeHigh = new Setpoint(0,0);
-    //WTF IS GOING ON?? Me too Aaron
-    public static final Setpoint testOne = new Setpoint(30, 0);
-    public static final Setpoint testTwo = new Setpoint(0, 0);
-    public static final Setpoint testThree = new Setpoint(0, 60);
+    public static final Setpoint mediumRocketDisk = new Setpoint(35.75, 0.0);
+    public static final Setpoint highRocketDisk = new Setpoint(63.0, 0.0);
+
 
     //Elevator Increments
     public static final double mediumRocketDiskIncrement = 28.5;
     public static final double highRocketDiskIncrement = 55.5;
     public static final double mediumRocketBallIncrement = 44.4;
     public static final double highRocketBallIncrement = 66.0;
+
     //Robot Talons
     public static final int leftAID = 13;
     public static final int leftBID = 14;
@@ -102,5 +95,5 @@ public class Constants{
     //Vision
     public static final int kVisionBaud = 115200;
     public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;
-    public static final String PATH_LOCATION = "/home/lvuser/paths/";
+    public static final String PATH_LOCATION = "/home/lvuser/deploy/";
 }
