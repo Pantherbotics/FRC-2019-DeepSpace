@@ -79,12 +79,12 @@ public class Constants{
     public static final int lowElev_ID = 0;
     public static final int highElev_ID = 1;
     //Shoulder [-17deg,
-    public static final double shoulderKP = 15.0; //[-11, 72]
+    public static final double shoulderKP = 17.5; //[-11, 72]
     public static final double shoulderKI = 0;
     public static final double shoulderKD = 3.0;
     public static final double shoulderKF = 1023.0/37.51;
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
-    public static final int kShoulderAccelerationSpeed = 10;
+    public static final int kShoulderAccelerationSpeed = 15;
     public static final double shoulderAFF = 0.1; //At horizontal, 1.5/12
     public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 565 : 0;
     //Intake

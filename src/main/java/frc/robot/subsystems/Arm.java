@@ -32,8 +32,8 @@ public class Arm extends Subsystem{
         Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units
             shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
 
-            //mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, -shoulderkF);
-            mShoulder.set(ControlMode.PercentOutput, shoulderSetpoint, DemandType.ArbitraryFeedForward, shoulderkF);
+            mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, -shoulderkF);
+            //mShoulder.set(ControlMode.PercentOutput, shoulderSetpoint, DemandType.ArbitraryFeedForward, shoulderkF);
             SmartDashboard.putNumber("Shoulder Setpoint", mShoulder.getClosedLoopTarget(0));
         });
 
@@ -46,8 +46,8 @@ public class Arm extends Subsystem{
         mShoulder.configSelectedFeedbackSensor(FeedbackDevice.Analog, kPIDIdx, timeout_ms);
 
         mShoulder.setNeutralMode(NeutralMode.Brake);
-        mShoulder.setInverted(true);
-        mShoulder.setSensorPhase(true);
+        mShoulder.setInverted(false);
+        mShoulder.setSensorPhase(false);
 
         //SHOULDER PID PARAMETERS
         mShoulder.configAllowableClosedloopError(kPIDIdx, 1, timeout_ms);
@@ -87,7 +87,7 @@ public class Arm extends Subsystem{
     }
 
     public void initDefaultCommand(){
-        setDefaultCommand(new PowerArmOpenLoop());
+        //setDefaultCommand(new PowerArmOpenLoop());
         //setDefaultCommand(new IncrementShoulder());
     }
 }
