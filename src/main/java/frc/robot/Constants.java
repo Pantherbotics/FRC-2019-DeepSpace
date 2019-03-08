@@ -74,7 +74,7 @@ public class Constants{
     public static final int kElevatorCruiseSpeed = 1198;
     public static final int kElevatorAccelerationSpeed = 1000; //my sat score
     public static final int kElevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
-    public static final int kElevatorMaxPos = 7975;
+    public static final int kElevatorMaxPos = 8500;
 
     public static int timeoutMS = 10;
     public static final int lowElev_ID = 0;
@@ -85,7 +85,7 @@ public class Constants{
     public static final double shoulderKD = 3.0;
     public static final double shoulderKF = 1023.0/37.51;
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
-    public static final int kShoulderAccelerationSpeed = 20;
+    public static final int kShoulderAccelerationSpeed = 30;
     public static final double shoulderAFF = 0.1; //At horizontal, 1.5/12
     public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 565 : 0;
     //Intake
