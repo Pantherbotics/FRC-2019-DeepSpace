@@ -51,7 +51,7 @@ public class OI{
         partnerButtonB.whenPressed(new ToSetpoint(Constants.mediumRocketBall));
         partnerButtonA.whenPressed(new ToSetpoint(Constants.ballIntake)); //Hatch Panel
         //Cargo Ship
-        partnerBumperL.whenPressed(new ToSetpoint(Constants.ballCargoShip));
+        partnerBumperR.whenPressed(new ToSetpoint(Constants.ballCargoShip));
         //partnerBumperR.whenPressed(new ToSetpoint(Constants.ballCargoShipFlip));
         //partnerTriggerR.whenPressed(new ToSetpoint(Constants.backflip));
         //Hatch Panel
@@ -75,6 +75,8 @@ public class OI{
         bumperR.whileHeld(new IntakeCargo(0.75)); //Right Side Fondle
         triggerR.whileHeld(new IntakeCargo(-0.6)); //in = negative
         buttonOption.whenPressed(new HatchPush());
+        //Prepare for yeet
+        partnerBack.whenPressed(new ToSetpoint(Constants.stowed));
     }
 
     //Joystick
