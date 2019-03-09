@@ -136,6 +136,10 @@ public class Drivetrain extends Subsystem {
         System.out.println("Gyro Reset");
     }
 
+    public double getGyroAngle(){
+        return gyro.getAngle();
+    }
+
     public Odometry getOdo(){
         return new Odometry(x, y, theta);
     }
