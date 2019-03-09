@@ -79,6 +79,7 @@ public class Drivetrain extends Subsystem {
         test.setEnabled(false);
         
         initPID();
+        zeroGyro();
         x = 0;
         y = 0;
         theta = 0;

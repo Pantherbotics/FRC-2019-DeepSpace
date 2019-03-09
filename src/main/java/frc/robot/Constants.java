@@ -19,21 +19,21 @@ public class Constants{
     public static final int PartnerJoyRightYAxis = 3;
     public static final double deadband = 0.05;
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(0.00, -5.0);
-    public static final Setpoint diskIntake = new Setpoint(7.63, 0.0);
+    public static final Setpoint ballIntake = new Setpoint(0.00, -7.5);
+    public static final Setpoint diskIntake = new Setpoint(5.00, 0.0);
     //Cargo Ship
-    public static final Setpoint ballCargoShip = new Setpoint(36.0, -15.0);
+    public static final Setpoint ballCargoShip = new Setpoint(37.5, -15.0);
     public static final Setpoint hatchCargoShip = diskIntake;
     //Rocket
-    public static final Setpoint lowRocketBall = new Setpoint(4.63, 10.0);
-    public static final Setpoint mediumRocketBall = new Setpoint(32.75, 10.0);
-    public static final Setpoint highRocketBall = new Setpoint(59.0, 10.0);
+    public static final Setpoint lowRocketBall = new Setpoint(2.25, 10.0);
+    public static final Setpoint mediumRocketBall = new Setpoint(30.25, 10.0);
+    public static final Setpoint highRocketBall = new Setpoint(56.5, 10.0);
 
     public static final Setpoint lowRocketDisk = diskIntake;
-    public static final Setpoint mediumRocketDisk = new Setpoint(35.75, 0.0);
-    public static final Setpoint highRocketDisk = new Setpoint(63.0, 0.0);
+    public static final Setpoint mediumRocketDisk = new Setpoint(33.25, 0.0);
+    public static final Setpoint highRocketDisk = new Setpoint(60.5, 0.0);
     //YEET
-    public static final Setpoint stowed = new Setpoint(0.0, 60.0);
+    public static final Setpoint stowed = new Setpoint(0.0, 57.5);
 
     //Elevator Increments
     public static final double mediumRocketDiskIncrement = 28.5;
@@ -89,7 +89,7 @@ public class Constants{
     public static final double shoulderAFF = 0.1; //At horizontal, 1.5/12
     public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 565 : 0;
     //Intake
-    public static final double intakeAFF = -0.1;
+    public static final double intakeAFF = -0.25;
     public static final int kCargoSolenoidId = 0;
     public static final int kHatchSolenoidId = 1;
     //Vision
