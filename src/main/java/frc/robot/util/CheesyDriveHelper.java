@@ -28,6 +28,8 @@ public class CheesyDriveHelper {
     private static final double kQuickStopWeight = 0.1;
     private static final double kQuickStopScalar = 5.0;
 
+    private static final double kQuickTurnScalar = 0.5;
+
     private double mOldWheel = 0.0;
     private double mQuickStopAccumlator = 0.0;
     private double mNegInertiaAccumlator = 0.0;
@@ -47,6 +49,7 @@ public class CheesyDriveHelper {
         wheel = handleDeadband(wheel, kWheelDeadband);
         throttle = handleDeadband(throttle, kThrottleDeadband);
 
+        wheel = isQuickTurn ? wheel * kQuickTurnScalar : wheel;
         //double sign = Math.signum(wheel);
         //wheel = sign * wheel * wheel;
         double negInertia = wheel - mOldWheel;
