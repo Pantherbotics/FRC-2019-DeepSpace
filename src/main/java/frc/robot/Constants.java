@@ -18,23 +18,28 @@ public class Constants{
     public static final int PartnerJoyRightXAxis = 2;
     public static final int PartnerJoyRightYAxis = 3;
     public static final double deadband = 0.05;
+    public static final double kThrottle = 1.0;
+    public static final double kSteering = 0.66;
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(0.00, -7.5);
+    public static final Setpoint ballIntake = new Setpoint(0.00, -8.25);
     public static final Setpoint diskIntake = new Setpoint(5.00, 0.0);
+    public static final Setpoint ballLoadingStation = new Setpoint(23.25, 10.0);
     //Cargo Ship
     public static final Setpoint ballCargoShip = new Setpoint(37.5, -15.0);
     public static final Setpoint hatchCargoShip = diskIntake;
     //Rocket
-    public static final Setpoint lowRocketBall = new Setpoint(2.25, 10.0);
-    public static final Setpoint mediumRocketBall = new Setpoint(30.25, 10.0);
-    public static final Setpoint highRocketBall = new Setpoint(56.5, 10.0);
+    public static final Setpoint lowRocketBall = new Setpoint(6.25, 10.0);
+    public static final Setpoint mediumRocketBall = new Setpoint(33.25, 10.0);
+    public static final Setpoint highRocketBall = new Setpoint(60.75, 10.0);
 
     public static final Setpoint lowRocketDisk = diskIntake;
     public static final Setpoint mediumRocketDisk = new Setpoint(33.25, 0.0);
     public static final Setpoint highRocketDisk = new Setpoint(60.5, 0.0);
     //YEET
     public static final Setpoint stowed = new Setpoint(0.0, 57.5);
-
+    //Memes
+    public static final Setpoint YEEEET = new Setpoint(60.5, 45.0);
+    //Drivetrain Test
     //Elevator Increments
     public static final double mediumRocketDiskIncrement = 28.5;
     public static final double highRocketDiskIncrement = 55.5;
@@ -86,10 +91,10 @@ public class Constants{
     public static final double shoulderKF = 1023.0/37.51;
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 30;
-    public static final double shoulderAFF = 0.1; //At horizontal, 1.5/12
+    public static final double shoulderAFF = 0.1; //At horizontal, 1.2/12
     public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 565 : 0;
     //Intake
-    public static final double intakeAFF = -0.25;
+    public static final double intakeAFF = -0.175;
     public static final int kCargoSolenoidId = 0;
     public static final int kHatchSolenoidId = 1;
     //Vision

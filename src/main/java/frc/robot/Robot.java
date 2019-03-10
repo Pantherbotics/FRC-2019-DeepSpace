@@ -82,6 +82,10 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Elevator Voltage", kElevator.getVoltage());
     SmartDashboard.putNumber("Shoulder Voltage", kArm.getShoulderVoltage());
+    SmartDashboard.putNumber("VL", kDrivetrain.getVoltage()[0]);
+    SmartDashboard.putNumber("VR", kDrivetrain.getVoltage()[1]);
+    SmartDashboard.putNumber("VelL", kDrivetrain.getEncoderVelocity()[0]);
+    SmartDashboard.putNumber("VelR", kDrivetrain.getEncoderVelocity()[1]);
   }
 
   /**

@@ -66,7 +66,7 @@ public class Arm extends Subsystem{
     }
 
     public int getShoulderPosition(){
-        return mShoulder.getSensorCollection().getAnalogInRaw()+Constants.kShoulderOffset; //Flat should be 0
+        return mShoulder.getSensorCollection().getAnalogInRaw()-Constants.kShoulderOffset; //Flat should be 0
     }
 
     public int getShoulderPositionRaw(){

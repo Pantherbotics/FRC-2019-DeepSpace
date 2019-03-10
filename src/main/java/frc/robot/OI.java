@@ -23,6 +23,12 @@ public class OI{
     public JoystickButton buttonRJoy = new JoystickButton(stick, 12); //Press right Joystick
     public JoystickButton buttonPS4 = new JoystickButton(stick, 13); //PS4 Button
     public JoystickButton touchpad = new JoystickButton(stick, 14); //Hit touchpad
+    public JoystickButton leftJoy = new JoystickButton(stick, 15); //Hit the Joystick
+    public JoystickButton rightJoy = new JoystickButton(stick, 16);
+    public POVButton POVU = new POVButton(stick, 0);
+    public POVButton POVR = new POVButton(stick, 90);
+    public POVButton POVD = new POVButton(stick, 180);
+    public POVButton POVL = new POVButton(stick, 270);
 
     //Partner Joystick
     public JoystickButton partnerButtonY = new JoystickButton(partnerStick, 4);
@@ -35,6 +41,8 @@ public class OI{
     public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 8); //Right Trigger
     public JoystickButton partnerBack = new JoystickButton(partnerStick, 9);
     public JoystickButton partnerStart = new JoystickButton(partnerStick, 10);
+    public JoystickButton partnerLeftJoy = new JoystickButton(partnerStick, 11);
+    public JoystickButton partnerRightJoy = new JoystickButton(partnerStick, 12);
     public POVButton partnerPOVU = new POVButton(partnerStick, 0);  //Up
     public POVButton partnerPOVR = new POVButton(partnerStick, 90); //Right
     public POVButton partnerPOVD = new POVButton(partnerStick, 180);//Down
@@ -52,6 +60,7 @@ public class OI{
         partnerButtonA.whenPressed(new ToSetpoint(Constants.ballIntake)); //Hatch Panel
         //Cargo Ship
         partnerBumperR.whenPressed(new ToSetpoint(Constants.ballCargoShip));
+        partnerTriggerR.whenPressed(new ToSetpoint(Constants.ballLoadingStation));
         //partnerBumperR.whenPressed(new ToSetpoint(Constants.ballCargoShipFlip));
         //partnerTriggerR.whenPressed(new ToSetpoint(Constants.backflip));
         //Hatch Panel
@@ -59,8 +68,15 @@ public class OI{
         partnerPOVR.whenPressed(new ToSetpoint(Constants.lowRocketDisk));
         partnerPOVL.whenPressed(new ToSetpoint(Constants.mediumRocketDisk));
         partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntake));
-
-        //Outtaking Hatch Panel
+        //Yeetus that Fetus
+        partnerRightJoy.whenPressed(new ToSetpoint(Constants.YEEEET));
+        //Drivetrain Test
+        POVU.whileHeld(new OpenLoopConstant(1.0));
+        POVL.whileHeld(new OpenLoopConstant(0.8));
+        POVR.whileHeld(new OpenLoopConstant(0.6));
+        POVD.whileHeld(new OpenLoopConstant(0.4));
+        buttonShare.whileHeld(new OpenLoopConstant(0.2));
+        touchpad.whileHeld(new OpenLoopConstant(0.0));
         /*
         buttonT.whileHeld(new PrepareHatchGrab(-1));
         buttonT.whenPressed(new ToSetpoint(Constants.outtakeHigh));
@@ -74,7 +90,7 @@ public class OI{
         triggerL.whenPressed(new HatchGrab()); //true = in
         bumperR.whileHeld(new IntakeCargo(0.75)); //Right Side Fondle
         triggerR.whileHeld(new IntakeCargo(-0.6)); //in = negative
-        buttonOption.whenPressed(new HatchPush());
+        buttonT.whenPressed(new HatchPush());
         //Prepare for yeet
         partnerBack.whenPressed(new ToSetpoint(Constants.stowed));
     }
