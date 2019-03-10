@@ -24,7 +24,7 @@ public class DriveOpenLoop extends Command{
         Robot.kDrivetrain.setMotorPower(left, right); //High-tier cringe
     }
     protected boolean isFinished(){
-        return true;
+        return false;
     }
     protected void end(){
 
