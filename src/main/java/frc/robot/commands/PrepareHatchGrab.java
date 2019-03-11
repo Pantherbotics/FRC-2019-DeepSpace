@@ -10,10 +10,10 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class EmergencyAntiBork extends Command { //Won't implement for now, might need later as an anti-bork
-  public EmergencyAntiBork() {
-    requires(Robot.kElevator);
-    requires(Robot.kArm);
+public class PrepareHatchGrab extends Command {
+  double power;
+  public PrepareHatchGrab() {
+    requires(Robot.kIntake);
   }
 
   // Called just before this Command runs the first time
@@ -24,6 +24,8 @@ public class EmergencyAntiBork extends Command { //Won't implement for now, migh
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.kIntake.closeCargoArms();
+    Robot.kIntake.releaseHatchPanel();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -41,6 +43,6 @@ public class EmergencyAntiBork extends Command { //Won't implement for now, migh
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    isFinished();
+
   }
 }

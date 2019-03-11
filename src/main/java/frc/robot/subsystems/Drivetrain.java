@@ -79,6 +79,7 @@ public class Drivetrain extends Subsystem {
         test.setEnabled(false);
         
         initPID();
+        zeroGyro();
         x = 0;
         y = 0;
         theta = 0;
@@ -130,9 +131,17 @@ public class Drivetrain extends Subsystem {
         return new double[]{mLeftA.getSelectedSensorVelocity(0), mRightA.getSelectedSensorVelocity(0)};
     }
 
+    public double[] getVoltage(){
+        return new double[]{mLeftA.getMotorOutputVoltage(), mRightA.getMotorOutputVoltage()};
+    }
+
     public void zeroGyro(){ //Pizza Mozzerella Pizza Mozzerella Rella Rella Rella Rella
         gyro.reset();
         System.out.println("Gyro Reset");
+    }
+
+    public double getGyroAngle(){
+        return gyro.getAngle();
     }
 
     public Odometry getOdo(){
@@ -149,4 +158,5 @@ public class Drivetrain extends Subsystem {
         while (angle_degrees < -180.0) angle_degrees += 360.0;
         return angle_degrees;
     }
+
 }

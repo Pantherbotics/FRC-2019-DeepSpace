@@ -7,14 +7,14 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class SuccDisk extends Command {
-  boolean succ;
-  public SuccDisk(boolean ifSucc) {
+public class IntakeCargo extends Command {
+  double power;
+  public IntakeCargo(double power) {
     requires(Robot.kIntake);
-    succ = ifSucc;
+    this.power = power;
   }
 
   // Called just before this Command runs the first time
@@ -25,11 +25,9 @@ public class SuccDisk extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(succ){
-      Robot.kIntake.setSucc(0.25);
-    } else{
-      Robot.kIntake.setSucc(-0.25);
-    }
+    Robot.kIntake.extendCargoArms();
+    Robot.kIntake.grabHatchPanel();
+    Robot.kIntake.setCargoIntakePower(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -47,6 +45,6 @@ public class SuccDisk extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.kIntake.setSucc(0);
+    Robot.kIntake.setCargoIntakePower(0);
   }
 }

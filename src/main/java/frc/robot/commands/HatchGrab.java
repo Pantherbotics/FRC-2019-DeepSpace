@@ -10,11 +10,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class FondleBall extends Command {
-  boolean fondle;
-  public FondleBall(boolean ifFondle) {
+public class HatchGrab extends Command {
+  double power;
+  public HatchGrab() {
     requires(Robot.kIntake);
-    fondle = ifFondle;
   }
 
   // Called just before this Command runs the first time
@@ -25,17 +24,14 @@ public class FondleBall extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(fondle){
-      Robot.kIntake.setFondle(1);
-    } else{
-      Robot.kIntake.setFondle(-1);
-    }
+    Robot.kIntake.closeCargoArms();
+    Robot.kIntake.grabHatchPanel();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -47,6 +43,6 @@ public class FondleBall extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.kIntake.setFondle(0);
+
   }
 }

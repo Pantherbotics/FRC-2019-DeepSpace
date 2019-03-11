@@ -1,12 +1,17 @@
 package frc.robot.util;
 
+import frc.robot.Constants;
+
 public class Setpoint {
 
-    double elevatorInches, shoulderDegrees, wristDegrees;
-    public Setpoint (double elevatorInchesFromGround, double shoulderDegreesFromHorizontal, double wristDegreesFromHorizontal){
+    double elevatorInches, shoulderDegrees;
+    public Setpoint (double elevatorInchesFromGround, double shoulderDegreesFromHorizontal){
         elevatorInches = elevatorInchesFromGround;
         shoulderDegrees = shoulderDegreesFromHorizontal;
-        wristDegrees = wristDegreesFromHorizontal;
+    }
+
+    public int checkViable(){
+        return 0;
     }
 
     public int getElevatorTicks(){
@@ -15,9 +20,5 @@ public class Setpoint {
 
     public int getShoulderTicks(){
         return Units.degreesToTalon(shoulderDegrees);
-    }
-
-    public int getWristTicks(){
-        return Units.degreesToTalon(wristDegrees);
     }
 }
