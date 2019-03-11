@@ -26,7 +26,7 @@ public class IncrementShoulder extends Command { //Should really be called incre
     shoulderPos = kArm.getShoulderPosition();
     if(Robot.oi.getPartnerLeftYAxis() > Constants.deadband) {
       incrementS = 50 * Robot.oi.getPartnerLeftYAxis();
-      Robot.kArm.setShoulderPosition((int) (shoulderPos + incrementS));
+      Robot.kArm.setShoulderPosition((int) (shoulderPos + incrementS), Robot.kElevator.getAcceleration());
     }
   }
 

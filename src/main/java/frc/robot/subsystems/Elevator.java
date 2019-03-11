@@ -17,6 +17,8 @@ import frc.robot.util.Units;
 public class Elevator extends Subsystem{
     private TalonSRX mElevA = new TalonSRX(Constants.elevatorAID);
     private TalonSRX mElevB = new TalonSRX(Constants.elevatorBID);
+    private double lastVel;
+    private double acceleration;
 
     public Elevator(){
         mElevB.follow(mElevA);
@@ -43,13 +45,10 @@ public class Elevator extends Subsystem{
         mElevA.configForwardSoftLimitEnable(true);
 
         Notifier elevThread = new Notifier(() ->{
-            if(getPos() > Constants.kElevMidway){
-                mElevA.selectProfileSlot(Constants.highElev_ID, 0);
-            } else{
-                mElevA.selectProfileSlot(Constants.lowElev_ID, 0);
-            }
+            acceleration = (mElevA.getSelectedSensorVelocity(0) - lastVel) / Constants.elevPeriod;
+            lastVel = mElevA.getSelectedSensorVelocity(0);
         });
-        //elevThread.startPeriodic(0.01);
+        elevThread.startPeriodic(Constants.elevPeriod);
     }
     public void initDefaultCommand(){
        //setDefaultCommand(new IncrementElevator());
@@ -57,12 +56,19 @@ public class Elevator extends Subsystem{
     public int getPos(){
         return mElevA.getSelectedSensorPosition(0);
     }
+
     public double getPosInches(){
         return Units.elevatorTicksToInches(mElevA.getSelectedSensorPosition(0));
     }
+
     public int getVelocity(){
         return mElevA.getSelectedSensorVelocity(0);
     }
+
+    public double getAcceleration(){
+        return acceleration;
+    }
+
     public double getVoltage(){
         return mElevA.getMotorOutputVoltage();
     }
@@ -70,12 +76,15 @@ public class Elevator extends Subsystem{
     public void setPower(double power){
         mElevA.set(ControlMode.PercentOutput, -power);
     }
+
     public void setPos(int pos){
             mElevA.set(ControlMode.MotionMagic, pos, DemandType.ArbitraryFeedForward, Constants.elevatorAFF);
     }
+
     public boolean getLimitSwitch(){
         return mElevA.getSensorCollection().isRevLimitSwitchClosed();
     }
+
     public void setElevatorEncoder(int pos){
         mElevA.setSelectedSensorPosition(pos, Constants.lowElev_ID, Constants.timeoutMS);
     }
