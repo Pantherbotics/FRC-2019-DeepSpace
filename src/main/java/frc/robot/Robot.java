@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
   public static final Intake kIntake = new Intake();
   public static final OI oi = new OI(); //Instantiate OI after instantiating all the subsystems
   public static HashMap<String, Trajectory> paths;
-  public static final Vision vision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
+  public static final Vision kVision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private Command kAuto;

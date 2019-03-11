@@ -1,64 +1,99 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.SerialPort;
 
-public class Vision extends Subsystem  {
+public class Vision extends Subsystem{
+    private int aStart, aEnd, bStart, bEnd, cStart, cEnd;
+    private String aString, bString, cString;
 
-    private SerialPort jevois;
-    private Notifier stream;
-    private boolean tx, isJevoisConnected;
-    private String txMessage, rxMessage;
+    private Notifier m_t_update;
+    private Boolean JevoisConnected = false;
+    private String m_data = "none";
+    private SerialPort m_cameraSerial;
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-
-    public Vision(int baud, SerialPort.Port port){
-           isJevoisConnected = false;
-            stream = new Notifier(() -> {
-                try{
-                    if(!isJevoisConnected){
-                        jevois = new SerialPort(baud, port);
-                        isJevoisConnected = true;
-                    }
-                    //do nothing if is already connected
+    public Vision(int baudRate, SerialPort.Port serialPort){
+        JevoisConnected = false;
+        m_t_update = new Notifier(() -> {
+            try{
+                if(!JevoisConnected){
+                    m_cameraSerial = new SerialPort(baudRate, serialPort);
+                    JevoisConnected = true;
                 }
-                catch(Exception e){
-                    System.out.println("ERROR: JeVois is not connected!");
-                    e.printStackTrace();
-                    try{
-                    Thread.sleep(5000);
-                    }
-                    catch(Exception f){
-                        f.printStackTrace();
-                    }
+            }
+            catch(Exception e){
+                System.out.println("No jevois pluggen in... check init.cfg and make sure it's plugged in");
+            }
+            if(JevoisConnected){
+                if(m_cameraSerial.getBytesReceived() > 0){
+                    m_data = m_cameraSerial.readString();
                 }
-                
-                if(isJevoisConnected){
-                    if(tx){
-                        jevois.writeString(txMessage);
-                    }
-                    else if(jevois.getBytesReceived() > 0){
-                        rxMessage = jevois.readString();
-                    }
-                }
-            });
-            stream.startPeriodic(0.005);
+            }
+        });
+        m_t_update.startPeriodic(0.005);
     }
 
-    public void sendTxMessage(String message){
-        txMessage = message + "\n";
-        tx = true;
+    public String getSerialData() {
+        return m_data;
     }
 
-    public String getRxMessage(){
-        return rxMessage;
+    public double getAttackAngle() {
+        aStart = m_data.indexOf("/A");
+        aEnd = m_data.indexOf("/B");
+        if (aStart != -1 && aEnd != -1){
+            aString = m_data.substring(aStart+2, aEnd);
+            try{
+                return Double.parseDouble(aString);
+            }
+            catch(Exception e){
+                return 0;
+            }
+        }
+        return 0;
     }
 
-    public void initDefaultCommand() {
-        // TODO: Set the default command, if any, for a subsystem here. Example:
-        //    setDefaultCommand(new MySpecialCommand());
+    public double getDistance() {
+        bStart = m_data.indexOf("/B");
+        bEnd = m_data.indexOf("/C");
+        if (bStart != -1 && bEnd != -1){
+            bString = m_data.substring(bStart+2, bEnd);
+            try{
+                return Double.parseDouble(bString);
+            }
+            catch(Exception e){
+                return 0;
+            }
+        }
+        return 0;
     }
+
+    public String getSideDeviation() {
+        cStart = m_data.indexOf("/C");
+        cEnd = m_data.indexOf("/D");
+        if (cStart != -1 && cEnd != -1){
+            cString = m_data.substring(cStart+2, cEnd);
+            return cString;
+        }
+        return "1:1";
+    }
+
+    public Boolean isTarget(){
+        aStart = m_data.indexOf("/A");
+        aEnd = m_data.indexOf("/B");
+        bStart = m_data.indexOf("/B");
+        bEnd = m_data.indexOf("/C");
+        cStart = m_data.indexOf("/C");
+        cEnd = m_data.indexOf("/D");
+        if (aStart!=-1 && bStart!=-1 && cStart!=-1 && aEnd!=-1 && bEnd!= -1 && cEnd!=-1){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected void initDefaultCommand() {
+
+    }
+
 }
-
