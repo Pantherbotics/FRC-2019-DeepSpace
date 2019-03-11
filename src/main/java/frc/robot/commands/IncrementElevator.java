@@ -9,14 +9,13 @@ import static frc.robot.Robot.oi;
 public class IncrementElevator extends Command{
 
     public IncrementElevator() {
-        requires(Robot.kElevator);
     }
 
     protected void initialize() {
     }
 
     protected void execute() { //?
-        int increment = (int)(100 * oi.getPartnerLeftYAxis());
+        int increment = (int)(500 * oi.getPartnerLeftYAxis());
         Robot.kElevator.setPos(Robot.kElevator.getPos() + increment);
     }
 
