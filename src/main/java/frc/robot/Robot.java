@@ -86,6 +86,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("VR", kDrivetrain.getVoltage()[1]);
     SmartDashboard.putNumber("VelL", kDrivetrain.getEncoderVelocity()[0]);
     SmartDashboard.putNumber("VelR", kDrivetrain.getEncoderVelocity()[1]);
+
+    SmartDashboard.putNumber("Odometry X", kDrivetrain.getOdo().getX());
+    SmartDashboard.putNumber("Odometry Y", kDrivetrain.getOdo().getY());
+    SmartDashboard.putNumber("Odometry Theta", kDrivetrain.getOdo().getTheta());
   }
 
   /**
@@ -123,6 +127,7 @@ public class Robot extends TimedRobot {
         break;
     }
     */
+    Scheduler.getInstance().run();
   }
 
   /**
