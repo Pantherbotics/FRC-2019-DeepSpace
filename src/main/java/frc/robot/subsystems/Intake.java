@@ -15,6 +15,7 @@ public class Intake extends Subsystem{
 
     public Intake(){
         //mCargoL.setInverted(true);
+        grabHatchPanel();
     }
 
     public void setCargoIntakePower(double power){

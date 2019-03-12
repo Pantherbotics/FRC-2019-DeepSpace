@@ -112,7 +112,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveOpenLoop()); //It worked but only partially
+        setDefaultCommand(new DriveClosedLoop()); //It worked but only partially
     }
 
     public void setMotorPower(double left, double right){
