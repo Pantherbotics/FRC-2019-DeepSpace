@@ -16,7 +16,9 @@ public class IncrementElevator extends Command{
 
     protected void execute() { //?
         int increment = (int)(500 * oi.getPartnerLeftYAxis());
-        Robot.kElevator.setPos(Robot.kElevator.getPos() + increment);
+        if(increment !=0) {
+            Robot.kElevator.setPos(Robot.kElevator.getPos() + increment);
+        }
     }
 
     protected boolean isFinished() {
