@@ -55,6 +55,7 @@ public class CheesyDriveHelper {
         double negInertia = wheel - mOldWheel;
         mOldWheel = wheel;
 
+        /*
         double wheelNonLinearity;
         if (isHighGear) {
             wheelNonLinearity = kHighWheelNonLinearity;
@@ -69,7 +70,7 @@ public class CheesyDriveHelper {
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
-        }
+        }*/
 
         double leftPwm, rightPwm, overPower;
         double sensitivity;
