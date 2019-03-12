@@ -11,7 +11,7 @@ public class CheesyDriveHelper {
     private static final double kWheelDeadband = 0.02;
 
     // These factor determine how fast the wheel traverses the "non linear" sine curve.
-    private static final double kHighWheelNonLinearity = 0.65;
+    private static final double kHighWheelNonLinearity = 0.8;
     private static final double kLowWheelNonLinearity = 0.5;
 
     private static final double kHighNegInertiaScalar = 4.0;
@@ -55,7 +55,7 @@ public class CheesyDriveHelper {
         double negInertia = wheel - mOldWheel;
         mOldWheel = wheel;
 
-        /*
+
         double wheelNonLinearity;
         if (isHighGear) {
             wheelNonLinearity = kHighWheelNonLinearity;
@@ -70,7 +70,7 @@ public class CheesyDriveHelper {
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
             wheel = Math.sin(Math.PI / 2.0 * wheelNonLinearity * wheel) / denominator;
-        }*/
+        }
 
         double leftPwm, rightPwm, overPower;
         double sensitivity;
