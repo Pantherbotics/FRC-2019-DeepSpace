@@ -9,21 +9,23 @@ import static frc.robot.Robot.kVision;
 
 public class DriveVisionAssisted extends Command{
 
-    private static double turnKp = 1.0;
+    private static double turnKp = 0.8;
 
 
 
     public DriveVisionAssisted(){
         requires(Robot.kDrivetrain);
-        requires(kVision);
+        requires(Robot.kVision);
     }
     protected void initialize(){
         
     }
+
     protected void execute(){
         double turnPower = turnKp * kVision.getAttackAngle();
-        double left = Robot.oi.getLeftYAxis()  - turnPower;
-        double right = Robot.oi.getLeftYAxis() + turnPower;
+        System.out.print(turnPower);
+        double left = Robot.oi.getLeftYAxis()  + turnPower;
+        double right = Robot.oi.getLeftYAxis() - turnPower;
         Robot.kDrivetrain.setMotorPower(left, right);
     }
 

@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,6 +14,8 @@ public class Vision extends Subsystem{
     private Boolean JevoisConnected = false;
     private String m_data = "none";
     private SerialPort m_cameraSerial;
+
+    private TalonSRX ledRing = new TalonSRX(7);
 
     public Vision(int baudRate, SerialPort.Port serialPort){
         JevoisConnected = false;
@@ -32,6 +36,8 @@ public class Vision extends Subsystem{
             }
         });
         m_t_update.startPeriodic(0.005);
+        ledRing.enableVoltageCompensation(true);
+        ledRing.set(ControlMode.PercentOutput, 1.0);
     }
 
     public String getSerialData() {

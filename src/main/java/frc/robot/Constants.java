@@ -92,7 +92,7 @@ public class Constants{
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 30;
     public static final double shoulderAFF = 0.1; //At horizontal, 1.2/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 565 : 0;
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 585 : 0;
     //Intake
     public static final double intakeAFF = -0.175;
     public static final int kCargoSolenoidId = 0;
