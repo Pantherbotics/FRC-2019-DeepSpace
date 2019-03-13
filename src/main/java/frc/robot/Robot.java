@@ -38,9 +38,9 @@ public class Robot extends TimedRobot {
   public static final Elevator kElevator = new Elevator();
   public static final Arm kArm = new Arm();
   public static final Intake kIntake = new Intake();
+    public static final Vision kVision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
   public static final OI oi = new OI(); //Instantiate OI after instantiating all the subsystems
   public static HashMap<String, Trajectory> paths;
-  public static final Vision vision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
   private static final String kDefaultAuto = "Default";
   private static final String kCustomAuto = "My Auto";
   private Command kAuto;
@@ -90,6 +90,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Odometry X", kDrivetrain.getOdo().getX());
     SmartDashboard.putNumber("Odometry Y", kDrivetrain.getOdo().getY());
     SmartDashboard.putNumber("Odometry Theta", kDrivetrain.getOdo().getTheta());
+    
+    SmartDashboard.putNumber("Skew Angle To Target", kVision.getAttackAngle());
+
+    System.out.println(kVision.getSerialData());
   }
 
   /**

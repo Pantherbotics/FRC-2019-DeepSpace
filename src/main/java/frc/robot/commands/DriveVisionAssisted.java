@@ -4,28 +4,32 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.util.CheesyDriveHelper;
+import frc.robot.util.Units;
+
+import static frc.robot.Robot.kVision;
 
 public class DriveVisionAssisted extends Command{
 
-    private double visionAngleErrorDeg;
-    private static double turnKp = 1.0;
+    private static double turnKp = 0.8;
 
-    private double lastError;
+
 
     public DriveVisionAssisted(){
         requires(Robot.kDrivetrain);
-        lastError = visionAngleErrorDeg;
+        requires(Robot.kVision);
     }
     protected void initialize(){
         
     }
-    protected void execute(){ //You are already obsolete
-        /* ADD STUFF TO GET ANGLE ERROR FROM JEVOIS */
-        double turnPower = turnKp * visionAngleErrorDeg;
-        double left = Robot.oi.getLeftYAxis()  - turnPower;
-        double right = Robot.oi.getLeftYAxis() + turnPower;
-        Robot.kDrivetrain.setMotorPower(left, right); //High-tier cringe
+
+    protected void execute(){
+        double turnPower = turnKp * Units.getTrueAttackAngle(kVision.getAttackAngle(), kVision.getDistance());
+        System.out.print(turnPower);
+        double left = Robot.oi.getLeftYAxis()  + turnPower;
+        double right = Robot.oi.getLeftYAxis() - turnPower;
+        Robot.kDrivetrain.setMotorPower(left, right);
     }
+
     protected boolean isFinished(){
         return false;
     }

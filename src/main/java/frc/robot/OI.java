@@ -11,8 +11,8 @@ public class OI{
     //Joystick
     public JoystickButton buttonT = new JoystickButton(stick, 4); //Triangle
     public JoystickButton buttonS = new JoystickButton(stick, 1); //Square
-    public JoystickButton buttonC = new JoystickButton(stick, 2); //Circle
-    public JoystickButton buttonX = new JoystickButton(stick, 3); //X
+    public JoystickButton buttonC = new JoystickButton(stick, 3); //Circle
+    public JoystickButton buttonX = new JoystickButton(stick, 2); //X
     public JoystickButton bumperL = new JoystickButton(stick, 5); //Left Bumper
     public JoystickButton bumperR = new JoystickButton(stick, 6); //Right Bumper
     public JoystickButton triggerL = new JoystickButton(stick, 7); //Left Trigger
@@ -93,6 +93,9 @@ public class OI{
         buttonT.whenPressed(new HatchPush());
         //Prepare for yeet
         partnerBack.whenPressed(new ToSetpoint(Constants.stowed));
+
+        //VISION ASSIST
+        buttonC.whileHeld(new DriveVisionAssisted());
     }
 
     //Joystick
