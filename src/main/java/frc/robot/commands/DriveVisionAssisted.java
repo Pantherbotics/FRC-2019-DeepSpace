@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.util.CheesyDriveHelper;
+import frc.robot.util.Units;
 
 import static frc.robot.Robot.kVision;
 
@@ -22,7 +23,7 @@ public class DriveVisionAssisted extends Command{
     }
 
     protected void execute(){
-        double turnPower = turnKp * kVision.getAttackAngle();
+        double turnPower = turnKp * Units.getTrueAttackAngle(kVision.getAttackAngle(), kVision.getDistance());
         System.out.print(turnPower);
         double left = Robot.oi.getLeftYAxis()  + turnPower;
         double right = Robot.oi.getLeftYAxis() - turnPower;

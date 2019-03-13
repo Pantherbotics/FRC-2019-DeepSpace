@@ -97,6 +97,8 @@ public class Vision extends Subsystem{
         return false;
     }
 
+    //public double getTrueAttackAngle()
+
     @Override
     protected void initDefaultCommand() {
 
