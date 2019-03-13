@@ -51,7 +51,7 @@ public class Elevator extends Subsystem{
         elevThread.startPeriodic(Constants.elevPeriod);
     }
     public void initDefaultCommand(){
-       setDefaultCommand(new IncrementElevator());
+       //setDefaultCommand(new IncrementElevator());
     }
     public int getPos(){
         return mElevA.getSelectedSensorPosition(0);

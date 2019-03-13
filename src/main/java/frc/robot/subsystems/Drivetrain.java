@@ -48,12 +48,12 @@ public class Drivetrain extends Subsystem {
         mRightB.setInverted(true);
         mRightC.setInverted(true);
         //Coast for West Coast
-        mLeftA.setNeutralMode(NeutralMode.Coast);
-        mLeftB.setNeutralMode(NeutralMode.Coast);
-        mLeftC.setNeutralMode(NeutralMode.Coast);
-        mRightA.setNeutralMode(NeutralMode.Coast);
-        mRightB.setNeutralMode(NeutralMode.Coast);
-        mRightC.setNeutralMode(NeutralMode.Coast);
+        mLeftA.setNeutralMode(NeutralMode.Brake);
+        mLeftB.setNeutralMode(NeutralMode.Brake);
+        mLeftC.setNeutralMode(NeutralMode.Brake);
+        mRightA.setNeutralMode(NeutralMode.Brake);
+        mRightB.setNeutralMode(NeutralMode.Brake);
+        mRightC.setNeutralMode(NeutralMode.Brake);
         //Ramp
         mLeftA.configClosedloopRamp(Constants.kDriveRamp, timeoutMS);
         mLeftB.configClosedloopRamp(Constants.kDriveRamp, timeoutMS);
@@ -112,7 +112,7 @@ public class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand(){
-        setDefaultCommand(new DriveClosedLoop()); //It worked but only partially
+        setDefaultCommand(new DriveOpenLoop()); //It worked but only partially
     }
 
     public void setMotorPower(double left, double right){
