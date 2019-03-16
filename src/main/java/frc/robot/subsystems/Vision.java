@@ -98,6 +98,19 @@ public class Vision extends Subsystem{
         return false;
     }
 
+    private double convertToRobotAngle(double jevoisAngle, double distance){
+        if(jevoisAngle > 0){
+            return Math.PI/2.0 - Math.atan((distance * Math.cos(jevoisAngle))/ (distance * Math.sin(jevoisAngle - 4)));
+        }
+        else
+            return Math.atan((distance * Math.sin(jevoisAngle)+4)/(distance * Math.cos(jevoisAngle)));
+
+    }
+
+    public double getRobotAttackAngle(){
+        return convertToRobotAngle(getAttackAngle(), getDistance());
+    }
+
     public void enableLEDs(){
         ledRing.set(ControlMode.PercentOutput, 7.0/12.0);
     }

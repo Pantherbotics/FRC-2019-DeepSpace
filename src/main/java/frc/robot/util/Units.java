@@ -39,12 +39,6 @@ public class Units { //GRAYTHING ENCODER HAS 128 CPR SO 512 TPR            oh it
         return (int)Math.round(inches * 512.0 / (1.25 * 3.14159));
     }
 
-    public static double getTrueAttackAngle(double aa, double distance){ //This is your fault Aaron
-        if(distance * Math.cos(aa) == 0){
-            return 0;
-        }
-        return Math.PI / 2 - Math.atan((distance * Math.sin(aa) + 4) / (distance * Math.cos(aa))); // pi/2 - arctan((d*sinA + 4)/(d*cosA)) //
-    }
     /*
     public static void main(String[] args){
         System.out.println(TalonNativeToFPS(770));
