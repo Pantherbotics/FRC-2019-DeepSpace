@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
 
 public class Vision extends Subsystem{
     private int aStart, aEnd, bStart, bEnd, cStart, cEnd;
@@ -15,7 +16,7 @@ public class Vision extends Subsystem{
     private String m_data = "none";
     private SerialPort m_cameraSerial;
 
-    private TalonSRX ledRing = new TalonSRX(7);
+    private TalonSRX ledRing = new TalonSRX(Constants.jeVoisID);
 
     public Vision(int baudRate, SerialPort.Port serialPort){
         JevoisConnected = false;
@@ -37,7 +38,7 @@ public class Vision extends Subsystem{
         });
         m_t_update.startPeriodic(0.005);
         ledRing.enableVoltageCompensation(true);
-        ledRing.set(ControlMode.PercentOutput, 1.0);
+
     }
 
     public String getSerialData() {
@@ -97,6 +98,13 @@ public class Vision extends Subsystem{
         return false;
     }
 
+    public void enableLEDs(){
+        ledRing.set(ControlMode.PercentOutput, 7.0/12.0);
+    }
+
+    public void disableLEDs(){
+        ledRing.set(ControlMode.PercentOutput, 0);
+    }
     //public double getTrueAttackAngle()
 
     @Override

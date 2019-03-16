@@ -10,7 +10,7 @@ import static frc.robot.Robot.kVision;
 
 public class DriveVisionAssisted extends Command{
 
-    private static double turnKp = 0.8;
+    private static double turnKp = 0.5;
 
 
 
@@ -19,10 +19,12 @@ public class DriveVisionAssisted extends Command{
         requires(Robot.kVision);
     }
     protected void initialize(){
-        
+        kVision.enableLEDs();
     }
 
     protected void execute(){
+        //System.out.println((kVision.getAttackAngle()));
+        System.out.println(Units.getTrueAttackAngle(kVision.getAttackAngle(), kVision.getDistance()));
         double turnPower = turnKp * Units.getTrueAttackAngle(kVision.getAttackAngle(), kVision.getDistance());
         System.out.print(turnPower);
         double left = Robot.oi.getLeftYAxis()  + turnPower;
@@ -34,9 +36,8 @@ public class DriveVisionAssisted extends Command{
         return false;
     }
     protected void end(){
-
     }
     protected void interrupted(){
-
+        kVision.disableLEDs();
     }
 }

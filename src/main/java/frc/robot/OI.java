@@ -67,7 +67,7 @@ public class OI{
         partnerPOVU.whenPressed(new ToSetpoint(Constants.highRocketDisk));
         partnerPOVR.whenPressed(new ToSetpoint(Constants.lowRocketDisk));
         partnerPOVL.whenPressed(new ToSetpoint(Constants.mediumRocketDisk));
-        partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntake));
+        partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntakeLow));
         //Yeetus that Fetus
         partnerRightJoy.whenPressed(new ToSetpoint(Constants.YEEEET));
         //Drivetrain Test
@@ -88,8 +88,8 @@ public class OI{
         //Intake (main)
         bumperL.whenPressed(new PrepareHatchGrab()); //Left Side Succ
         triggerL.whenPressed(new HatchGrab()); //true = in
-        bumperR.whileHeld(new IntakeCargo(0.75)); //Right Side Fondle
-        triggerR.whileHeld(new IntakeCargo(-0.6)); //in = negative
+        bumperR.whileHeld(new IntakeCargo(1.0)); //Right Side Fondle 0.75
+        triggerR.whileHeld(new IntakeCargo(-0.8)); //in = negative -0.6
         buttonT.whenPressed(new HatchPush());
         //Prepare for yeet
         partnerBack.whenPressed(new ToSetpoint(Constants.stowed));

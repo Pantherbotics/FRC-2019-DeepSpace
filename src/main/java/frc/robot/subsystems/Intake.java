@@ -1,6 +1,6 @@
 package frc.robot.subsystems; //Name the cargo intake ball fondler
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -10,11 +10,12 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 public class Intake extends Subsystem{
     TalonSRX mCargoL = new TalonSRX(Constants.ballIntakeLID);
     TalonSRX mCargoR = new TalonSRX(Constants.ballIntakeRID);
-    Solenoid cargoSolenoid = new Solenoid(Constants.kCargoSolenoidId);  //we are using single solenoids, which are only controlled by a single boolean flag
-    Solenoid hatchSolenoid = new Solenoid(Constants.kHatchSolenoidId);
+    DoubleSolenoid cargoSolenoid = new DoubleSolenoid(Constants.kCargoSolenoidIdF, Constants.kCargoSolenoidIdR);  //Sike double solenoids
+    DoubleSolenoid hatchSolenoid = new DoubleSolenoid(Constants.kHatchSolenoidIdF, Constants.kHatchSolenoidIdR);
 
     public Intake(){
         //mCargoL.setInverted(true);
+        closeCargoArms();
         grabHatchPanel();
     }
 
@@ -24,19 +25,19 @@ public class Intake extends Subsystem{
     }
 
     public void extendCargoArms(){
-        cargoSolenoid.set(true);
+        cargoSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     public void closeCargoArms(){
-        cargoSolenoid.set(false);
+        cargoSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public void grabHatchPanel(){
-        hatchSolenoid.set(false);
+        hatchSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public void releaseHatchPanel(){
-        hatchSolenoid.set(true);
+        hatchSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     public void initDefaultCommand(){

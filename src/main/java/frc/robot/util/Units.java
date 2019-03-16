@@ -43,7 +43,7 @@ public class Units { //GRAYTHING ENCODER HAS 128 CPR SO 512 TPR            oh it
         if(distance * Math.cos(aa) == 0){
             return 0;
         }
-        return Math.atan((distance * Math.sin(aa) + 4) / (distance * Math.cos(aa)));
+        return Math.PI / 2 - Math.atan((distance * Math.sin(aa) + 4) / (distance * Math.cos(aa))); // pi/2 - arctan((d*sinA + 4)/(d*cosA)) //
     }
     /*
     public static void main(String[] args){
