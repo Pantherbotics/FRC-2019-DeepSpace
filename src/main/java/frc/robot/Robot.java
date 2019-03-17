@@ -90,10 +90,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Odometry X", kDrivetrain.getOdo().getX());
     SmartDashboard.putNumber("Odometry Y", kDrivetrain.getOdo().getY());
     SmartDashboard.putNumber("Odometry Theta", kDrivetrain.getOdo().getTheta());
-    
-    SmartDashboard.putNumber("Skew Angle To Target", kVision.getAttackAngle());
 
     System.out.println(kVision.getSerialData());
+    SmartDashboard.putNumber("Attack Angle", kVision.getAttackAngle());
+    SmartDashboard.putNumber("Distance", kVision.getDistance());
   }
 
   /**
