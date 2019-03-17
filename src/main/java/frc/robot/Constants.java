@@ -20,9 +20,8 @@ public class Constants{
     public static final double deadband = 0.05;
     public static final double kThrottle = 0.9;
     public static final double kSteering = 0.55;
-    //Because encoder drift
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(0.00, -9.75);
+    public static final Setpoint ballIntake = new Setpoint(0.00, -10.75);
     public static final Setpoint diskIntake = new Setpoint(6.25, 0.0); //5.00
     public static final Setpoint diskIntakeLow = new Setpoint(5.25, 0);
     public static final Setpoint ballLoadingStation = new Setpoint(23.25, 10.0);
@@ -38,7 +37,7 @@ public class Constants{
     public static final Setpoint mediumRocketDisk = new Setpoint(32.25, 0.0); //33.25
     public static final Setpoint highRocketDisk = new Setpoint(57.75, 0.0); //60.5
     //YEET
-    public static final Setpoint stowed = new Setpoint(0.0, 62.5);
+    public static final Setpoint stowed = new Setpoint(0.0, 57.5);
     //Memes
     public static final Setpoint YEEEET = new Setpoint(60.25, 45.0);
     //Drivetrain Test
