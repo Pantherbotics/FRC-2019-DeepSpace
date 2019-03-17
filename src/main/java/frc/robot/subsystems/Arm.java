@@ -63,8 +63,7 @@ public class Arm extends Subsystem{
 
 
     public void powerShoulder(double input){
-        shoulderkF = Math.abs(Math.cos(Math.toRadians(getShoulderDegrees()))) * (Constants.elevatorAFF + Units.elevAccelToVoltage(elevAccel));
-        mShoulder.set(ControlMode.PercentOutput, input, DemandType.ArbitraryFeedForward, shoulderkF);
+        shoulderSetpoint = input;
     }
 
     public int getShoulderPosition(){

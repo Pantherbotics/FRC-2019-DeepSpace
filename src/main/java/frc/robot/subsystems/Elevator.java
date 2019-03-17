@@ -74,7 +74,7 @@ public class Elevator extends Subsystem{
     }
 
     public void setPower(double power){
-        mElevA.set(ControlMode.PercentOutput, -power, DemandType.ArbitraryFeedForward, Constants.elevatorAFF);
+        mElevA.set(ControlMode.PercentOutput, -power);
     }
 
     public void setPos(int pos){
