@@ -8,18 +8,17 @@ import static frc.robot.Robot.oi;
 
 public class IncrementElevator extends Command{
 
+    private double power;
+
     public IncrementElevator() {
     }
 
     protected void initialize() {
     }
 
-    protected void execute() { //?
-        double joy = oi.getPartnerLeftYAxis() < 0.05 ? 0 : oi.getPartnerLeftYAxis();
-        int increment = (int)(500 * joy);
-        if(increment !=0) {
-            Robot.kElevator.setPos(Robot.kElevator.getPos() + increment);
-        }
+    protected void execute() { //The increment commands are basically open loop commands
+        power = Robot.oi.getPartnerRightYAxis();
+        Robot.kElevator.setPower(power);
     }
 
     protected boolean isFinished() {

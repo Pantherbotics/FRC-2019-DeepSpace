@@ -12,8 +12,7 @@ import static frc.robot.Robot.oi;
 
 public class IncrementShoulder extends Command { //Should really be called incrementArm
 
-  private double incrementS;
-  private double shoulderPos;
+  private double power;
 
   public IncrementShoulder() {
     requires(Robot.kArm);
@@ -22,12 +21,9 @@ public class IncrementShoulder extends Command { //Should really be called incre
   protected void initialize() {
   }
 
-  protected void execute() { //generally choose this one
-    shoulderPos = kArm.getShoulderPosition();
-    if(Robot.oi.getPartnerLeftYAxis() > Constants.deadband) {
-      incrementS = 10 * Robot.oi.getPartnerLeftYAxis();
-      Robot.kArm.setShoulderPosition((int) (shoulderPos + incrementS), Robot.kElevator.getAcceleration());
-    }
+  protected void execute() { //Bind to a button so that when it's held it will work
+    power = Robot.oi.getPartnerRightXAxis();
+    Robot.kArm.powerShoulder(power);
   }
 
   protected boolean isFinished() {
