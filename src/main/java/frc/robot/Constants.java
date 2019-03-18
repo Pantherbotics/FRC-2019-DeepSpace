@@ -35,8 +35,8 @@ public class Constants{
     public static final Setpoint highRocketBall = new Setpoint(57.75, 10.0);
 
     public static final Setpoint lowRocketDisk = diskIntake;
-    public static final Setpoint mediumRocketDisk = new Setpoint(32.25, 0.0); //33.25
-    public static final Setpoint highRocketDisk = new Setpoint(57.75, 0.0); //60.5
+    public static final Setpoint mediumRocketDisk = new Setpoint(33.25, 0.0); //33.25
+    public static final Setpoint highRocketDisk = new Setpoint(59.25, 0.0); //60.5
     //YEET
     public static final Setpoint stowed = new Setpoint(0.0, 62.5);
     //Memes
@@ -57,7 +57,7 @@ public class Constants{
     public static final int rightCID = 0;
     public static final int elevatorAID = 12;
     public static final int elevatorBID = 3;
-    public static final int shoulderID = 4; //Change in Phoenix tuner
+    public static final int shoulderID = 5; //Change in Phoenix tuner //TALON 4 ON PRACTICE BOT
     public static final int ballIntakeLID = 10; // 10 //Inter-
     public static final int ballIntakeRID = 6; //8
     public static final int jeVoisID = 7;
@@ -96,7 +96,7 @@ public class Constants{
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 30;
     public static final double shoulderAFF = 0.1; //At horizontal, 1.2/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 590 : 0;
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 579 : 0;
     public static final double shoulderPeriod = 0.02;
     //Intake
     public static final double intakeAFF = -0.125;
