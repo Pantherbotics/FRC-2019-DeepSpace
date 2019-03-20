@@ -18,6 +18,7 @@ public class Arm extends Subsystem{
     private double shoulderkF;
     private int shoulderPosition;
     private double shoulderSetpoint;
+    private double elevAccel;
 
     private int timeout_ms = 0;
     private TalonSRX mShoulder = new TalonSRX(Constants.shoulderID); //On carriage
@@ -30,14 +31,14 @@ public class Arm extends Subsystem{
 
 
         Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units
-            shoulderkF = Constants.shoulderAFF * Math.abs(Math.cos(Math.toRadians(getShoulderDegrees())));
+            shoulderkF = Math.abs(Math.cos(Math.toRadians(getShoulderDegrees()))) * (Constants.elevatorAFF + Units.elevAccelToVoltage(elevAccel));
 
             mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, -shoulderkF);
             //mShoulder.set(ControlMode.PercentOutput, shoulderSetpoint, DemandType.ArbitraryFeedForward, shoulderkF);
             SmartDashboard.putNumber("Shoulder Setpoint", mShoulder.getClosedLoopTarget(0));
         });
 
-        feedForwardThread.startPeriodic(0.02);
+        feedForwardThread.startPeriodic(Constants.shoulderPeriod);
 
     }
 
@@ -81,7 +82,8 @@ public class Arm extends Subsystem{
         return mShoulder.getMotorOutputVoltage();
     }
 
-    public void setShoulderPosition(int position){
+    public void setShoulderPosition(int position, double elevAcceleration){
+        elevAccel = elevAcceleration;
         shoulderSetpoint = position;
         System.out.println("SHOULDER IS BEING CALLED");
     }

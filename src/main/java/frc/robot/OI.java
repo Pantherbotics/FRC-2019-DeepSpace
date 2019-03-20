@@ -11,8 +11,8 @@ public class OI{
     //Joystick
     public JoystickButton buttonT = new JoystickButton(stick, 4); //Triangle
     public JoystickButton buttonS = new JoystickButton(stick, 1); //Square
-    public JoystickButton buttonC = new JoystickButton(stick, 2); //Circle
-    public JoystickButton buttonX = new JoystickButton(stick, 3); //X
+    public JoystickButton buttonC = new JoystickButton(stick, 3); //Circle
+    public JoystickButton buttonX = new JoystickButton(stick, 2); //X
     public JoystickButton bumperL = new JoystickButton(stick, 5); //Left Bumper
     public JoystickButton bumperR = new JoystickButton(stick, 6); //Right Bumper
     public JoystickButton triggerL = new JoystickButton(stick, 7); //Left Trigger
@@ -67,7 +67,7 @@ public class OI{
         partnerPOVU.whenPressed(new ToSetpoint(Constants.highRocketDisk));
         partnerPOVR.whenPressed(new ToSetpoint(Constants.lowRocketDisk));
         partnerPOVL.whenPressed(new ToSetpoint(Constants.mediumRocketDisk));
-        partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntake));
+        partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntakeLow));
         //Yeetus that Fetus
         partnerRightJoy.whenPressed(new ToSetpoint(Constants.YEEEET));
         //Drivetrain Test
@@ -88,11 +88,14 @@ public class OI{
         //Intake (main)
         bumperL.whenPressed(new PrepareHatchGrab()); //Left Side Succ
         triggerL.whenPressed(new HatchGrab()); //true = in
-        bumperR.whileHeld(new IntakeCargo(0.75)); //Right Side Fondle
-        triggerR.whileHeld(new IntakeCargo(-0.6)); //in = negative
+        bumperR.whileHeld(new IntakeCargo(1.0)); //Right Side Fondle 0.75
+        triggerR.whileHeld(new IntakeCargo(-0.8)); //in = negative -0.6
         buttonT.whenPressed(new HatchPush());
         //Prepare for yeet
         partnerBack.whenPressed(new ToSetpoint(Constants.stowed));
+
+        //VISION ASSIST
+        buttonC.whileHeld(new DriveVisionAssisted());
     }
 
     //Joystick

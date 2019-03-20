@@ -22,8 +22,8 @@ public class ToSetpoint extends Command {
     protected void initialize() {
     }
 
-    protected void execute() { //Code the prevents the arm from slamming the intake into the electronics board
-        Robot.kArm.setShoulderPosition(shoulderSet);
+    protected void execute() { //Code the prevents the arm from slamming the intake into the electronics board //sike
+        Robot.kArm.setShoulderPosition(shoulderSet, Robot.kElevator.getAcceleration());
         Robot.kElevator.setPos(elevSet);
     }
 

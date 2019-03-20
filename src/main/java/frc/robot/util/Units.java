@@ -30,9 +30,15 @@ public class Units { //GRAYTHING ENCODER HAS 128 CPR SO 512 TPR            oh it
         return (((double)elevatorTicks) * 1.25 * 3.14159) / 512.0;
     }
 
+    public static double elevAccelToVoltage(double accel){ //Literally a proportion based on the elevator AFF.
+        return (accel * 1.25 * 3.14159 / 512.0 * 100 * 0.0254) * 0.125 / 9.8;
+    } //Acceleration needs to be converted from ticks/100ms/100ms to m/s^2
+
+
     public static int inchesToElevatorTicks(double inches){
         return (int)Math.round(inches * 512.0 / (1.25 * 3.14159));
     }
+
     /*
     public static void main(String[] args){
         System.out.println(TalonNativeToFPS(770));
