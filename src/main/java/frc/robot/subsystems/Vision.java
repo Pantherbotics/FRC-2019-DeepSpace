@@ -11,23 +11,13 @@ public class Vision extends Subsystem{
     private int aStart, aEnd, bStart, bEnd, cStart, cEnd;
     private String aString, bString, cString;
 
-    public double offsetX = -4;
-    public double offsetY = 0;
-
-    public double polarX = 0;
-    public double polarY = 0;
-    public double rectX = 0;
-    public double rectY = 0;
-
-    public double my_r;
-    public double my_theta;
+    private static double kOffsetX = 4;
+    private static double kOffsetY = 0;
 
     private Notifier m_t_update;
     private Boolean JevoisConnected = false;
     private String m_data = "none";
     private SerialPort m_cameraSerial;
-    public double myAttackAngle;
-    public double myDistance;
 
     private TalonSRX ledRing = new TalonSRX(Constants.jeVoisID);
 
@@ -41,7 +31,7 @@ public class Vision extends Subsystem{
                 }
             }
             catch(Exception e){
-                System.out.println("No jevois pluggen in... check init.cfg and make sure it's plugged in");
+                System.out.println("ERROR: No JeVois plugged in... check init.cfg and make sure it's plugged in");
             }
             if(JevoisConnected){
                 if(m_cameraSerial.getBytesReceived() > 0){
@@ -89,30 +79,27 @@ public class Vision extends Subsystem{
     }
 
     public double getRobotAttackAngle(){
-        myAttackAngle = getAttackAngle();
-        myDistance = getDistance();
+        double my_r, my_theta, polarX, polarY, rectX, rectY;
 
-        polarX = myDistance;
-        polarY = myAttackAngle+(3.14159/2);
+        polarX = getDistance();
+        polarY = getAttackAngle()+(Math.PI/2.0);
 
         rectX = polarX*Math.cos(polarY);
         rectY = polarX*Math.sin(polarY);
 
-        rectX = rectX-offsetX;
-        rectY = rectY+offsetY;
+        rectX = rectX - kOffsetX;
+        rectY = rectY + kOffsetY;
 
         my_r=Math.sqrt(Math.pow(rectX , 2) + Math.pow(rectY , 2));
 
         my_theta = (Math.atan(rectY/rectX));
 
         if(rectX<0){
-            my_theta = my_theta+(3.14159/2);
+            my_theta = my_theta+(Math.PI/2.0);
         }else{
-            my_theta = -((3.14159/2)-my_theta);
+            my_theta = -((Math.PI/2.0)-my_theta);
         }
         return my_theta;
-
-
     }
 
     public String getSideDeviation() {
@@ -132,10 +119,7 @@ public class Vision extends Subsystem{
         bEnd = m_data.indexOf("/C");
         cStart = m_data.indexOf("/C");
         cEnd = m_data.indexOf("/D");
-        if (aStart!=-1 && bStart!=-1 && cStart!=-1 && aEnd!=-1 && bEnd!= -1 && cEnd!=-1){
-            return true;
-        }
-        return false;
+        return aStart != -1 && bStart != -1 && cStart != -1 && aEnd != -1 && bEnd != -1 && cEnd != -1;
     }
 
     private double convertToRobotAngle(double jevoisAngle, double distance){
