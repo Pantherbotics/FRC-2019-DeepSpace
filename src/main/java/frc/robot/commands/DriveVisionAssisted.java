@@ -23,7 +23,10 @@ public class DriveVisionAssisted extends Command{
     }
 
     protected void execute(){
-        double turnPower = turnKp * kVision.getRobotAttackAngle();
+        double turnPower = 0;
+        if(kVision.isTarget()) {
+            turnPower = turnKp * kVision.getRobotAttackAngle();
+        }
         //System.out.print(turnPower);
         double left = Robot.oi.getLeftYAxis()  + turnPower;
         double right = Robot.oi.getLeftYAxis() - turnPower;
