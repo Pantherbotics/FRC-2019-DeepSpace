@@ -80,7 +80,7 @@ public class Constants{
     public static final double elevatorKF2 = 1023.0/900.0;
     public static final double elevatorAFF = 0.125;
     public static final int kElevatorCruiseSpeed = 1500;
-    public static final int kElevatorAccelerationSpeed = 1000; //my sat score
+    public static final int kElevatorAccelerationSpeed = 2000; //my sat score
     public static final int kElevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
     public static final int kElevatorMaxPos = 8500;
     public static final double elevPeriod = 0.01;
