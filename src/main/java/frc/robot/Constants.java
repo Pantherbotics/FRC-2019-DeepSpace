@@ -4,7 +4,7 @@ import frc.robot.util.Setpoint;
 import edu.wpi.first.wpilibj.SerialPort;
 
 public class Constants{
-    public static final boolean IS_COMPETITION_ROBOT = true;
+    public static final boolean IS_COMPETITION_ROBOT = false;
 
     //Robot Joystick
     public static final int JoystickPort = 0; //Need new PS4 wire
@@ -96,7 +96,7 @@ public class Constants{
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 30;
     public static final double shoulderAFF = 0.1; //At horizontal, 1.2/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 579 : 0;
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 579 : 569;
     public static final double shoulderPeriod = 0.02;
     //Intake
     public static final double intakeAFF = -0.125;

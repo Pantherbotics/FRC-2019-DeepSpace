@@ -11,10 +11,23 @@ public class Vision extends Subsystem{
     private int aStart, aEnd, bStart, bEnd, cStart, cEnd;
     private String aString, bString, cString;
 
+    public double offsetX = -4;
+    public double offsetY = 0;
+
+    public double polarX = 0;
+    public double polarY = 0;
+    public double rectX = 0;
+    public double rectY = 0;
+
+    public double my_r;
+    public double my_theta;
+
     private Notifier m_t_update;
     private Boolean JevoisConnected = false;
     private String m_data = "none";
     private SerialPort m_cameraSerial;
+    public double myAttackAngle;
+    public double myDistance;
 
     private TalonSRX ledRing = new TalonSRX(Constants.jeVoisID);
 
@@ -75,6 +88,33 @@ public class Vision extends Subsystem{
         return 0;
     }
 
+    public double getRobotAttackAngle(){
+        myAttackAngle = getAttackAngle();
+        myDistance = getDistance();
+
+        polarX = myDistance;
+        polarY = myAttackAngle+(3.14159/2);
+
+        rectX = polarX*Math.cos(polarY);
+        rectY = polarX*Math.sin(polarY);
+
+        rectX = rectX-offsetX;
+        rectY = rectY+offsetY;
+
+        my_r=Math.sqrt(Math.pow(rectX , 2) + Math.pow(rectY , 2));
+
+        my_theta = (Math.atan(rectY/rectX));
+
+        if(rectX<0){
+            my_theta = my_theta+(3.14159/2);
+        }else{
+            my_theta = -((3.14159/2)-my_theta);
+        }
+        return my_theta;
+
+
+    }
+
     public String getSideDeviation() {
         cStart = m_data.indexOf("/C");
         cEnd = m_data.indexOf("/D");
@@ -107,12 +147,12 @@ public class Vision extends Subsystem{
 
     }
 
-    public double getRobotAttackAngle(){
+    /*public double getRobotAttackAngle(){
         return convertToRobotAngle(getAttackAngle(), getDistance());
-    }
+    }*/
 
     public void enableLEDs(){
-        ledRing.set(ControlMode.PercentOutput, 7.0/12.0);
+        ledRing.set(ControlMode.PercentOutput, 1.0);
     }
 
     public void disableLEDs(){
