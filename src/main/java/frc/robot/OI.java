@@ -92,7 +92,7 @@ public class OI{
         triggerR.whileHeld(new IntakeCargo(-0.8)); //in = negative -0.6
         buttonT.whenPressed(new HatchPush());
         //Prepare for yeet
-        partnerBack.whenPressed(new ToSetpoint(Constants.stowed));
+        partnerBumperL.whenPressed(new ToSetpoint(Constants.stowed));
 
         //VISION ASSIST
         buttonC.whileHeld(new DriveVisionAssisted());

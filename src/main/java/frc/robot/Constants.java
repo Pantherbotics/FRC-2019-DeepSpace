@@ -22,7 +22,7 @@ public class Constants{
     public static final double kSteering = 0.55;
     //Because encoder drift
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(0.00, -9.75);
+    public static final Setpoint ballIntake = new Setpoint(0.00, -7.875);
     public static final Setpoint diskIntake = new Setpoint(6.25, 0.0); //5.00
     public static final Setpoint diskIntakeLow = new Setpoint(5.25, 0);
     public static final Setpoint ballLoadingStation = new Setpoint(23.25, 10.0);
@@ -30,9 +30,9 @@ public class Constants{
     public static final Setpoint ballCargoShip = new Setpoint(37.5, -15.0);
     public static final Setpoint hatchCargoShip = diskIntake;
     //Rocket
-    public static final Setpoint lowRocketBall = new Setpoint(6.0, 10.0);
-    public static final Setpoint mediumRocketBall = new Setpoint(31.25, 10.0);
-    public static final Setpoint highRocketBall = new Setpoint(57.75, 10.0);
+    public static final Setpoint lowRocketBall = new Setpoint(7.5, 10.0);
+    public static final Setpoint mediumRocketBall = new Setpoint(34.25, 10.0);
+    public static final Setpoint highRocketBall = new Setpoint(60.0, 10.0);
 
     public static final Setpoint lowRocketDisk = diskIntake;
     public static final Setpoint mediumRocketDisk = new Setpoint(33.25, 0.0); //33.25
@@ -96,7 +96,7 @@ public class Constants{
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 30;
     public static final double shoulderAFF = 0.1; //At horizontal, 1.2/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 579 : 569;
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 579 : 507;
     public static final double shoulderPeriod = 0.02;
     //Intake
     public static final double intakeAFF = -0.125;
