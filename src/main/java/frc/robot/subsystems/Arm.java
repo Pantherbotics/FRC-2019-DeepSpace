@@ -31,7 +31,7 @@ public class Arm extends Subsystem{
 
 
         Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units
-            shoulderkF = Math.abs(Math.cos(Math.toRadians(getShoulderDegrees()))) * (Constants.elevatorAFF + Units.elevAccelToVoltage(elevAccel));
+            shoulderkF = Math.abs(Math.cos(Math.toRadians(getShoulderDegrees()))) * (Constants.elevatorAFF - 0.75 * Units.elevAccelToVoltage(elevAccel));
 
             mShoulder.set(ControlMode.MotionMagic,(-shoulderSetpoint + Constants.kShoulderOffset), DemandType.ArbitraryFeedForward, -shoulderkF);
             //mShoulder.set(ControlMode.PercentOutput, shoulderSetpoint, DemandType.ArbitraryFeedForward, shoulderkF);

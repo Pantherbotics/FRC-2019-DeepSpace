@@ -94,6 +94,8 @@ public class Robot extends TimedRobot {
     System.out.println(kVision.getSerialData());
     SmartDashboard.putNumber("Attack Angle", kVision.getAttackAngle());
     SmartDashboard.putNumber("Distance", kVision.getDistance());
+
+    SmartDashboard.putNumber("Angle", kDrivetrain.getGyroAngle());
   }
 
   /**
