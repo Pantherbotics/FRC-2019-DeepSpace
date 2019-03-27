@@ -21,20 +21,23 @@ public class IntakeCargo extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.kIntake.extendCargoArms();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.kIntake.extendCargoArms();
     Robot.kIntake.grabHatchPanel();
     Robot.kIntake.setCargoIntakePower(power);
+    if(Robot.kIntake.withinIntakeRange(Constants.kCargoRange)){
+      Robot.kIntake.closeCargoArms();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.kIntake.withinIntakeRange(Constants.kCargoRange);
+    return false;
   }
 
   // Called once after isFinished returns true

@@ -22,7 +22,7 @@ public class Constants{
     public static final double kSteering = 0.55;
     //Because encoder drift
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(0.00, -7.875);
+    public static final Setpoint ballIntake = new Setpoint(0.00, -8.5);
     public static final Setpoint diskIntake = new Setpoint(6.25, 0.0); //5.00
     public static final Setpoint diskIntakeLow = new Setpoint(5.25, 0);
     public static final Setpoint ballLoadingStation = new Setpoint(23.25, 10.0);
@@ -107,7 +107,7 @@ public class Constants{
 
     public static final int kIntakeSensorPort = 0;
     public static final int kHatchRange = 800;
-    public static final int kCargoRange = 400; //Definitely wrong
+    public static final int kCargoRange = 950; //Definitely wrong
     //Vision
     public static final int kVisionBaud = 115200;
     public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;
