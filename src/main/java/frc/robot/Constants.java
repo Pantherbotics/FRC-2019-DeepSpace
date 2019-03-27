@@ -106,7 +106,8 @@ public class Constants{
     public static final int kHatchSolenoidIdR = 2;
 
     public static final int kIntakeSensorPort = 0;
-    public static final double kIntakeDistance = 11.0;
+    public static final int kHatchRange = 800;
+    public static final int kCargoRange = 400; //Definitely wrong
     //Vision
     public static final int kVisionBaud = 115200;
     public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;

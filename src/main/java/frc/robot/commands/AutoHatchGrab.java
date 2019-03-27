@@ -8,10 +8,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class AutoHatchGrab extends Command {
-  double power;
+
   public AutoHatchGrab() {
     requires(Robot.kIntake);
   }
@@ -31,7 +32,7 @@ public class AutoHatchGrab extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.kIntake.withinIntakeRange();
+    return Robot.kIntake.withinIntakeRange(Constants.kHatchRange);
   }
 
   // Called once after isFinished returns true
