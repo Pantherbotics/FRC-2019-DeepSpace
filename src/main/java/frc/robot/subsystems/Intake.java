@@ -46,9 +46,16 @@ public class Intake extends Subsystem{
     }
 
     public boolean withinIntakeRange(){
-        return Units.analogRawToInches(distanceSensor.getAverageValue()) <= Constants.kIntakeDistance;
+        return getIntakeSensorRaw() >= 800;
     }
 
+    public double getIntakeSensor(){
+        return Units.analogRawToInches(distanceSensor.getAverageValue());
+    }
+
+    public double getIntakeSensorRaw(){
+        return distanceSensor.getAverageValue();
+    }
     public void initDefaultCommand(){
     }
 }

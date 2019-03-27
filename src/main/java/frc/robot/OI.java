@@ -86,7 +86,7 @@ public class OI{
         buttonC.whenPressed(new ToSetpoint(Constants.outtakeLow));
         */
         //Intake (main)
-        bumperL.whenPressed(new PrepareHatchGrab()); //Left Side Succ
+        bumperL.whenPressed(new AutoHatchGrab()); //Left Side Succ
         triggerL.whenPressed(new HatchGrab()); //true = in
         bumperR.whileHeld(new IntakeCargo(1.0)); //Right Side Fondle 0.75
         triggerR.whileHeld(new IntakeCargo(-0.8)); //in = negative -0.6
