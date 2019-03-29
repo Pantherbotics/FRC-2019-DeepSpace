@@ -10,7 +10,7 @@ import static frc.robot.Robot.kVision;
 
 public class DriveVisionAssisted extends Command{
 
-    private static double turnKp = 0.7;
+    private static double turnKp = 0.75;
 
 
 

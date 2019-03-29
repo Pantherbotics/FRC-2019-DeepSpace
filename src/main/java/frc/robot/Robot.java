@@ -98,6 +98,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Distance", kVision.getDistance());
 
     SmartDashboard.putNumber("Angle", kDrivetrain.getGyroAngle());
+    SmartDashboard.putBoolean("Scissors Closed?", kIntake.getHatchPanel());
+  }
+
+  @Override
+  public void disabledInit(){
+      kIntake.closeCargoArms();
+      kIntake.grabHatchPanel();
   }
 
   /**

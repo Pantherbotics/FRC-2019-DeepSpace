@@ -4,7 +4,7 @@ import frc.robot.util.Setpoint;
 import edu.wpi.first.wpilibj.SerialPort;
 
 public class Constants{
-    public static final boolean IS_COMPETITION_ROBOT = false;
+    public static final boolean IS_COMPETITION_ROBOT = true;
 
     //Robot Joystick
     public static final int JoystickPort = 0; //Need new PS4 wire
@@ -22,8 +22,8 @@ public class Constants{
     public static final double kSteering = 0.55;
     //Because encoder drift
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(0.00, -8.5);
-    public static final Setpoint diskIntake = new Setpoint(6.25, 0.0); //5.00
+    public static final Setpoint ballIntake = new Setpoint(0.00, -9.875);
+    public static final Setpoint diskIntake = new Setpoint(5.75, 0.0); //5.00
     public static final Setpoint diskIntakeLow = new Setpoint(5.25, 0);
     public static final Setpoint ballLoadingStation = new Setpoint(23.25, 10.0);
     //Cargo Ship
@@ -57,9 +57,9 @@ public class Constants{
     public static final int rightCID = 0;
     public static final int elevatorAID = 12;
     public static final int elevatorBID = 3;
-    public static final int shoulderID = 5; //Change in Phoenix tuner //TALON 4 ON PRACTICE BOT
+    public static final int shoulderID = 5; //Change in Phoenix tuner
     public static final int ballIntakeLID = 10; // 10 //Inter-
-    public static final int ballIntakeRID = 6; //8
+    public static final int ballIntakeRID = IS_COMPETITION_ROBOT ? 6 : 8; //8
     public static final int jeVoisID = 7;
 
     //Drivetrain
@@ -96,7 +96,7 @@ public class Constants{
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 30;
     public static final double shoulderAFF = 0.1; //At horizontal, 1.2/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 579 : 507;
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 580 : 507;
     public static final double shoulderPeriod = 0.02;
     //Intake
     public static final double intakeAFF = -0.125;
@@ -106,8 +106,8 @@ public class Constants{
     public static final int kHatchSolenoidIdR = 2;
 
     public static final int kIntakeSensorPort = 0;
-    public static final int kHatchRange = 800;
-    public static final int kCargoRange = 950; //Definitely wrong
+    public static final int kHatchRange = IS_COMPETITION_ROBOT ? 1350 : 800;
+    public static final int kCargoRange = IS_COMPETITION_ROBOT ? 2000 : 950;
     //Vision
     public static final int kVisionBaud = 115200;
     public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;

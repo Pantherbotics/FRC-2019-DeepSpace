@@ -11,7 +11,7 @@ public class Vision extends Subsystem{
     private int aStart, aEnd, bStart, bEnd, cStart, cEnd;
     private String aString, bString, cString;
 
-    private static double kOffsetX = 4;
+    private static double kOffsetX = -3.5;
     private static double kOffsetY = 0;
 
     private Notifier m_t_update;

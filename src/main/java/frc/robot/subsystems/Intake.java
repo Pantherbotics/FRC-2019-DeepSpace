@@ -45,6 +45,13 @@ public class Intake extends Subsystem{
         hatchSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
+    public boolean getHatchPanel(){
+        if(hatchSolenoid.get() == DoubleSolenoid.Value.kReverse){
+            return true;
+        }
+        return false;
+    }
+
     public boolean withinIntakeRange(int range){
         return getIntakeSensorRaw() >= range;
     }

@@ -29,9 +29,6 @@ public class IntakeCargo extends Command {
   protected void execute() {
     Robot.kIntake.grabHatchPanel();
     Robot.kIntake.setCargoIntakePower(power);
-    if(Robot.kIntake.withinIntakeRange(Constants.kCargoRange)){
-      Robot.kIntake.closeCargoArms();
-    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
