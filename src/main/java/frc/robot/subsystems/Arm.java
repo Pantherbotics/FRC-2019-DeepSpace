@@ -25,10 +25,8 @@ public class Arm extends Subsystem{
     private final int kPIDIdx = 0;
     public Arm(){
 
-        shoulderSetpoint = Units.degreesToTalon(15.0);
+        shoulderSetpoint = Units.degreesToTalon(62.5);
         initPID();
-        //initPos();
-
 
         Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units
             shoulderkF = Math.abs(Math.cos(Math.toRadians(getShoulderDegrees()))) * (Constants.elevatorAFF - 0.75 * Units.elevAccelToVoltage(elevAccel));
@@ -90,6 +88,7 @@ public class Arm extends Subsystem{
 
     public void initDefaultCommand(){
         //setDefaultCommand(new PowerArmOpenLoop());
-        //setDefaultCommand(new IncrementShoulder());
+        //
+        // setDefaultCommand(new IncrementShoulder());
     }
 }

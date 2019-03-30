@@ -99,6 +99,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Angle", kDrivetrain.getGyroAngle());
     SmartDashboard.putBoolean("Scissors Closed?", kIntake.getHatchPanel());
+    SmartDashboard.putBoolean("Cargo Closed?", kIntake.getCargoArms());
   }
 
   @Override

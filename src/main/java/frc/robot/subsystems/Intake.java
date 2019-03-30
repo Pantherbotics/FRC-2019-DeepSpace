@@ -52,6 +52,13 @@ public class Intake extends Subsystem{
         return false;
     }
 
+    public boolean getCargoArms(){
+        if(cargoSolenoid.get() == DoubleSolenoid.Value.kReverse){
+            return true;
+        }
+        return false;
+    }
+
     public boolean withinIntakeRange(int range){
         return getIntakeSensorRaw() >= range;
     }
