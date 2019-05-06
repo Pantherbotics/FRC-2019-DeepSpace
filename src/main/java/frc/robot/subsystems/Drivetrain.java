@@ -1,22 +1,18 @@
 package frc.robot.subsystems;
 
-//import javax.xml.bind.JAXBElement.GlobalScope;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.hal.sim.DriverStationSim;
-
 import frc.robot.Constants;
 import frc.robot.commands.*;
 import frc.robot.util.*;
+//import javax.xml.bind.JAXBElement.GlobalScope;
 
 public class Drivetrain extends Subsystem {
     public int timeoutMS = 0;
@@ -121,6 +117,23 @@ public class Drivetrain extends Subsystem {
         //System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
     }
 
+    public void setFPSScaled(double left, double right){
+        double lFPS = (left * 16);
+        double rFPS = (right * 16);
+        mLeftA.set(ControlMode.Velocity, lFPS);
+        mRightA.set(ControlMode.Velocity, rFPS);
+    }
+
+    public double getVelocityError(){
+        double average = ((mLeftA.getClosedLoopError(0) + mRightA.getClosedLoopError(0))/2);
+        return average;
+    }
+
+    public String getVelocity(){
+        String a = "Velocity: " + mLeftA.getSelectedSensorVelocity();
+        return a;
+    }
+
     public void setFPS(double left, double right){
         mLeftA.set(ControlMode.Velocity, Units.FPSToTalonNative(left));
         mRightA.set(ControlMode.Velocity, Units.FPSToTalonNative(right));
@@ -157,6 +170,14 @@ public class Drivetrain extends Subsystem {
         while (angle_degrees >= 180.0) angle_degrees -= 360.0;
         while (angle_degrees < -180.0) angle_degrees += 360.0;
         return angle_degrees;
+    }
+
+    public int getLeftDriveEncoder(){
+        return mLeftA.getSelectedSensorPosition();
+    }
+
+    public int getRightDriveEncoder(){
+        return mRightA.getSelectedSensorPosition();
     }
 
 }

@@ -91,9 +91,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Odometry Y", kDrivetrain.getOdo().getY());
     SmartDashboard.putNumber("Odometry Theta", kDrivetrain.getOdo().getTheta());
 
-    System.out.println(kVision.getSerialData());
+    //System.out.println(kVision.getSerialData());
     SmartDashboard.putNumber("Attack Angle", kVision.getAttackAngle());
     SmartDashboard.putNumber("Distance", kVision.getDistance());
+
+    SmartDashboard.putNumber("Left Drive Encoder", kDrivetrain.getLeftDriveEncoder());
+    SmartDashboard.putNumber("Right Drive Encoder", kDrivetrain.getRightDriveEncoder());
+
+    SmartDashboard.putNumber("Average Velocity PID Error: ", kDrivetrain.getVelocityError());
   }
 
   /**
@@ -139,6 +144,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    //System.out.println(kDrivetrain.getVelocity());
     //Stops the auto
     if(kAuto != null){
       kAuto.cancel();

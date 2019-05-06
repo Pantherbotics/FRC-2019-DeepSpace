@@ -1,4 +1,5 @@
 package frc.robot.util;
+import frc.robot.Constants;
 
 /** This is a helper class to convert from Talon Native Units to human-readable units, including Feet per Second.
  */
@@ -6,8 +7,16 @@ public class Units { //GRAYTHING ENCODER HAS 128 CPR SO 512 TPR            oh it
 
     static final double talon2fps = .03067961572265625;           //( 1 rev/ 512 ticks) * (0.5pi ft/ 1 rev) * (10 [100ms] / 1 s)
     static final double fps2talon = 1/talon2fps;
+    
+
+    public static double TicksToFeet(double ticks){
+        return (ticks / Constants.kTicksPerFeet);
+    }
+    public static double FeetToTicks(double feet){
+        return (feet * Constants.kTicksPerFeet);
+    }
     public static double FPSToTalonNative(double fps) {
-        return fps * fps2talon;
+        return (fps * 32.38);
     }
 
     public static double TalonNativeToFPS(double nativeUnits) {

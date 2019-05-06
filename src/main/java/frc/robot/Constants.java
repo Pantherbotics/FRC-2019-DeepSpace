@@ -3,9 +3,19 @@ package frc.robot;
 import frc.robot.util.Setpoint;
 import edu.wpi.first.wpilibj.SerialPort;
 
+/*
+----------------------------------  TICK PER FT: 323.8  ----------------------------------
+-Calculated by averaging 4 trials where the start and end positions where measured along a 10 ft straight path
+*/
+
 public class Constants{
     public static final boolean IS_COMPETITION_ROBOT = false;
-
+    //Velocity and Drivetrain PID Stuff
+    public static final double kTicksPerFeet = 323.8;
+    public static final double driveKP = 3.75;
+    public static final double driveKI = 0;
+    public static final double driveKD = 0.05;
+    public static final double driveKF = 391.0/1023.0;
     //Robot Joystick
     public static final int JoystickPort = 0; //Need new PS4 wire
     public static final int JoystickLeftXAxis = 0;
@@ -67,11 +77,6 @@ public class Constants{
     public static final int kDrivePeakCurrentLimit = 80;
     public static final int kDrivePeakCurrentDuration = 10;
     public static final int kDriveContinuousCurrentLimit = 36;
-    //Drivetrain PID
-    public static final double driveKP = 3.75;
-    public static final double driveKI = 0;
-    public static final double driveKD = 0.05;
-    public static final double driveKF = 0.50979366385; //Probably wrong
     //Robot Elevator
     public static final double elevatorKP = 5.0;
     public static final double elevatorKI = 0.0;
