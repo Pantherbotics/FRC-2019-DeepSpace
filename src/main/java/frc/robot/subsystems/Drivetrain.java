@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.hal.sim.DriverStationSim;
@@ -128,7 +129,6 @@ public class Drivetrain extends Subsystem {
         double average = ((mLeftA.getClosedLoopError(0) + mRightA.getClosedLoopError(0))/2);
         return average;
     }
-
     public String getVelocity(){
         String a = "Velocity: " + mLeftA.getSelectedSensorVelocity();
         return a;
@@ -139,7 +139,9 @@ public class Drivetrain extends Subsystem {
         mRightA.set(ControlMode.Velocity, Units.FPSToTalonNative(right));
         //System.out.println("Left: " + getEncoderVelocity()[0] + "     Right: " + getEncoderVelocity()[1]);
     }
-
+    public TalonSRX getTalon(){
+        return mRightA;
+    }
     public double[] getEncoderVelocity(){ //0 for left, 1 for right
         return new double[]{mLeftA.getSelectedSensorVelocity(0), mRightA.getSelectedSensorVelocity(0)};
     }

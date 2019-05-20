@@ -17,12 +17,20 @@ import edu.wpi.first.hal.sim.DriverStationSim;
 import frc.robot.commands.IncrementShoulder;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.Waypoint;
+import jaci.pathfinder.Trajectory.Segment;
+import jaci.pathfinder.followers.EncoderFollower;
+
 import java.util.HashMap;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.modifiers.*;
 
 
 
@@ -38,7 +46,7 @@ public class Robot extends TimedRobot {
   public static final Elevator kElevator = new Elevator();
   public static final Arm kArm = new Arm();
   public static final Intake kIntake = new Intake();
-    public static final Vision kVision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
+  public static final Vision kVision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
   public static final OI oi = new OI(); //Instantiate OI after instantiating all the subsystems
   public static HashMap<String, Trajectory> paths;
   private static final String kDefaultAuto = "Default";
@@ -48,7 +56,9 @@ public class Robot extends TimedRobot {
   public DriverStation ds = DriverStation.getInstance();
   public DriverStationSim DriveSim = new DriverStationSim();
   public static final Cameras kCamera = new Cameras();
-
+  private Trajectory kTrajectory;
+  EncoderFollower leftEncoderFollower;
+  EncoderFollower rightEncoderFollower;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -60,6 +70,37 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     kCamera.enableCameras();
     paths = collectPathsFromDirectory(Constants.PATH_LOCATION); //IF THE ROBOT CODE FAILS COMMENT ME OUT
+    Waypoint[] points = new Waypoint[]{
+      new Waypoint(0,0,0), 
+      new Waypoint(5, 0, 0), 
+      new Waypoint(10, 5, Math.toRadians(90))
+    };
+    Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
+    kTrajectory = Pathfinder.generate(points, config);
+    TankModifier modifier = new TankModifier(kTrajectory).modify(0.5);
+    leftEncoderFollower = new EncoderFollower(modifier.getLeftTrajectory());
+    rightEncoderFollower = new EncoderFollower(modifier.getRightTrajectory()); 
+
+    TalonSRX kTalon = kDrivetrain.getTalon();
+    /*
+    Encoder Position is the current, cumulative position of your encoder. If you're using an SRX, this will be the
+        'getSelectedSensorPosition' function.
+    1000 is the amount of encoder ticks per full revolution
+    Wheel Diameter is the diameter of your wheels (or pulley for a track system) in meters
+    */
+    leftEncoderFollower.configureEncoder(kTalon.getSelectedSensorPosition(), 2048, 0.1524); 
+    rightEncoderFollower.configureEncoder(kTalon.getSelectedSensorPosition(), 2048, 0.1524);
+    /*
+    The first argument is the proportional gain. Usually this will be quite high
+    The second argument is the integral gain. This is unused for motion profiling
+    The third argument is the derivative gain. Tweak this if you are unhappy with the tracking of the trajectory
+    The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
+        trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
+    The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
+    */
+    leftEncoderFollower.configurePIDVA(1.0, 0.0, 0.0, 1 / Constants.kTicksPerFeet, 0);
+    rightEncoderFollower.configurePIDVA(1.0, 0.0, 0.0, 1 / Constants.kTicksPerFeet, 0);
+
   }
 
   /**
