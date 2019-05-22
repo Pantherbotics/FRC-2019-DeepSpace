@@ -34,7 +34,7 @@ public class PurePursuit{ //This is probably the worst thing I [Matthew] have ev
         Segment look = path.get(index + lookaheadArray[index]);
 
         double W = getW();
-        double R = 1 / getK(current.x, current.y, look.x, look.y);
+        double R = 1 / getK(odom.getX(), odom.getY(), look.x, look.y);
         double sign = getDT(index, index + lookaheadArray[index]) / Math.abs(getDT(index, index + lookaheadArray[index]));
 
         left = W * (R - sign * wheelBase / 2);
@@ -72,5 +72,17 @@ public class PurePursuit{ //This is probably the worst thing I [Matthew] have ev
         } else{
             return currentLookahead;
         }
+    }
+
+    public void setOdom(Odometry odo){
+        odom = odo;
+    }
+
+    public Odometry getInitOdom(){
+        return new Odometry(path.get(0).x, path.get(0).y, path.get(0).heading);
+    }
+
+    public boolean isFinished(){
+        return index == path.length();
     }
 }

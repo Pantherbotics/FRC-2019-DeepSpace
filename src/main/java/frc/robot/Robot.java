@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.hal.sim.DriverStationSim;
+import frc.robot.autonomous.AutoPurePursuit;
 import frc.robot.commands.IncrementShoulder;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
@@ -55,11 +56,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
+    m_chooser.setDefaultOption("None    ", null);
+    paths = collectPathsFromDirectory(Constants.PATH_LOCATION); //IF THE ROBOT CODE FAILS COMMENT ME OUT
+
+    for(String key : paths.keySet()){
+        System.out.println(key);
+        m_chooser.addOption(key, key);
+    }
+
     SmartDashboard.putData("Auto choices", m_chooser);
     kCamera.enableCameras();
-    paths = collectPathsFromDirectory(Constants.PATH_LOCATION); //IF THE ROBOT CODE FAILS COMMENT ME OUT
   }
 
   /**
@@ -124,6 +130,11 @@ public class Robot extends TimedRobot {
     //kAuto = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     //System.out.println("Auto selected: " + m_autoSelected);
+    try{
+        kAuto = new AutoPurePursuit(paths.get(m_chooser.getSelected()));
+    } catch(NullPointerException e){
+        System.out.println("No auto selected");
+    }
     kDrivetrain.zeroGyro();
   }
 

@@ -114,4 +114,5 @@ public class Constants{
     public static final double kVisionOffset = 0.0523;
     //Ramsete
     public static final String PATH_LOCATION = "/home/lvuser/deploy/";
+    public static final double wheelbase = 1; //Units
 }
