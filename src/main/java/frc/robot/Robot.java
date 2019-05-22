@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private Command kAuto;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private boolean isAuto = false;
   public DriverStation ds = DriverStation.getInstance();
   public DriverStationSim DriveSim = new DriverStationSim();
   public static final Cameras kCamera = new Cameras();
@@ -127,15 +128,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    //kAuto = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    //System.out.println("Auto selected: " + m_autoSelected);
+    isAuto = false;
+
     try{
         kAuto = new AutoPurePursuit(paths.get(m_chooser.getSelected()));
     } catch(NullPointerException e){
         System.out.println("No auto selected");
     }
     kDrivetrain.zeroGyro();
+    kIntake.closeCargoArms();
+    kIntake.grabHatchPanel();
   }
 
   /**
@@ -143,17 +145,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    /*
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
+    if(kAuto != null && !isAuto){
+        isAuto = true;
+        System.out.println("Execute Auto 66");
+        kAuto.start();
     }
-    */
     Scheduler.getInstance().run();
   }
 
