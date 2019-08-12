@@ -48,6 +48,10 @@ public class Units { //GRAYTHING ENCODER HAS 128 CPR SO 512 TPR            oh it
         return (int)Math.round(inches * 512.0 / (1.25 * 3.14159));
     }
 
+    public static double analogRawToInches(int adcRaw){
+        double volts = (double) adcRaw / 4096.0;
+        return -25.925*(volts-3.1)+10.0;    //magic voodoo numbers
+    }
     /*
     public static void main(String[] args){
         System.out.println(TalonNativeToFPS(770));

@@ -10,84 +10,79 @@ import jaci.pathfinder.Trajectory.Segment;
 */
 
 public class PurePursuit{ //This is probably the worst thing I [Matthew] have ever written - MS
-    
-    private int indexI;
-    private int indexF;
+
     private Trajectory path;
     private double wheelBase;
-    private double lookahead;
+    private int lookahead = 250;
     private Odometry odom;
-    double left = 0;
-    double right = 0;
-    double dt = 0;
+    private int index = 0;
+    private int[] lookaheadArray;
+    private double maxDT = Math.PI/32;
 
     public PurePursuit(double wheelBase, Trajectory path){
         this.wheelBase = wheelBase;
         this.path = path;
-        indexI = 0;
-        indexF = 0;
+        lookaheadArray = new int[path.length()];
+        findLookaheads(lookahead);
     }
 
-    public DriveSignal getNextDriveSignal(double elapsed){
-        
-        if(isFinished()){
-            return new DriveSignal(left, right);
-        }
+    public DriveSignal getNextDriveSignal(){
+        double left;
+        double right;
 
-        indexI = findSetpoint(path.get(0).dt, elapsed, true);
-        indexF = findSetpoint(path.get(0).dt, elapsed, false);
+        Segment current = path.get(index);
+        Segment look = path.get(index + lookaheadArray[index]);
 
-        dt = path.get(indexF).heading - path.get(indexI).heading;
+        double W = getW();
+        double R = 1 / getK(odom.getX(), odom.getY(), look.x, look.y);
+        double sign = getDT(index, index + lookaheadArray[index]) / Math.abs(getDT(index, index + lookaheadArray[index]));
 
-        Segment current = path.get(indexF);
+        left = W * (R - sign * wheelBase / 2);
+        right = W * (R + sign *wheelBase / 2);
 
-        //double v = calcVel(current.x, current.y, current.heading, current.velocity, calc_wD(dT, indexI, indexF), dT);
-        //double w = calcAngleVel(current.x, current.y, current.heading, current.velocity, calc_wD(dT, indexI, indexF), dT);
-
-        //left = (wheelBase * w) / 2 + v;
-        //right = (wheelBase * w) / 2 + v;
- 
-        return calcVel(current.x, current.y, dt);
-    }
-
-    //Finds the segment index of either the lookahead point or the robot. Returns robot point when "robot" is true
-    private int findSetpoint(double dT, double elapsed, boolean robot){
-        if(robot){
-            return Math.toIntExact(Math.round(((path.length() * dT) + elapsed) / dT));
-        } else{
-            return Math.toIntExact(Math.round(((path.length() * dT) - (elapsed + lookahead)) / dT));
-        }    
-    }
-
-    //Gives distance of left and right arcs, Set true if left side
-    private double calcCircle(double dtheta, double xD, double yD, boolean left){ 
-        if(left){ //left
-            return Math.abs(dtheta)*(calcR(xD, yD) - (dtheta/Math.abs(dtheta))*wheelBase); //greater when negative
-        } else{ //right
-            return Math.abs(dtheta)*(calcR(xD, yD) + (dtheta/Math.abs(dtheta))*wheelBase); //greater when positive
-        }
-    }
-
-    //Return velocities
-    private DriveSignal calcVel(double xD, double yD, double dt){
-        left = calcCircle(dt, xD, yD, true)/dt;
-        right = calcCircle(dt, xD, yD, false)/dt;
-
+        index++;
         return new DriveSignal(left, right);
     }
 
-    private double calcR(double xD, double yD){ // returns m^-1 (Kappa)
-        double dx = xD - odom.getX(); // delta x
-        double l = Math.sqrt(Math.pow(xD, 2) + Math.pow(yD, 2));
-
-        return Math.pow(l, 2)/(2 * dx); // curvature
+    private double getDT(int i, int f){
+        return path.get(f).heading - path.get(i).heading;
     }
 
-    public void setOdometry(Odometry odometry){
-        odom = odometry;
+    private double getW(){ //Angular Velocity, Theta in radians btw
+        return Math.abs(getDT(index, index + lookaheadArray[index])) / path.get(index).dt;
+    }
+
+    private double getK(double x1, double y1, double x2, double y2){ //Curvature
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        return (2 * dx)/(Math.pow(dx, 2) + Math.pow(dy, 2)); //2x/(x^2 +y^2)
+    }
+
+    private void findLookaheads(int maxLookahead){ //Estimate a maximum possible lookahead, work downwards
+        for(int i = 0; i < lookaheadArray.length; i++){
+            lookaheadArray[i] = findLookahead(path.get(i).x, path.get(i).y, i, maxLookahead);
+        }
+    }
+
+    private int findLookahead(double x, double y, int currentIndex, int currentLookahead){ //If a radius of a
+        double K = getK(x, y, x + currentLookahead, y + currentLookahead);
+        double dt = getDT(currentIndex, currentIndex + currentLookahead);
+        if(Math.abs(dt) > maxDT){
+            return findLookahead(x, y, currentIndex, currentLookahead - 1);
+        } else{
+            return currentLookahead;
+        }
+    }
+
+    public void setOdom(Odometry odo){
+        odom = odo;
+    }
+
+    public Odometry getInitOdom(){
+        return new Odometry(path.get(0).x, path.get(0).y, path.get(0).heading);
     }
 
     public boolean isFinished(){
-        return indexI == path.length();
+        return index == path.length();
     }
 }

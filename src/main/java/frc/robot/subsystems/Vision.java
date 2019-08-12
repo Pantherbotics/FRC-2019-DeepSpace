@@ -11,7 +11,7 @@ public class Vision extends Subsystem{
     private int aStart, aEnd, bStart, bEnd, cStart, cEnd;
     private String aString, bString, cString;
 
-    private static double kOffsetX = 4;
+    private static double kOffsetX = -3.5;
     private static double kOffsetY = 0;
 
     private Notifier m_t_update;
@@ -79,7 +79,7 @@ public class Vision extends Subsystem{
     }
 
     public double getRobotAttackAngle(){
-        double my_r, my_theta, polarX, polarY, rectX, rectY;
+        double my_theta, polarX, polarY, rectX, rectY;
 
         polarX = getDistance();
         polarY = getAttackAngle()+(Math.PI/2.0);
@@ -89,8 +89,6 @@ public class Vision extends Subsystem{
 
         rectX = rectX - kOffsetX;
         rectY = rectY + kOffsetY;
-
-        my_r=Math.sqrt(Math.pow(rectX , 2) + Math.pow(rectY , 2));
 
         my_theta = (Math.atan(rectY/rectX));
 

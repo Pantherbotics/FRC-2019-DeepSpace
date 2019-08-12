@@ -32,8 +32,8 @@ public class Constants{
     public static final double kSteering = 0.55;
     //Because encoder drift
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(0.00, -7.875);
-    public static final Setpoint diskIntake = new Setpoint(6.25, 0.0); //5.00
+    public static final Setpoint ballIntake = new Setpoint(0.00, -9.875);
+    public static final Setpoint diskIntake = new Setpoint(5.75, 0.0); //5.00
     public static final Setpoint diskIntakeLow = new Setpoint(5.25, 0);
     public static final Setpoint ballLoadingStation = new Setpoint(23.25, 10.0);
     //Cargo Ship
@@ -69,7 +69,7 @@ public class Constants{
     public static final int elevatorBID = 3;
     public static final int shoulderID = 5; //Maybe correct
     public static final int ballIntakeLID = 10; // 10 //Inter-
-    public static final int ballIntakeRID = 6; //8
+    public static final int ballIntakeRID = IS_COMPETITION_ROBOT ? 6 : 8; //8
     public static final int jeVoisID = 7;
 
     //Drivetrain
@@ -86,7 +86,7 @@ public class Constants{
     public static final double elevatorKF2 = 1023.0/900.0;
     public static final double elevatorAFF = 0.125;
     public static final int kElevatorCruiseSpeed = 1500;
-    public static final int kElevatorAccelerationSpeed = 1000; //my sat score
+    public static final int kElevatorAccelerationSpeed = 2000; //my sat score
     public static final int kElevMidway = 3700; //An elevator that plays a video of Japanese aircraft carriers getting bombed
     public static final int kElevatorMaxPos = 8500;
     public static final double elevPeriod = 0.01;
@@ -110,10 +110,15 @@ public class Constants{
     public static final int kCargoSolenoidIdR = 1;
     public static final int kHatchSolenoidIdF = 3;
     public static final int kHatchSolenoidIdR = 2;
+
+    public static final int kIntakeSensorPort = 0;
+    public static final int kHatchRange = IS_COMPETITION_ROBOT ? 1350 : 800;
+    public static final int kCargoRange = IS_COMPETITION_ROBOT ? 2000 : 950;
     //Vision
     public static final int kVisionBaud = 115200;
     public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;
     public static final double kVisionOffset = 0.0523;
     //Ramsete
     public static final String PATH_LOCATION = "/home/lvuser/deploy/";
+    public static final double wheelbase = 1; //Units
 }

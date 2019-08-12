@@ -68,15 +68,17 @@ public class OI{
         partnerPOVR.whenPressed(new ToSetpoint(Constants.lowRocketDisk));
         partnerPOVL.whenPressed(new ToSetpoint(Constants.mediumRocketDisk));
         partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntakeLow));
+        partnerPOVD.whenPressed(new AutoHatchGrab());
         //Yeetus that Fetus
         partnerRightJoy.whenPressed(new ToSetpoint(Constants.YEEEET));
         //Drivetrain Test
+        /*
         POVU.whileHeld(new OpenLoopConstant(1.0));
         POVL.whileHeld(new OpenLoopConstant(0.8));
         POVR.whileHeld(new OpenLoopConstant(0.6));
         POVD.whileHeld(new OpenLoopConstant(0.4));
         buttonShare.whileHeld(new OpenLoopConstant(0.2));
-        touchpad.whileHeld(new OpenLoopConstant(0.0));
+        touchpad.whileHeld(new OpenLoopConstant(0.0)); */
         /*
         buttonT.whileHeld(new PrepareHatchGrab(-1));
         buttonT.whenPressed(new ToSetpoint(Constants.outtakeHigh));

@@ -11,41 +11,40 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class IntakeCargo extends Command {
-  double power;
-  public IntakeCargo(double power) {
+public class AutoHatchGrab extends Command {
+
+  public AutoHatchGrab() {
     requires(Robot.kIntake);
-    this.power = power;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.kIntake.extendCargoArms();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.kIntake.grabHatchPanel();
-    Robot.kIntake.setCargoIntakePower(power);
+    Robot.kIntake.closeCargoArms();
+    Robot.kIntake.releaseHatchPanel();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.kIntake.withinIntakeRange(Constants.kHatchRange);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.kIntake.grabHatchPanel();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.kIntake.setCargoIntakePower(0);
+
   }
 }

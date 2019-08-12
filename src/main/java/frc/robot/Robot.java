@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.hal.sim.DriverStationSim;
+import frc.robot.autonomous.AutoPurePursuit;
 import frc.robot.commands.IncrementShoulder;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private Command kAuto;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private boolean isAuto = false;
   public DriverStation ds = DriverStation.getInstance();
   public DriverStationSim DriveSim = new DriverStationSim();
   public static final Cameras kCamera = new Cameras();
@@ -55,11 +57,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
+    m_chooser.setDefaultOption("None    ", null);
+    paths = collectPathsFromDirectory(Constants.PATH_LOCATION); //IF THE ROBOT CODE FAILS COMMENT ME OUT
+
+    for(String key : paths.keySet()){
+        System.out.println(key);
+        m_chooser.addOption(key, key);
+    }
+
     SmartDashboard.putData("Auto choices", m_chooser);
     kCamera.enableCameras();
-    paths = collectPathsFromDirectory(Constants.PATH_LOCATION); //IF THE ROBOT CODE FAILS COMMENT ME OUT
   }
 
   /**
@@ -91,6 +98,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Odometry Y", kDrivetrain.getOdo().getY());
     SmartDashboard.putNumber("Odometry Theta", kDrivetrain.getOdo().getTheta());
 
+    //System.out.println(kIntake.getIntakeSensorRaw());
+    SmartDashboard.putNumber("Intake Sensor Raw", kIntake.getIntakeSensorRaw());
     //System.out.println(kVision.getSerialData());
     SmartDashboard.putNumber("Attack Angle", kVision.getAttackAngle());
     SmartDashboard.putNumber("Distance", kVision.getDistance());
@@ -99,6 +108,15 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Drive Encoder", kDrivetrain.getRightDriveEncoder());
 
     SmartDashboard.putNumber("Average Velocity PID Error: ", kDrivetrain.getVelocityError());
+    SmartDashboard.putNumber("Angle", kDrivetrain.getGyroAngle());
+    SmartDashboard.putBoolean("Scissors Closed?", kIntake.getHatchPanel());
+    SmartDashboard.putBoolean("Cargo Closed?", kIntake.getCargoArms());
+  }
+
+  @Override
+  public void disabledInit(){
+      kIntake.closeCargoArms();
+      kIntake.grabHatchPanel();
   }
 
   /**
@@ -114,10 +132,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    //kAuto = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    //System.out.println("Auto selected: " + m_autoSelected);
+    isAuto = false;
+
+    try{
+        kAuto = new AutoPurePursuit(paths.get(m_chooser.getSelected()));
+    } catch(NullPointerException e){
+        System.out.println("No auto selected");
+    }
     kDrivetrain.zeroGyro();
+    kIntake.closeCargoArms();
+    kIntake.grabHatchPanel();
   }
 
   /**
@@ -125,17 +149,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    /*
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
+    if(kAuto != null && !isAuto){
+        isAuto = true;
+        System.out.println("Execute Auto 66");
+        kAuto.start();
     }
-    */
     Scheduler.getInstance().run();
   }
 
