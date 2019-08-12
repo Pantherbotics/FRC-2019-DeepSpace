@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 */
 
 public class Constants{
-    public static final boolean IS_COMPETITION_ROBOT = false;
+    public static final boolean IS_COMPETITION_ROBOT = true;
     //Velocity and Drivetrain PID Stuff
     public static final double kTicksPerFeet = 323.8;
     public static final double driveKP = 3.75;
@@ -67,12 +67,13 @@ public class Constants{
     public static final int rightCID = 0;
     public static final int elevatorAID = 12;
     public static final int elevatorBID = 3;
-    public static final int shoulderID = 5; //Change in Phoenix tuner //TALON 4 ON PRACTICE BOT
+    public static final int shoulderID = 5; //Maybe correct
     public static final int ballIntakeLID = 10; // 10 //Inter-
     public static final int ballIntakeRID = 6; //8
     public static final int jeVoisID = 7;
 
     //Drivetrain
+    public static final double wheelbase = 21.548; //inches
     public static final double kDriveRamp = 0.25;
     public static final int kDrivePeakCurrentLimit = 80;
     public static final int kDrivePeakCurrentDuration = 10;
@@ -101,7 +102,7 @@ public class Constants{
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 30;
     public static final double shoulderAFF = 0.1; //At horizontal, 1.2/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 579 : 507;
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 256 : 710;
     public static final double shoulderPeriod = 0.02;
     //Intake
     public static final double intakeAFF = -0.125;

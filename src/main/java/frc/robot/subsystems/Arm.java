@@ -25,7 +25,7 @@ public class Arm extends Subsystem{
     private final int kPIDIdx = 0;
     public Arm(){
 
-        shoulderSetpoint = Units.degreesToTalon(15.0);
+        shoulderSetpoint = Units.degreesToTalon(62.5);
         initPID();
         //initPos();
 

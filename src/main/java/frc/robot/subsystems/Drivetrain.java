@@ -27,7 +27,7 @@ public class Drivetrain extends Subsystem {
     AHRS gyro = new AHRS(I2C.Port.kOnboard);
 
     volatile double x, y, theta;
-    private double lastPos, currentPos, dPos;
+    private double lastPos, currentPos, dPos, wheelbase;
 
     public DriverStationSim test = new DriverStationSim();
 
@@ -76,11 +76,12 @@ public class Drivetrain extends Subsystem {
         
         initPID();
         zeroGyro();
+        zeroDriveEncoders();
         x = 0;
         y = 0;
         theta = 0;
 
-        Notifier odoThread = new Notifier(() ->{
+        Notifier odoThread = new Notifier(() -> {
             currentPos = (mLeftA.getSelectedSensorPosition(0) + mRightA.getSelectedSensorPosition(0))/2;
             dPos = Units.TalonNativeToFeet(currentPos - lastPos);
             theta = Math.toRadians(boundHalfDegrees(-gyro.getAngle()));
@@ -172,6 +173,7 @@ public class Drivetrain extends Subsystem {
         return angle_degrees;
     }
 
+    //500units per revolution
     public int getLeftDriveEncoder(){
         return mLeftA.getSelectedSensorPosition();
     }
@@ -180,4 +182,12 @@ public class Drivetrain extends Subsystem {
         return mRightA.getSelectedSensorPosition();
     }
 
+    private void zeroDriveEncoders(){
+        mLeftA.setSelectedSensorPosition(0, 0, timeoutMS);
+        mRightA.setSelectedSensorPosition(0, 0, timeoutMS);
+    }
+
+    public double getWheelbase(){
+        return wheelbase;
+    }
 }
