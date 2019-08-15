@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.SerialPort;
 */
 
 public class Constants{
-    public static final boolean IS_COMPETITION_ROBOT = true;
+    public static final boolean IS_COMPETITION_ROBOT = false;
     //Velocity and Drivetrain PID Stuff
     public static final double kTicksPerFeet = 323.8;
     public static final double driveKP = 3.75;
@@ -17,20 +17,17 @@ public class Constants{
     public static final double driveKD = 0.05;
     public static final double driveKF = 391.0/1023.0;
     //Robot Joystick
-    public static final int JoystickPort = 0; //Need new PS4 wire
+    public static final int JoystickPort = 0; //Switch
     public static final int JoystickLeftXAxis = 0;
     public static final int JoystickLeftYAxis = 1;
     public static final int JoystickRightXAxis = 2;
     public static final int JoystickRightYAxis = 5;
-    public static final int PartnerJoyPort = 1; //X-Box
+    public static final int PartnerJoyPort = 1; //
     public static final int PartnerJoyLeftXAxis = 0;
     public static final int PartnerJoyLeftYAxis = 1;
     public static final int PartnerJoyRightXAxis = 2;
     public static final int PartnerJoyRightYAxis = 3;
     public static final double deadband = 0.05;
-    public static final double kThrottle = 0.9;
-    public static final double kSteering = 0.55;
-    //Because encoder drift
     //Intaking
     public static final Setpoint ballIntake = new Setpoint(0.00, -9.875);
     public static final Setpoint diskIntake = new Setpoint(5.75, 0.0); //5.00
@@ -49,9 +46,6 @@ public class Constants{
     public static final Setpoint highRocketDisk = new Setpoint(59.25, 0.0); //60.5
     //YEET
     public static final Setpoint stowed = new Setpoint(0.0, 62.5);
-    //Memes
-    public static final Setpoint YEEEET = new Setpoint(60.25, 45.0);
-    //Drivetrain Test
     //Elevator Increments
     public static final double mediumRocketDiskIncrement = 28.5;
     public static final double highRocketDiskIncrement = 55.5;
