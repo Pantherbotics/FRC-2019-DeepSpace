@@ -27,7 +27,7 @@ public class Constants{
     public static final int PartnerJoyLeftYAxis = 1;
     public static final int PartnerJoyRightXAxis = 2;
     public static final int PartnerJoyRightYAxis = 3;
-    public static final double deadband = 0.05;
+    public static final double deadband = 0.75
     //Intaking
     public static final Setpoint ballIntake = new Setpoint(0.00, -9.875);
     public static final Setpoint diskIntake = new Setpoint(5.75, 0.0); //5.00
