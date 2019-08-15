@@ -29,20 +29,20 @@ public class OI{
     public POVButton POVL = new POVButton(stick, 270);
 
     //Partner Joystick
-    public JoystickButton partnerButtonX = new JoystickButton(stick, 4); //X
-    public JoystickButton partnerButtonY = new JoystickButton(stick, 1); //Y
-    public JoystickButton partnerButtonA = new JoystickButton(stick, 3); //A
-    public JoystickButton partnerButtonB = new JoystickButton(stick, 2); //B
-    public JoystickButton partnerBumperL = new JoystickButton(stick, 5); //Left Bumper
-    public JoystickButton partnerBumperR = new JoystickButton(stick, 6); //Right Bumper
-    public JoystickButton partnerTriggerL = new JoystickButton(stick, 7); //Left Trigger
-    public JoystickButton partnerTriggerR = new JoystickButton(stick, 8); //Right Trigger
-    public JoystickButton partnerButtonMinus = new JoystickButton(stick, 9); //-
-    public JoystickButton partnerButtonPlus = new JoystickButton(stick, 10); //+
-    public JoystickButton partnerButtonLJoy = new JoystickButton(stick, 11); //Press the left Joystick
-    public JoystickButton partnerButtonRJoy = new JoystickButton(stick, 12); //Press right Joystick
-    public JoystickButton partnerButtonHome = new JoystickButton(stick, 13); //Home button
-    public JoystickButton partnerButtonCapture = new JoystickButton(stick, 14); //Capture button
+    public JoystickButton partnerButtonX = new JoystickButton(partnerStick, 4); //X
+    public JoystickButton partnerButtonY = new JoystickButton(partnerStick, 1); //Y
+    public JoystickButton partnerButtonA = new JoystickButton(partnerStick, 3); //A
+    public JoystickButton partnerButtonB = new JoystickButton(partnerStick, 2); //B
+    public JoystickButton partnerBumperL = new JoystickButton(partnerStick, 5); //Left Bumper
+    public JoystickButton partnerBumperR = new JoystickButton(partnerStick, 6); //Right Bumper
+    public JoystickButton partnerTriggerL = new JoystickButton(partnerStick, 7); //Left Trigger
+    public JoystickButton partnerTriggerR = new JoystickButton(partnerStick, 8); //Right Trigger
+    public JoystickButton partnerButtonMinus = new JoystickButton(partnerStick, 9); //-
+    public JoystickButton partnerButtonPlus = new JoystickButton(partnerStick, 10); //+
+    public JoystickButton partnerButtonLJoy = new JoystickButton(partnerStick, 11); //Press the left Joystick
+    public JoystickButton partnerButtonRJoy = new JoystickButton(partnerStick, 12); //Press right Joystick
+    public JoystickButton partnerButtonHome = new JoystickButton(partnerStick, 13); //Home button
+    public JoystickButton partnerButtonCapture = new JoystickButton(partnerStick, 14); //Capture button
     public POVButton partnerPOVU = new POVButton(partnerStick, 0);  //Up
     public POVButton partnerPOVR = new POVButton(partnerStick, 90); //Right
     public POVButton partnerPOVD = new POVButton(partnerStick, 180);//Down
