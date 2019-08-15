@@ -98,6 +98,13 @@ public class OI{
 
         //VISION ASSIST
         buttonC.whileHeld(new DriveVisionAssisted());
+
+        //Climber
+        buttonShare.whenPressed(new DeployClimber(false));
+        buttonOption.whenPressed(new DeployClimber(true));
+        touchpad.whileHeld(new PowerClimber(-0.3));
+        buttonPS4.whileHeld(new PowerClimber(-0.9));
+        buttonLJoy.whileHeld(new PowerClimber(0.5));
     }
 
     //Joystick

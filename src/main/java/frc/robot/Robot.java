@@ -39,7 +39,8 @@ public class Robot extends TimedRobot {
   public static final Elevator kElevator = new Elevator();
   public static final Arm kArm = new Arm();
   public static final Intake kIntake = new Intake();
-    public static final Vision kVision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
+  public static final Vision kVision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
+  public static final Climber kClimb = new Climber();
   public static final OI oi = new OI(); //Instantiate OI after instantiating all the subsystems
   public static HashMap<String, Trajectory> paths;
   private static final String kDefaultAuto = "Default";
@@ -111,6 +112,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Angle", kDrivetrain.getGyroAngle());
     SmartDashboard.putBoolean("Scissors Closed?", kIntake.getHatchPanel());
     SmartDashboard.putBoolean("Cargo Closed?", kIntake.getCargoArms());
+
+    SmartDashboard.putBoolean("Succing? ", kClimb.isSuccing());
+    SmartDashboard.putNumber("Climber Voltage: ", kClimb.getVoltage());
   }
 
   @Override

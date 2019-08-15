@@ -8,11 +8,11 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.hal.sim.DriverStationSim;
 import frc.robot.Constants;
 import frc.robot.commands.*;
 import frc.robot.util.*;
-//import javax.xml.bind.JAXBElement.GlobalScope;
 
 public class Drivetrain extends Subsystem {
     public int timeoutMS = 0;
@@ -26,8 +26,10 @@ public class Drivetrain extends Subsystem {
     
     AHRS gyro = new AHRS(I2C.Port.kOnboard);
 
+    Timer time = new Timer();
+
     volatile double x, y, theta;
-    private double lastPos, currentPos, dPos, wheelbase;
+    private double lastPos, currentPos, dPos, accel;
 
     public DriverStationSim test = new DriverStationSim();
 
@@ -81,6 +83,7 @@ public class Drivetrain extends Subsystem {
         y = 0;
         theta = 0;
 
+        time.start();
         Notifier odoThread = new Notifier(() -> {
             currentPos = (mLeftA.getSelectedSensorPosition(0) + mRightA.getSelectedSensorPosition(0))/2;
             dPos = Units.TalonNativeToFeet(currentPos - lastPos);
@@ -185,9 +188,5 @@ public class Drivetrain extends Subsystem {
     private void zeroDriveEncoders(){
         mLeftA.setSelectedSensorPosition(0, 0, timeoutMS);
         mRightA.setSelectedSensorPosition(0, 0, timeoutMS);
-    }
-
-    public double getWheelbase(){
-        return wheelbase;
     }
 }

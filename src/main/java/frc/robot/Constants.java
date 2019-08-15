@@ -71,9 +71,12 @@ public class Constants{
     public static final int ballIntakeLID = 10; // 10 //Inter-
     public static final int ballIntakeRID = IS_COMPETITION_ROBOT ? 6 : 8; //8
     public static final int jeVoisID = 7;
+    public static final int climbAID = 4;
+    public static final int climbBID = 8;
+    public static final int suctionID = 9;
 
     //Drivetrain
-    public static final double wheelbase = 21.548; //inches
+    public static final double wheelbase = 21.548; //inches (1.796ft)
     public static final double kDriveRamp = 0.25;
     public static final int kDrivePeakCurrentLimit = 80;
     public static final int kDrivePeakCurrentDuration = 10;
@@ -110,15 +113,17 @@ public class Constants{
     public static final int kCargoSolenoidIdR = 1;
     public static final int kHatchSolenoidIdF = 3;
     public static final int kHatchSolenoidIdR = 2;
-
     public static final int kIntakeSensorPort = 0;
     public static final int kHatchRange = IS_COMPETITION_ROBOT ? 1350 : 800;
     public static final int kCargoRange = IS_COMPETITION_ROBOT ? 2000 : 950;
+    //Climber
+    public static final int kDeploySolenoidID = 4;
+    public static final double climbAFF = 0
+            ;
     //Vision
     public static final int kVisionBaud = 115200;
     public static final SerialPort.Port kVisionPort = SerialPort.Port.kUSB1;
     public static final double kVisionOffset = 0.0523;
     //Ramsete
     public static final String PATH_LOCATION = "/home/lvuser/deploy/";
-    public static final double wheelbase = 1; //Units
 }
