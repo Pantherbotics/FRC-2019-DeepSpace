@@ -115,6 +115,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Succing? ", kClimb.isSuccing());
     SmartDashboard.putNumber("Climber Voltage: ", kClimb.getVoltage());
+    SmartDashboard.putBoolean("ksajdhfjksadhfjsdahflkjsahdkfljhasdkjlfh: ", kClimb.getSensor());
   }
 
   @Override

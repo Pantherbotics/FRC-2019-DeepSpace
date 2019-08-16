@@ -69,31 +69,13 @@ public class OI{
         partnerPOVL.whenPressed(new ToSetpoint(Constants.mediumRocketDisk));
         partnerPOVD.whenPressed(new ToSetpoint(Constants.diskIntakeLow));
         partnerPOVD.whenPressed(new AutoHatchGrab());
-        //Yeetus that Fetus
-        partnerRightJoy.whenPressed(new ToSetpoint(Constants.YEEEET));
-        //Drivetrain Test
-        /*
-        POVU.whileHeld(new OpenLoopConstant(1.0));
-        POVL.whileHeld(new OpenLoopConstant(0.8));
-        POVR.whileHeld(new OpenLoopConstant(0.6));
-        POVD.whileHeld(new OpenLoopConstant(0.4));
-        buttonShare.whileHeld(new OpenLoopConstant(0.2));
-        touchpad.whileHeld(new OpenLoopConstant(0.0)); */
-        /*
-        buttonT.whileHeld(new PrepareHatchGrab(-1));
-        buttonT.whenPressed(new ToSetpoint(Constants.outtakeHigh));
-        buttonS.whileHeld(new PrepareHatchGrab(-1));
-        buttonS.whenPressed(new ToSetpoint(Constants.outtakeMedium));
-        buttonC.whileHeld(new PrepareHatchGrab(-1));
-        buttonC.whenPressed(new ToSetpoint(Constants.outtakeLow));
-        */
         //Intake (main)
         bumperL.whenPressed(new PrepareHatchGrab()); //Left Side Succ
         triggerL.whenPressed(new HatchGrab()); //true = in
         bumperR.whileHeld(new IntakeCargo(1.0)); //Right Side Fondle 0.75
         triggerR.whileHeld(new IntakeCargo(-0.8)); //in = negative -0.6
         buttonT.whenPressed(new HatchPush());
-        //Prepare for yeet
+        //Stow
         partnerBumperL.whenPressed(new ToSetpoint(Constants.stowed));
 
         //VISION ASSIST

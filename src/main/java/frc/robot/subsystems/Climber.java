@@ -1,10 +1,9 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
@@ -14,18 +13,20 @@ public class Climber extends Subsystem {
     private TalonSRX mClimbB = new TalonSRX(Constants.climbBID);
     private VictorSPX mSuction = new VictorSPX(Constants.suctionID);
     private Solenoid deploySolenoid = new Solenoid(Constants.kDeploySolenoidID);
+    private DigitalInput botSwitch = new DigitalInput(1);
+
 
     public Climber() {
         mClimbB.follow(mClimbA);
         mClimbA.setNeutralMode(NeutralMode.Brake);
 
-        deploySolenoid.set(true); //Pulls arm in
-        mClimbA.set(ControlMode.PercentOutput, 0, DemandType.ArbitraryFeedForward, Constants.climbAFF);
+        deploySolenoid.set(false); //Pulls arm in
+        mClimbA.set(ControlMode.PercentOutput, 0);
     }
 
     public void setPower(double power) {
         //Negative is down
-        mClimbA.set(ControlMode.PercentOutput, power, DemandType.ArbitraryFeedForward, Constants.climbAFF);
+        mClimbA.set(ControlMode.PercentOutput, power);
     }
 
     public void setDeploy(boolean deploy) { //False for actuate
@@ -42,6 +43,10 @@ public class Climber extends Subsystem {
 
     public double getVoltage() {
         return mClimbA.getMotorOutputVoltage();
+    }
+
+    public boolean getSensor() {
+        return botSwitch.get();
     }
 
     public void initDefaultCommand() {}

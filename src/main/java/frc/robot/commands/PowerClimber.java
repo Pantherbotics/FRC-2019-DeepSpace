@@ -16,12 +16,15 @@ public class PowerClimber extends Command {
 
     @Override
     protected void execute() {
-        Robot.kClimb.setPower(power);
+        if(!Robot.kClimb.getSensor())
+            Robot.kClimb.setPower(power);
+        else
+            Robot.kClimb.setPower(0);
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return Robot.kClimb.getSensor();
     }
 
     @Override
