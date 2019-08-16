@@ -20,7 +20,7 @@ public class Climber extends Subsystem {
         mClimbB.follow(mClimbA);
         mClimbA.setNeutralMode(NeutralMode.Brake);
 
-        deploySolenoid.set(false); //Pulls arm in
+        deploySolenoid.set(true); //Pulls arm in
         mClimbA.set(ControlMode.PercentOutput, 0);
     }
 
