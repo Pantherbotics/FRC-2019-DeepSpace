@@ -29,7 +29,7 @@ public class Constants{
     public static final int PartnerJoyRightYAxis = 3;
     public static final double deadband = 0.75
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(0.00, -9.875);
+    public static final Setpoint ballIntake = new Setpoint(3.50, -16.25);
     public static final Setpoint diskIntake = new Setpoint(5.75, 0.0); //5.00
     public static final Setpoint diskIntakeLow = new Setpoint(5.25, 0);
     public static final Setpoint ballLoadingStation = new Setpoint(23.25, 10.0);
@@ -63,7 +63,7 @@ public class Constants{
     public static final int elevatorBID = 3;
     public static final int shoulderID = 5; //Maybe correct
     public static final int ballIntakeLID = 10; // 10 //Inter-
-    public static final int ballIntakeRID = IS_COMPETITION_ROBOT ? 6 : 8; //8
+    public static final int ballIntakeRID = 6;
     public static final int jeVoisID = 7;
     public static final int climbAID = 4;
     public static final int climbBID = 8;
