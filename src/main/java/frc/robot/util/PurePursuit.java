@@ -38,7 +38,7 @@ public class PurePursuit{ //This is probably the worst thing I [Matthew] have ev
         double sign = getDT(index, index + lookaheadArray[index]) / Math.abs(getDT(index, index + lookaheadArray[index]));
 
         left = W * (R - sign * wheelBase / 2);
-        right = W * (R + sign *wheelBase / 2);
+        right = W * (R + sign * wheelBase / 2);
 
         index++;
         return new DriveSignal(left, right);
