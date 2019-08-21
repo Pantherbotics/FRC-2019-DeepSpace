@@ -89,6 +89,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Elevator (Inches)", kElevator.getPosInches());
 
     SmartDashboard.putNumber("Elevator Voltage", kElevator.getVoltage());
+    SmartDashboard.putNumber("Elevator Current", kElevator.getCurrent());
+    SmartDashboard.putNumber("Elevator Velocity", kElevator.getVelocity());
     SmartDashboard.putNumber("Shoulder Voltage", kArm.getShoulderVoltage());
     SmartDashboard.putNumber("VL", kDrivetrain.getVoltage()[0]);
     SmartDashboard.putNumber("VR", kDrivetrain.getVoltage()[1]);
@@ -160,6 +162,12 @@ public class Robot extends TimedRobot {
         kAuto.start();
     }
     Scheduler.getInstance().run();
+  }
+
+  @Override
+  public void teleopInit() {
+      kClimb.setSuction(0);
+      kClimb.setDeploy(true);
   }
 
   /**

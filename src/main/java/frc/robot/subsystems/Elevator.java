@@ -73,6 +73,10 @@ public class Elevator extends Subsystem{
         return mElevA.getMotorOutputVoltage();
     }
 
+    public double getCurrent() {
+        return mElevA.getOutputCurrent();
+    }
+
     public void setPower(double power){
         mElevA.set(ControlMode.PercentOutput, -power);
     }

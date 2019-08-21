@@ -77,6 +77,8 @@ public class OI{
         buttonT.whenPressed(new HatchPush());
         //Stow
         partnerBumperL.whenPressed(new ToSetpoint(Constants.stowed));
+        //Zero Elevator
+        partnerLeftJoy.whenPressed(new ZeroElevator());
 
         //VISION ASSIST
         buttonC.whileHeld(new DriveVisionAssisted());
@@ -84,7 +86,7 @@ public class OI{
         //Climber
         buttonShare.whenPressed(new DeployClimber(false));
         buttonOption.whenPressed(new DeployClimber(true));
-        touchpad.whileHeld(new PowerClimber(-0.3));
+        touchpad.whileHeld(new PowerClimber(-0.4));
         buttonPS4.whileHeld(new PowerClimber(-0.9));
         buttonLJoy.whileHeld(new PowerClimber(0.5));
     }

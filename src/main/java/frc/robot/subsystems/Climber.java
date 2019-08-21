@@ -29,7 +29,7 @@ public class Climber extends Subsystem {
         mClimbA.set(ControlMode.PercentOutput, power);
     }
 
-    public void setDeploy(boolean deploy) { //False for actuate
+    public void setDeploy(boolean deploy) { //False for deployed
         deploySolenoid.set(deploy);
     }
 
