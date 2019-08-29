@@ -11,7 +11,7 @@ public class AutoPurePursuit extends Command {
     PurePursuit pursuit;
     private double start;
 
-    public AutoPurePursuit(Trajectory traj){
+    public AutoPurePursuit(Trajectory traj) throws NullPointerException {
         requires(Robot.kDrivetrain);
         System.out.println("Path Length: " + traj.length());
         pursuit = new PurePursuit(Constants.wheelbase, traj);

@@ -9,7 +9,7 @@ import jaci.pathfinder.Trajectory.Segment;
     
 */
 
-public class PurePursuit{ //This is probably the worst thing I [Matthew] have ever written - MS
+public class PurePursuit { //This is probably the worst thing I [Matthew] have ever written - MS
 
     private Trajectory path;
     private double wheelBase;
@@ -17,16 +17,16 @@ public class PurePursuit{ //This is probably the worst thing I [Matthew] have ev
     private Odometry odom;
     private int index = 0;
     private int[] lookaheadArray;
-    private double maxDT = Math.PI/32;
+    private double maxDT = Math.PI / 32;
 
-    public PurePursuit(double wheelBase, Trajectory path){
+    public PurePursuit(double wheelBase, Trajectory path) {
         this.wheelBase = wheelBase;
         this.path = path;
         lookaheadArray = new int[path.length()];
         findLookaheads(lookahead);
     }
 
-    public DriveSignal getNextDriveSignal(){
+    public DriveSignal getNextDriveSignal() {
         double left;
         double right;
 
@@ -44,45 +44,45 @@ public class PurePursuit{ //This is probably the worst thing I [Matthew] have ev
         return new DriveSignal(left, right);
     }
 
-    private double getDT(int i, int f){
+    private double getDT(int i, int f) {
         return path.get(f).heading - path.get(i).heading;
     }
 
-    private double getW(){ //Angular Velocity, Theta in radians btw
+    private double getW() { //Angular Velocity, Theta in radians btw
         return Math.abs(getDT(index, index + lookaheadArray[index])) / path.get(index).dt;
     }
 
-    private double getK(double x1, double y1, double x2, double y2){ //Curvature
+    private double getK(double x1, double y1, double x2, double y2) { //Curvature
         double dx = x2 - x1;
         double dy = y2 - y1;
-        return (2 * dx)/(Math.pow(dx, 2) + Math.pow(dy, 2)); //2x/(x^2 +y^2)
+        return (2 * dx) / (Math.pow(dx, 2) + Math.pow(dy, 2)); //2x/(x^2 +y^2)
     }
 
-    private void findLookaheads(int maxLookahead){ //Estimate a maximum possible lookahead, work downwards
-        for(int i = 0; i < lookaheadArray.length; i++){
+    private void findLookaheads(int maxLookahead) { //Estimate a maximum possible lookahead, work downwards
+        for (int i = 0; i < lookaheadArray.length; i++) {
             lookaheadArray[i] = findLookahead(path.get(i).x, path.get(i).y, i, maxLookahead);
         }
     }
 
-    private int findLookahead(double x, double y, int currentIndex, int currentLookahead){ //If a radius of a
+    private int findLookahead(double x, double y, int currentIndex, int currentLookahead) { //If a radius of a
         double K = getK(x, y, x + currentLookahead, y + currentLookahead);
         double dt = getDT(currentIndex, currentIndex + currentLookahead);
-        if(Math.abs(dt) > maxDT){
+        if (Math.abs(dt) > maxDT) {
             return findLookahead(x, y, currentIndex, currentLookahead - 1);
-        } else{
+        } else {
             return currentLookahead;
         }
     }
 
-    public void setOdom(Odometry odo){
+    public void setOdom(Odometry odo) {
         odom = odo;
     }
 
-    public Odometry getInitOdom(){
+    public Odometry getInitOdom() {
         return new Odometry(path.get(0).x, path.get(0).y, path.get(0).heading);
     }
 
-    public boolean isFinished(){
+    public boolean isFinished() {
         return index == path.length();
     }
 }

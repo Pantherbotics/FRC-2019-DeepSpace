@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.hal.sim.DriverStationSim;
 import frc.robot.autonomous.AutoPurePursuit;
-import frc.robot.commands.IncrementShoulder;
 import frc.robot.subsystems.*;
 import jaci.pathfinder.Trajectory;
 import java.util.HashMap;
