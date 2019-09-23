@@ -3,6 +3,7 @@ package frc.robot.autonomous;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.util.DriveSignal;
 import frc.robot.util.PurePursuit;
 import jaci.pathfinder.Trajectory;
 
@@ -10,6 +11,7 @@ public class AutoPurePursuit extends Command {
 
     PurePursuit pursuit;
     private double start;
+    private DriveSignal ds;
 
     public AutoPurePursuit(Trajectory traj) throws NullPointerException {
         requires(Robot.kDrivetrain);
@@ -27,8 +29,9 @@ public class AutoPurePursuit extends Command {
     @Override
     protected void execute() {
         pursuit.setOdom(Robot.kDrivetrain.getOdo());
-        System.out.println(pursuit.getNextDriveSignal().getLeft() + ", " + pursuit.getNextDriveSignal().getRight());
-        Robot.kDrivetrain.setFPS(pursuit.getNextDriveSignal().getLeft(), pursuit.getNextDriveSignal().getRight());
+        ds = pursuit.getNextDriveSignal();
+        System.out.println(ds.getLeft() + ", " + ds.getRight());
+        Robot.kDrivetrain.setFPS(ds.getLeft(), ds.getRight());
     }
 
     @Override

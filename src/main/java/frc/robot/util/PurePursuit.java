@@ -13,65 +13,73 @@ public class PurePursuit { //This is probably the worst thing I [Matthew] have e
 
     private Trajectory path;
     private double wheelBase;
-    private int lookahead = 250;
+    private double lookahead = 3.75; //lookahead distance in ft
     private Odometry odom;
     private int index = 0;
-    private int[] lookaheadArray;
-    private double maxDT = Math.PI / 32;
+    private int length = 0;
 
     public PurePursuit(double wheelBase, Trajectory path) {
         this.wheelBase = wheelBase;
         this.path = path;
-        lookaheadArray = new int[path.length()];
-        findLookaheads(lookahead);
+        length = path.length();
     }
 
     public DriveSignal getNextDriveSignal() {
         double left;
         double right;
 
+        int lookIndex = getLookaheadIndex(index);
+
         Segment current = path.get(index);
-        Segment look = path.get(index + lookaheadArray[index]);
+        Segment look = path.get(lookIndex);
 
-        double W = getW();
-        double R = 1 / getK(odom.getX(), odom.getY(), look.x, look.y);
-        double sign = getDT(index, index + lookaheadArray[index]) / Math.abs(getDT(index, index + lookaheadArray[index]));
+        double R = getRadius(current.x, current.y, look.x, look.y);
+        double W = getAngularVelocity(current.heading, look.heading, index, lookIndex);
+        double sign = getSign(current.heading, look.heading);
 
-        left = W * (R - sign * wheelBase / 2);
-        right = W * (R + sign * wheelBase / 2);
+        //Velocities
+        left = W * (R + sign * wheelBase / 2); //  Angluar Velocity * Radius
+        right = W * (R - sign * wheelBase / 2);
+        //The greater one indicates the direction of the turn
 
         index++;
         return new DriveSignal(left, right);
     }
 
-    private double getDT(int i, int f) {
-        return path.get(f).heading - path.get(i).heading;
-    }
-
-    private double getW() { //Angular Velocity, Theta in radians btw
-        return Math.abs(getDT(index, index + lookaheadArray[index])) / path.get(index).dt;
-    }
-
-    private double getK(double x1, double y1, double x2, double y2) { //Curvature
+    private double getRadius(double x1, double y1, double x2, double y2) {
         double dx = x2 - x1;
         double dy = y2 - y1;
-        return (2 * dx) / (Math.pow(dx, 2) + Math.pow(dy, 2)); //2x/(x^2 +y^2)
+        //Equation derivation in the link above
+        return (Math.pow(dx, 2) + Math.pow(dy, 2)) / (2 * dx);
     }
 
-    private void findLookaheads(int maxLookahead) { //Estimate a maximum possible lookahead, work downwards
-        for (int i = 0; i < lookaheadArray.length; i++) {
-            lookaheadArray[i] = findLookahead(path.get(i).x, path.get(i).y, i, maxLookahead);
-        }
+    private double getAngularVelocity(double th1, double th2, int i1, int i2) { // W = Theta/s (radians)
+        return (th2 - th1) / (0.02 * (double)(i2 - i1));
     }
 
-    private int findLookahead(double x, double y, int currentIndex, int currentLookahead) { //If a radius of a
-        double K = getK(x, y, x + currentLookahead, y + currentLookahead);
-        double dt = getDT(currentIndex, currentIndex + currentLookahead);
-        if (Math.abs(dt) > maxDT) {
-            return findLookahead(x, y, currentIndex, currentLookahead - 1);
-        } else {
-            return currentLookahead;
+    private double getSign(double th1, double th2) {
+        //Heading basically works like a sine unit circle
+        //So, left > 0, right < 0
+
+        //Returns 1(left) or -1(right)
+        return (th2 - th1) / Math.abs(th2 - th1);
+    }
+
+    private int getLookaheadIndex(int index) { //Find the segment closest to the lookahead distance
+        double d = 0;
+        double dTh = 0;
+
+        //If it's within 3 inches of the lookahead distance, it counts it
+        for (int i = index; i < length; i++) {
+            d = Math.sqrt(Math.pow(path.get(i).x - path.get(index).x, 2) + Math.pow(path.get(i).y - path.get(index).y, 2));
+            dTh = path.get(i).heading - path.get(index).heading;
+            //checks if distance is within 0.05ft of the lookahead distance
+            //Also just returns current index as the lookahead index if dTheta > 90deg
+            if (Math.abs(lookahead -  d) <= 0.05 || dTh > (Math.PI / 2))
+                return i;
         }
+        //If it doesn't find one, sets the lookahead index to the final segment
+        return length - 1;
     }
 
     public void setOdom(Odometry odo) {

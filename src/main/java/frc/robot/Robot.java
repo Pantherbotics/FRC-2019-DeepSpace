@@ -223,6 +223,7 @@ public class Robot extends TimedRobot {
         for (int i = filesInFolder.size() - 1; i >= 0; i--) {
             File traj = filesInFolder.get(i);
             if (!traj.getName().contains("_Auto_left.csv")) {
+
                 filesInFolder.remove(i);
             }
         }
