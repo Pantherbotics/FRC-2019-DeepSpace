@@ -32,7 +32,7 @@ public class Constants{
     public static final double kSteering = 0.55;
     //Because encoder drift
     //Intaking
-    public static final Setpoint ballIntake = new Setpoint(4.00, -17.0);
+    public static final Setpoint ballIntake = new Setpoint(3.75, -19.0);
     public static final Setpoint diskIntake = new Setpoint(5.50, 0.0); //5.00
     public static final Setpoint diskIntakeLow = new Setpoint(5.00, 0.0);
     public static final Setpoint ballLoadingStation = new Setpoint(23.25, 10.0);
@@ -105,7 +105,7 @@ public class Constants{
     public static final int kShoulderCruiseSpeed = 37;   //maximum = 37
     public static final int kShoulderAccelerationSpeed = 30;
     public static final double shoulderAFF = 0.1; //At horizontal, 1.2/12
-    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 285 : 710;
+    public static final int kShoulderOffset = IS_COMPETITION_ROBOT ? 273 : 710;
     public static final double shoulderPeriod = 0.02;
     //Intake
     public static final double intakeAFF = -0.125;
