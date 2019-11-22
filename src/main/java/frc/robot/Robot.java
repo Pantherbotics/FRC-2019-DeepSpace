@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
     public static final Intake kIntake = new Intake();
     public static final Vision kVision = new Vision(Constants.kVisionBaud, Constants.kVisionPort);
     public static final Climber kClimb = new Climber();
+    public static final Limelight kLime = new Limelight();
     public static final OI oi = new OI(); //Instantiate OI after instantiating all the subsystems
     public static HashMap<String, Trajectory> paths;
     private static final String kDefaultAuto = "Default";
@@ -86,43 +87,39 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         SmartDashboard.putNumber("Elevator (Ticks)", kElevator.getPos());
-        SmartDashboard.putNumber("Shoulder (Ticks)", kArm.getShoulderPosition());
-
-        SmartDashboard.putNumber("Shoulder RAW (Ticks)", kArm.getShoulderPositionRaw());
-
-        SmartDashboard.putNumber("Shoulder (Degrees)", kArm.getShoulderDegrees());
         SmartDashboard.putNumber("Elevator (Inches)", kElevator.getPosInches());
-
         SmartDashboard.putNumber("Elevator Voltage", kElevator.getVoltage());
         SmartDashboard.putNumber("Elevator Current", kElevator.getCurrent());
         SmartDashboard.putNumber("Elevator Velocity", kElevator.getVelocity());
+
+        SmartDashboard.putNumber("Shoulder (Ticks)", kArm.getShoulderPosition());
+        SmartDashboard.putNumber("Shoulder RAW (Ticks)", kArm.getShoulderPositionRaw());
+        SmartDashboard.putNumber("Shoulder (Degrees)", kArm.getShoulderDegrees());
         SmartDashboard.putNumber("Shoulder Voltage", kArm.getShoulderVoltage());
+
+        SmartDashboard.putNumber("Left Drive Encoder", kDrivetrain.getLeftDriveEncoder());
+        SmartDashboard.putNumber("Right Drive Encoder", kDrivetrain.getRightDriveEncoder());
         SmartDashboard.putNumber("VL", kDrivetrain.getVoltage()[0]);
         SmartDashboard.putNumber("VR", kDrivetrain.getVoltage()[1]);
         SmartDashboard.putNumber("VelL", kDrivetrain.getEncoderVelocity()[0]);
         SmartDashboard.putNumber("VelR", kDrivetrain.getEncoderVelocity()[1]);
+        SmartDashboard.putNumber("Average Velocity PID Error: ", kDrivetrain.getVelocityError());
+        SmartDashboard.putNumber("Angle", kDrivetrain.getGyroAngle());
 
         SmartDashboard.putNumber("Odometry X", kDrivetrain.getOdo().getX());
         SmartDashboard.putNumber("Odometry Y", kDrivetrain.getOdo().getY());
         SmartDashboard.putNumber("Odometry Theta", kDrivetrain.getOdo().getTheta());
 
-        //System.out.println(kIntake.getIntakeSensorRaw());
-        SmartDashboard.putNumber("Intake Sensor Raw", kIntake.getIntakeSensorRaw());
-        //System.out.println(kVision.getSerialData());
         SmartDashboard.putNumber("Attack Angle", kVision.getAttackAngle());
         SmartDashboard.putNumber("Distance", kVision.getDistance());
 
-        SmartDashboard.putNumber("Left Drive Encoder", kDrivetrain.getLeftDriveEncoder());
-        SmartDashboard.putNumber("Right Drive Encoder", kDrivetrain.getRightDriveEncoder());
-
-        SmartDashboard.putNumber("Average Velocity PID Error: ", kDrivetrain.getVelocityError());
-        SmartDashboard.putNumber("Angle", kDrivetrain.getGyroAngle());
+        SmartDashboard.putNumber("Intake Sensor Raw", kIntake.getIntakeSensorRaw());
         SmartDashboard.putBoolean("Scissors Closed?", kIntake.getHatchPanel());
         SmartDashboard.putBoolean("Cargo Closed?", kIntake.getCargoArms());
 
-        SmartDashboard.putBoolean("Succing? ", kClimb.isSuccing());
-        SmartDashboard.putNumber("Climber Voltage: ", kClimb.getVoltage());
-        SmartDashboard.putBoolean("ksajdhfjksadhfjsdahflkjsahdkfljhasdkjlfh: ", kClimb.getSensor());
+        SmartDashboard.putNumber("Limelight X", kLime.getX());
+        SmartDashboard.putNumber("Limelight Y", kLime.getY());
+        SmartDashboard.putNumber("LimeLight Area", kLime.getArea());
     }
 
     @Override

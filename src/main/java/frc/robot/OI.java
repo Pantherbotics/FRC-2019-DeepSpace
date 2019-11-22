@@ -89,6 +89,9 @@ public class OI{
         touchpad.whileHeld(new PowerClimber(-0.4));
         buttonPS4.whileHeld(new PowerClimber(-0.9));
         buttonLJoy.whileHeld(new PowerClimber(0.5));
+
+        //Headhunter
+        buttonRJoy.whileHeld(new LimelightChase());
     }
 
     //Joystick

@@ -29,7 +29,7 @@ public class Drivetrain extends Subsystem {
     Timer time = new Timer();
 
     volatile double x, y, theta;
-    private double lastPos, currentPos, dPos, accel;
+    private double lastPos, currentPos, dPos, lastVel, currentVel, accel;
 
     public DriverStationSim test = new DriverStationSim();
 
@@ -79,18 +79,26 @@ public class Drivetrain extends Subsystem {
         initPID();
         zeroGyro();
         zeroDriveEncoders();
+
+        lastPos = 0;
+        lastVel = 0;
         x = 0;
         y = 0;
         theta = 0;
 
         time.start();
         Notifier odoThread = new Notifier(() -> {
-            currentPos = (mLeftA.getSelectedSensorPosition(0) + mRightA.getSelectedSensorPosition(0))/2;
+            currentPos = (mLeftA.getSelectedSensorPosition(0) + mRightA.getSelectedSensorPosition(0)) / 2;
             dPos = Units.TalonNativeToFeet(currentPos - lastPos);
             theta = Math.toRadians(boundHalfDegrees(-gyro.getAngle()));
             x += Math.cos(theta)*dPos;
             y += Math.sin(theta)*dPos;
+
+            currentVel = (mLeftA.getSelectedSensorVelocity(0) + mRightA.getSelectedSensorVelocity(0)) / 2;
+            accel = (currentVel - lastVel) / 0.01;
+
             lastPos = currentPos;
+            lastVel = currentVel;
         });
         odoThread.startPeriodic(0.01);
     }
@@ -133,11 +141,6 @@ public class Drivetrain extends Subsystem {
         return average;
     }
 
-    public String getVelocity(){
-        String a = "Velocity: " + mLeftA.getSelectedSensorVelocity();
-        return a;
-    }
-
     public void setFPS(double left, double right){
         mLeftA.set(ControlMode.Velocity, Units.FPSToTalonNative(left));
         mRightA.set(ControlMode.Velocity, Units.FPSToTalonNative(right));
@@ -146,6 +149,10 @@ public class Drivetrain extends Subsystem {
 
     public double[] getEncoderVelocity(){ //0 for left, 1 for right
         return new double[]{mLeftA.getSelectedSensorVelocity(0), mRightA.getSelectedSensorVelocity(0)};
+    }
+
+    public double getAcceleration() {
+        return accel;
     }
 
     public double[] getVoltage(){
@@ -158,7 +165,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public double getGyroAngle(){
-        return gyro.getAngle();
+        return -gyro.getAngle();
     }
 
     public Odometry getOdo(){
