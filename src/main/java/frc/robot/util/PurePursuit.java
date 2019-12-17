@@ -6,6 +6,8 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Trajectory.Segment;
 
+import java.util.Stack;
+
 /*  3863 implementation of PurePursuit
     https://www.ri.cmu.edu/pub_files/pub3/coulter_r_craig_1992_1/coulter_r_craig_1992_1.pdf
     
@@ -18,6 +20,7 @@ public class PurePursuit { //This is probably the worst thing I [Matthew] have e
     private double lookahead = 4.75; //lookahead distance in ft
     private Odometry odom;
     private int index = 0;
+    private Stack<Integer> stops;
     private int length = 0;
     private double k = 0.75;
 
@@ -39,7 +42,7 @@ public class PurePursuit { //This is probably the worst thing I [Matthew] have e
         setOdom(Robot.kDrivetrain.getOdo());
 
         double R = getRadius(odom.getX(), odom.getY(), look.x, look.y);
-        double W = getAngularVelocity(odom.getTheta(), look.heading, index, lookIndex);
+        double W = getAngularVelocity(odom.getTheta(), look.heading, index, lookIndex, path.get(index).velocity);
         double sign = getSign(odom.getTheta(), look.heading);
 
         SmartDashboard.putNumber("R:", R);
@@ -74,11 +77,17 @@ public class PurePursuit { //This is probably the worst thing I [Matthew] have e
         //horrifying
     }
 
-    private double getAngularVelocity(double th1, double th2, int i1, int i2) { // W = Theta/s (radians)
-        double dTh = Math.abs(th2 - th1);
+    private double getAngularVelocity(double th1, double th2, int i1, int i2, double vel) { // W = Theta/s (radians)
+        double sign = vel/Math.abs(vel);
+        double dTh = boundHalfAngleRad(th2) - boundHalfAngleRad(th1);
+        dTh = (dTh > Math.PI) ? (2 * Math.PI - dTh) : dTh;
         SmartDashboard.putNumber("dt:", dTh);
         //Jank limits
         return (Math.abs(dTh) < 0.0001) ? 0.0001 : (dTh) / (0.02 * (double)(i2 - i1)); //Delta theta / delta time
+    }
+
+    private double boundHalfAngleRad(double th) {
+        return (th > Math.PI) ? 2 * Math.PI - th : th;
     }
 
     private double getSign(double th1, double th2) {
@@ -101,14 +110,31 @@ public class PurePursuit { //This is probably the worst thing I [Matthew] have e
             //checks if distance is within 0.05ft of the lookahead distance
             //Also just returns current index as the lookahead index if dTheta > 90deg
             if (Math.abs(lookahead -  d) <= 0.3 || Math.abs(dTh) > (Math.PI / 2))
-                return i;
+                return checkStops(i);
         }
         //If it doesn't find one, sets the lookahead index to the final segment
         return length - 1;
     }
 
-    private int getSimpleLookahead(int index) {
-        return (index + 30) > length ? length - 1 : index + 30;
+    private int checkStops(int index) { //A stop is a point where I need to have the robot reach that exact point
+        //For example, when the robot needs to place a hatch panel. PurePursuit is good at general pathtracking
+        //but it's difficult to ensure it reaches a specific point aside from the end point
+        //As such I'm implementing these pseudo-endpoints, or stops.
+
+        int currentStop = stops.pop();
+        if (index < currentStop) {
+            stops.push(currentStop);
+            return currentStop;
+        } else if (index >= currentStop) {
+            return index;
+        }
+    }
+
+    private void findStops() {
+        for (int i = length - 1; i >= 0; i--) {
+            if (path.get(i).velocity == 0.0)
+                stops.push(i);
+        }
     }
 
     public void setOdom(Odometry odo) {
