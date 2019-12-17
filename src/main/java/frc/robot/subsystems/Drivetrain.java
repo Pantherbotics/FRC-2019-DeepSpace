@@ -87,10 +87,10 @@ public class Drivetrain extends Subsystem {
         theta = 0;
 
         time.start();
-        Notifier odoThread = new Notifier(() -> {
+        Notifier odoThread = new Notifier(() -> { //Units in feet
             currentPos = (mLeftA.getSelectedSensorPosition(0) + mRightA.getSelectedSensorPosition(0)) / 2;
             dPos = Units.TalonNativeToFeet(currentPos - lastPos);
-            theta = Math.toRadians(boundHalfDegrees(-gyro.getAngle()));
+            theta = Math.toRadians(boundHalfDegrees(getGyroAngle()));
             x += Math.cos(theta)*dPos;
             y += Math.sin(theta)*dPos;
 
@@ -99,6 +99,8 @@ public class Drivetrain extends Subsystem {
 
             lastPos = currentPos;
             lastVel = currentVel;
+
+
         });
         odoThread.startPeriodic(0.01);
     }
@@ -165,7 +167,11 @@ public class Drivetrain extends Subsystem {
     }
 
     public double getGyroAngle(){
-        return -gyro.getAngle();
+        return gyro.getAngle();
+    }
+
+    public double getBoundGyroAngle() {
+        return boundHalfDegrees(getGyroAngle());
     }
 
     public Odometry getOdo(){

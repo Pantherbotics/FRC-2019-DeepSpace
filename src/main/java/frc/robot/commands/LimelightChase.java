@@ -4,10 +4,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class LimelightChase extends Command {
-    double drive, steer;
-    double targetArea = 10.0;
-    double driveKP = 0.5;
-    double steerKP = 0.5;
+    double drive, steer, distance, angle;
+    double targetArea = 6.0;
+    double driveKP = 0.05;
+    double steerKP = 0.075;
+    double deadzone = 1.0;
 
     public LimelightChase() {
         requires(Robot.kDrivetrain);
@@ -24,10 +25,17 @@ public class LimelightChase extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        drive = driveKP * (targetArea - Robot.kLime.getArea());
-        steer = steerKP * Robot.kLime.getX();
+        angle = Robot.kLime.getX();
+        distance = Math.pow(Robot.kLime.getArea(), 1/3);
 
-        Robot.kDrivetrain.setMotorPower(drive - steer, drive + steer);
+        drive = driveKP * (targetArea - Robot.kLime.getArea());
+        steer = steerKP * Math.atan2(distance*Math.tan(angle) + 4.5, distance);
+
+        System.out.println(steer/steerKP);
+
+        if (Robot.kLime.getArea() > deadzone) {
+            Robot.kDrivetrain.setMotorPower(drive + steer, drive - steer);
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

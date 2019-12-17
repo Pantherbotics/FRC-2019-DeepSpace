@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
             System.out.println("ADDING KEY:   " + key);
             m_chooser.addOption(key, key);
         }
-
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nADDING CHOOSER\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         SmartDashboard.putData("Auto choices", m_chooser);
         kCamera.enableCameras();
     }
@@ -105,6 +105,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("VelR", kDrivetrain.getEncoderVelocity()[1]);
         SmartDashboard.putNumber("Average Velocity PID Error: ", kDrivetrain.getVelocityError());
         SmartDashboard.putNumber("Angle", kDrivetrain.getGyroAngle());
+        SmartDashboard.putNumber("Bound Angle", kDrivetrain.getBoundGyroAngle());
 
         SmartDashboard.putNumber("Odometry X", kDrivetrain.getOdo().getX());
         SmartDashboard.putNumber("Odometry Y", kDrivetrain.getOdo().getY());

@@ -25,7 +25,7 @@ public class Arm extends Subsystem{
     private final int kPIDIdx = 0;
     public Arm(){
 
-        shoulderSetpoint = Units.degreesToTalon(62.5);
+        shoulderSetpoint = Units.degreesToTalon(50.0);
         initPID();
 
         Notifier feedForwardThread = new Notifier(() ->{ //Inputs should be aimed at the RAW sensor units

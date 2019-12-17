@@ -11,6 +11,7 @@ public class AutoPurePursuit extends Command {
 
     PurePursuit pursuit;
     private double start;
+    private double last;
     private DriveSignal ds;
 
     public AutoPurePursuit(Trajectory traj) throws NullPointerException {
@@ -24,6 +25,7 @@ public class AutoPurePursuit extends Command {
     protected void initialize() {
         Robot.kDrivetrain.setOdo(pursuit.getInitOdom());
         start = System.nanoTime();
+        last = start;
     }
 
     @Override
@@ -32,6 +34,7 @@ public class AutoPurePursuit extends Command {
         ds = pursuit.getNextDriveSignal();
         System.out.println(ds.getLeft() + ", " + ds.getRight());
         Robot.kDrivetrain.setFPS(ds.getLeft(), ds.getRight());
+        System.out.println("Loop time: " + (System.nanoTime() - last) / 1000000); //In milliseconds
     }
 
     @Override

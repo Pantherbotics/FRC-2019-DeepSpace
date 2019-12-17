@@ -36,7 +36,7 @@ public class Limelight extends Subsystem {
         }
     }
 
-    public double getX() { return x; }
+    public double getX() { return x; } //horizontal angle
 
     public double getY() { return y; }
 
